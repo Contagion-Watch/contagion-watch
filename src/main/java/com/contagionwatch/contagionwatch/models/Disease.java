@@ -32,6 +32,9 @@ public class Disease {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "disease")
     private List<News> news;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "disease")
+    private List<Entry> entry;
+
     public Disease(){
     }
 

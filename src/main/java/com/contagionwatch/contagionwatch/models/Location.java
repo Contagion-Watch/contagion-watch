@@ -14,7 +14,8 @@ public class Location {
     private List<Disease> disease;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "location")
     private List<News> news;
-
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "location")
+    private List<Entry> entry;
     public long getId() {
         return id;
     }
