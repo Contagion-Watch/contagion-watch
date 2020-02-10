@@ -10,14 +10,14 @@ public class Entry {
     private long id;
     @Column(nullable = false, columnDefinition = "DATE")
     private java.sql.Date date;
-    @Column(nullable = false, columnDefinition = "UNSIGNED INT")
-    private int totalCases;
-    @Column(nullable = false, columnDefinition = "UNSIGNED INT")
-    private int newCases;
-    @Column(nullable = false, columnDefinition = "UNSIGNED INT")
-    private int totalDeaths;
-    @Column(nullable = false, columnDefinition = "UNSIGNED INT")
-    private int newDeaths;
+    @Column(nullable = false)
+    private long totalCases;
+    @Column(nullable = false)
+    private long newCases;
+    @Column(nullable = false)
+    private long totalDeaths;
+    @Column(nullable = false)
+    private long newDeaths;
 
     @ManyToOne
     @JoinColumn (name = "disease_id")
@@ -43,7 +43,7 @@ public class Entry {
         this.date = date;
     }
 
-    public int getTotalCases() {
+    public long getTotalCases() {
         return totalCases;
     }
 
@@ -51,7 +51,7 @@ public class Entry {
         this.totalCases = totalCases;
     }
 
-    public int getNewCases() {
+    public long getNewCases() {
         return newCases;
     }
 
@@ -59,7 +59,7 @@ public class Entry {
         this.newCases = newCases;
     }
 
-    public int getTotalDeaths() {
+    public long getTotalDeaths() {
         return totalDeaths;
     }
 
@@ -67,7 +67,7 @@ public class Entry {
         this.totalDeaths = totalDeaths;
     }
 
-    public int getNewDeaths() {
+    public long getNewDeaths() {
         return newDeaths;
     }
 
