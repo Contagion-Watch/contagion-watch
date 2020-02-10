@@ -3,18 +3,80 @@
 
 <head th:replace="/partials/head :: head" />
 
-<body>
+<body class="aboutus-body">
 
 <nav th:replace="/partials/navbar :: navbar" />
 
-<div class="card" style="width: 18rem;">
-    <img src="..." class="card-img-top" alt="...">
-    <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+<!-- DESKTOP ABOUT US -->
+<div class="container text-center d-none d-lg-block ">
+    <h1 class="display-3 lead page-title">Contagion Watch</h1>
+    <h5 class="lead" style="font-size: 1.7em">The Creators</h5>
+</div>
+
+
+
+<div class="row" >
+    <div class="col 3 text-center d-none d-lg-block" style="width: 18rem; margin: 2em">
+        <h5 class="card-title" style="font-size: 2em">Alexander Lee</h5>
+        <img src="./img/al-five.png" class="card-img-top d-none d-lg-block portrait zoom">
+        <div class="card-body">
+            <div class="row">
+
+            </div>
+        </div>
+    </div>
+    <div class="col 3 text-center d-none d-lg-block" style="width: 18rem; margin: 2em">
+        <h5 class="card-title" style="font-size: 2em">Colin Marchbanks</h5>
+        <img src="./img/cm-five.png" class="card-img-top portrait zoom">
+        <div class="row card-body">
+
+        </div>
+    </div>
+    <div class="col 3 text-center d-none d-lg-block" style="width: 18rem; margin: 2em">
+        <h5 class="card-title" style="font-size: 2em">Joshua Peters</h5>
+        <img src="./img/jp-five.png" class="card-img-top portrait zoom">
+        <div class="card-body">
+
+        </div>
     </div>
 </div>
+
+<!-- MOBILE ABOUT US -->
+
+<div class="container text-center d-block d-lg-none">
+    <h5 class="lead" style="font-size: 3em; margin-top: 1.5em">The Creators</h5>
+</div>
+
+
+
+<div class="container d-block d-lg-none" >
+    <div class="text-center d-block d-lg-none" style="margin: 2em; width: 40em">
+        <h5 class="card-title" style="font-size: 4em">Alexander Lee</h5>
+        <img src="./img/al-five.png" class="card-img-top portrait center-block">
+        <div class="card-body">
+            <div class="row">
+
+            </div>
+        </div>
+    </div>
+    <div class="text-center d-block d-lg-none" style="margin: 2em; width: 40em">
+        <h5 class="card-title" style="font-size: 4em">Colin Marchbanks</h5>
+        <img src="./img/cm-five.png" class="card-img-top portrait center-block">
+        <div class="row card-body">
+
+        </div>
+    </div>
+    <div class="text-center d-block d-lg-none" style="margin: 2em; width: 40em">
+        <h5 class="card-title" style="font-size: 4em">Joshua Peters</h5>
+        <img src="./img/jp-five.png" class="card-img-top portrait center-block">
+        <div class="card-body">
+
+        </div>
+    </div>
+</div>
+
+
+
 
 <nav th:replace="/partials/footer :: footer" />
 

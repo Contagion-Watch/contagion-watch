@@ -1,0 +1,43 @@
+
+@media (max-width: 991.999px) {
+    .aboutus-body{
+        background: #e1eec3;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #f05053, #e1eec3);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #f05053, #e1eec3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+    .portrait{
+        box-shadow: 30px 30px;
+    }
+    .page-title{
+        font-family: 'Black Ops One', cursive;
+    }
+    h5{
+        font-family: 'Prata', serif;
+    }
+
+}
+
+
+@media (min-width: 992px) {
+    .aboutus-body{
+        background: #e1eec3;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #f05053, #e1eec3);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #f05053, #e1eec3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+    .portrait{
+        box-shadow: 12px 12px;
+    }
+    .zoom {
+        transition: transform .2s; /* Animation */
+    }
+    .zoom:hover {
+        transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    }
+    .page-title{
+        font-family: 'Black Ops One', cursive;
+    }
+    h5{
+        font-family: 'Prata', serif;
+    }
+}
+
