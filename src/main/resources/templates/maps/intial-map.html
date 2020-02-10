@@ -13,12 +13,23 @@
 
 
 <div id='map' style='width: 50vw; height: 60vh; margin-left: auto; margin-right: auto;'></div>
+<h1 id="geocode_clicked_country"></h1>
+<script src="js/mapbox-geocoder-utils.js"></script>
 <script>
     var mapBoxKey = "[[${key}]]";
     mapboxgl.accessToken = mapBoxKey;
     var map = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v9'
+        style: 'mapbox://styles/colinmarch/ck6e4fht91vxc1imrmlt1fsj8'
+    });
+    map.on('click', function(e) {
+        // $("#geocode_clicked_country").val = reverseGeocode(e.lngLat.wrap());
+        reverseGeocode({"lat":JSON.stringify(e.lngLat.lat),"lng":JSON.stringify(e.lngLat.lng)}, mapBoxKey).then(function(results){
+            var resultsSplit = results.split(",");
+            $("#geocode_clicked_country").text(JSON.stringify(resultsSplit[resultsSplit.length-1]).trim());
+            console.log(JSON.stringify(resultsSplit[resultsSplit.length-1]));
+
+        })
     });
 </script>
 <script
