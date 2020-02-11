@@ -10,10 +10,11 @@
 </head>
 <body>
 <div>
-    <ul>
-        <li><button id="CoronaButton">Corona</button></li>
-        <li><button id="EbolaButton">Corona</button></li>
-        <li><button id="MalariaButton">Corona</button></li>
+
+    <ul class="d-flex">
+        <li><button id="coronaButton">Corona</button></li>
+        <li><button id="ebolaButton">Ebola</button></li>
+        <li><button id="malariaButton">Malaria</button></li>
     </ul>
 </div>
 
@@ -24,8 +25,18 @@
 <div id='mapMalaria' style='width: 50vw; height: 60vh; margin-left: auto; margin-right: auto;'></div>
 <h1 id="geocode_clicked_country"></h1>
 <script src="js/mapbox-geocoder-utils.js"></script>
-<script src="js/keys.js"></script>
+<script
+        src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
 <script>
+    var coronaButton = $("#coronaButton");
+    var ebolaButton = $("#ebolaButton");
+    var malariaButton = $("#malariaButton");
+    var coronaMap = $("#mapCorona");
+    var ebolaMap = $("#mapEbola");
+    var malariaMap = $("#mapMalaria");
+    var mapboxKey = "[[${mapboxKey}]]";
     mapboxgl.accessToken = mapboxKey;
     var mapCorona = new mapboxgl.Map({
         container: 'mapCorona',
@@ -41,11 +52,28 @@
     });
     var el = document.createElement('div');
     el.id = 'popup';
+    ebolaMap.hide();
+    malariaMap.hide();
+    malariaButton.on("click",function (){
+        malariaMap.show();
+        coronaMap.hide();
+        ebolaMap.hide();
+    });
+    ebolaButton.on("click",function (){
+        ebolaMap.show();
+        coronaMap.hide();
+        malariaMap.hide();
+    });
+    coronaButton.on("click",function (){
+        coronaMap.show();
+        ebolaMap.hide();
+        malariaMap.hide();
+    });
     mapCorona.on('click', function(e) {
         $("#popup").hide();
         var coordinates = {"lat":JSON.stringify(e.lngLat.lat),"lng":JSON.stringify(e.lngLat.lng)}
         // $("#geocode_clicked_country").val = reverseGeocode(e.lngLat.wrap());
-        reverseGeocode({"lat":JSON.stringify(e.lngLat.lat),"lng":JSON.stringify(e.lngLat.lng)}, mapBoxKey).then(function(results){
+        reverseGeocode({"lat":JSON.stringify(e.lngLat.lat),"lng":JSON.stringify(e.lngLat.lng)}, mapboxKey).then(function(results){
             var resultsSplit = results.split(",");
             $("#geocode_clicked_country").text(JSON.stringify(resultsSplit[resultsSplit.length-1]).trim());
             console.log(JSON.stringify(resultsSplit[resultsSplit.length-1]));
@@ -58,10 +86,7 @@
     });
 
 </script>
-<script
-        src="https://code.jquery.com/jquery-3.4.1.js"
-        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-        crossorigin="anonymous"></script>
+
 <script th:fragment="cloudflare" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script th:fragment="bootstrap" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>

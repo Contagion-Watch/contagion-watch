@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class LocationController {
     @GetMapping("/location")
-    public String homePage(){
+    public String locationPage(){
         return "location";
     }
 
