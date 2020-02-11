@@ -32,4 +32,3 @@ build/
 
 src/main/resources/application.properties
 
-src/main/java/com/contagionwatch/contagionwatch/config/

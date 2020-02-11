@@ -9,33 +9,82 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
+<div>
+    <ul class="d-flex">
+        <li><button id="coronaButton">Corona</button></li>
+        <li><button id="ebolaButton">Ebola</button></li>
+        <li><button id="malariaButton">Malaria</button></li>
+    </ul>
+</div>
 
 
 
-<div id='map' style='width: 50vw; height: 60vh; margin-left: auto; margin-right: auto;'></div>
+<div id='mapCorona' style='width: 50vw; height: 60vh; margin-left: auto; margin-right: auto;'></div>
+<div id='mapEbola' style='width: 50vw; height: 60vh; margin-left: auto; margin-right: auto;'></div>
+<div id='mapMalaria' style='width: 50vw; height: 60vh; margin-left: auto; margin-right: auto;'></div>
 <h1 id="geocode_clicked_country"></h1>
 <script src="js/mapbox-geocoder-utils.js"></script>
-<script>
-    var mapBoxKey = "[[${key}]]";
-    mapboxgl.accessToken = mapBoxKey;
-    var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/colinmarch/ck6e4fht91vxc1imrmlt1fsj8'
-    });
-    map.on('click', function(e) {
-        // $("#geocode_clicked_country").val = reverseGeocode(e.lngLat.wrap());
-        reverseGeocode({"lat":JSON.stringify(e.lngLat.lat),"lng":JSON.stringify(e.lngLat.lng)}, mapBoxKey).then(function(results){
-            var resultsSplit = results.split(",");
-            $("#geocode_clicked_country").text(JSON.stringify(resultsSplit[resultsSplit.length-1]).trim());
-            console.log(JSON.stringify(resultsSplit[resultsSplit.length-1]));
-
-        })
-    });
-</script>
 <script
         src="https://code.jquery.com/jquery-3.4.1.js"
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
         crossorigin="anonymous"></script>
+<script>
+    var coronaButton = $("#coronaButton");
+    var ebolaButton = $("#ebolaButton");
+    var malariaButton = $("#malariaButton");
+    var coronaMap = $("#mapCorona");
+    var ebolaMap = $("#mapEbola");
+    var malariaMap = $("#mapMalaria");
+    var mapboxKey = "[[${mapboxKey}]]";
+    mapboxgl.accessToken = mapboxKey;
+    var mapCorona = new mapboxgl.Map({
+        container: 'mapCorona',
+        style: 'mapbox://styles/colinmarch/ck6e4fht91vxc1imrmlt1fsj8'
+    });
+    var mapEbola = new mapboxgl.Map({
+        container: 'mapEbola',
+        style: 'mapbox://styles/colinmarch/ck6e787320zpv1ipf6nbnht9u'
+    });
+    var mapMalaria = new mapboxgl.Map({
+        container: 'mapMalaria',
+        style: 'mapbox://styles/colinmarch/ck6h2k17807c71iqsfmexn015'
+    });
+    var el = document.createElement('div');
+    el.id = 'popup';
+    ebolaMap.hide();
+    malariaMap.hide();
+    malariaButton.on("click",function (){
+        malariaMap.show();
+        coronaMap.hide();
+        ebolaMap.hide();
+    });
+    ebolaButton.on("click",function (){
+        ebolaMap.show();
+        coronaMap.hide();
+        malariaMap.hide();
+    });
+    coronaButton.on("click",function (){
+        coronaMap.show();
+        ebolaMap.hide();
+        malariaMap.hide();
+    });
+    mapCorona.on('click', function(e) {
+        $("#popup").hide();
+        var coordinates = {"lat":JSON.stringify(e.lngLat.lat),"lng":JSON.stringify(e.lngLat.lng)}
+        // $("#geocode_clicked_country").val = reverseGeocode(e.lngLat.wrap());
+        reverseGeocode({"lat":JSON.stringify(e.lngLat.lat),"lng":JSON.stringify(e.lngLat.lng)}, mapboxKey).then(function(results){
+            var resultsSplit = results.split(",");
+            $("#geocode_clicked_country").text(JSON.stringify(resultsSplit[resultsSplit.length-1]).trim());
+            console.log(JSON.stringify(resultsSplit[resultsSplit.length-1]));
+            var popupHTML = JSON.stringify(resultsSplit[resultsSplit.length-1])+"<br>Total Cases: XX<br>New Cases: XX<br>Total Deaths: XX<br> New Deaths: XX\n";
+            new mapboxgl.Popup(el)
+                .setLngLat(coordinates)
+                .setHTML(popupHTML)
+                .addTo(mapCorona);
+        })
+    });
+</script>
+
 <script th:fragment="cloudflare" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script th:fragment="bootstrap" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
