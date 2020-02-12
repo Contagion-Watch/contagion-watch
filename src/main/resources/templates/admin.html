@@ -11,35 +11,36 @@
 <div class="row">
     <div class="col-6 p-5">
         <h3>DAILY SUBMISSION FORM</h3>
-        <form>
+        <form th:action="@{'/admin'}" th:method="post" th:object="${entry}">
             <div class="form-group">
-                <label for="date">Date</label>
-                <input id="date" name="date" class="form-control" type="date">
+                <label for="selectDate">Date</label>
+                <input th:field="*{date}" id="selectDate" class="form-control" type="date">
             </div>
             <h6>Select Disease</h6>
-            <select class="form-control disease-select">
-                <option>Default select</option>
+            <select th:field = "*{disease}" class="form-control disease-select">
+                <option th:each="disease : ${diseases}" th:value="${disease.getId()}" th:text="${disease.getName()}"></option>
             </select>
             <h6>Select Location</h6>
-            <select class="form-control location-select">
-                <option>Default select</option>
+            <select th:field="*{location}" class="form-control location-select">
+                <option th:each="location : ${locations}" th:value="${location.getId()}" th:text="${location.getCountry()}"></option>
             </select>
             <div class="form-group">
-                <label for="totalCases">Total Cases</label>
-                <input type="input" class="form-control" id="totalCases" placeholder="Enter total cases.">
+                <label for="selectTotalCases">Total Cases</label>
+                <input th:value="*{totalCases}" type="input" class="form-control" id="selectTotalCases" name="selectTotalCases" placeholder="Enter total cases.">
             </div>
             <div class="form-group">
-                <label for="newCases">New Cases</label>
-                <input type="input" class="form-control" id="newCases" placeholder="Enter new cases.">
+                <label for="selectNewCases">New Cases</label>
+                <input th:field="*{newCases}" type="input" id="selectNewCases" placeholder="Enter new cases.">
             </div>
             <div class="form-group">
-                <label for="totalDeaths">Total Deaths</label>
-                <input type="input" class="form-control" id="totalDeaths" placeholder="Enter total deaths.">
+                <label for="selectTotalDeaths">Total Deaths</label>
+                <input th:field="*{totalDeaths}" type="input" class="form-control" id="selectTotalDeaths" placeholder="Enter total deaths.">
             </div>
             <div class="form-group">
-                <label for="newDeaths">New Deaths</label>
-                <input type="input" class="form-control" id="newDeaths" placeholder="Enter new deaths.">
+                <label for="selectNewDeaths">New Deaths</label>
+                <input th:field="*{newDeaths}" type="input" class="form-control" id="selectNewDeaths" placeholder="Enter new deaths.">
             </div>
+            <button type="submit">Add</button>
 
         </form>
 

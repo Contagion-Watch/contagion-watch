@@ -30,23 +30,6 @@ public class Entry {
     public Entry(){
     }
 
-    public Entry(long id, Date date, int newCases, int newDeaths, int totalCases, int totalDeaths){
-        this.id = id;
-        this.date = date;
-        this.newCases = newCases;
-        this.newDeaths = newDeaths;
-        this.totalCases = totalCases;
-        this.totalDeaths = totalDeaths;
-    }
-
-    public Entry(Date date, int newCases, int newDeaths, int totalCases, int totalDeaths){
-        this.date = date;
-        this.newCases = newCases;
-        this.newDeaths = newDeaths;
-        this.totalCases = totalCases;
-        this.totalDeaths = totalDeaths;
-    }
-
     public long getId() {
         return id;
     }
@@ -67,7 +50,7 @@ public class Entry {
         return totalCases;
     }
 
-    public void setTotalCases(int totalCases) {
+    public void setTotalCases(long totalCases) {
         this.totalCases = totalCases;
     }
 
@@ -75,7 +58,7 @@ public class Entry {
         return newCases;
     }
 
-    public void setNewCases(int newCases) {
+    public void setNewCases(long newCases) {
         this.newCases = newCases;
     }
 
@@ -83,7 +66,7 @@ public class Entry {
         return totalDeaths;
     }
 
-    public void setTotalDeaths(int totalDeaths) {
+    public void setTotalDeaths(long totalDeaths) {
         this.totalDeaths = totalDeaths;
     }
 
@@ -91,7 +74,23 @@ public class Entry {
         return newDeaths;
     }
 
-    public void setNewDeaths(int newDeaths) {
+    public void setNewDeaths(long newDeaths) {
         this.newDeaths = newDeaths;
+    }
+
+    public Disease getDisease() {
+        return disease;
+    }
+
+    public void setDisease(Disease disease) {
+        this.disease = disease;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 }
