@@ -8,6 +8,47 @@
 <nav th:replace="partials/navbar :: navbar" />
 
 <h1>ADMIN PAGE</h1>
+<div class="row">
+    <div class="col-6 p-5">
+        <h3>DAILY SUBMISSION FORM</h3>
+        <form>
+            <div class="form-group">
+                <label for="date">Date</label>
+                <input id="date" name="date" class="form-control" type="date">
+            </div>
+            <h6>Select Disease</h6>
+            <select class="form-control disease-select">
+                <option>Default select</option>
+            </select>
+            <h6>Select Location</h6>
+            <select class="form-control location-select">
+                <option>Default select</option>
+            </select>
+            <div class="form-group">
+                <label for="totalCases">Total Cases</label>
+                <input type="input" class="form-control" id="totalCases" placeholder="Enter total cases.">
+            </div>
+            <div class="form-group">
+                <label for="newCases">New Cases</label>
+                <input type="input" class="form-control" id="newCases" placeholder="Enter new cases.">
+            </div>
+            <div class="form-group">
+                <label for="totalDeaths">Total Deaths</label>
+                <input type="input" class="form-control" id="totalDeaths" placeholder="Enter total deaths.">
+            </div>
+            <div class="form-group">
+                <label for="newDeaths">New Deaths</label>
+                <input type="input" class="form-control" id="newDeaths" placeholder="Enter new deaths.">
+            </div>
+
+        </form>
+
+    </div>
+    <div class="col-6">
+        <h3>NEWS SUBMISSION FORM</h3>
+    </div>
+
+</div>
 
 
 <nav th:replace="partials/footer :: footer" />

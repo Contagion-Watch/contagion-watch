@@ -1,9 +1,13 @@
 
 @media (max-width: 991.999px) {
     .aboutus-body{
-        background: #e1eec3;  /* fallback for old browsers */
-        background: -webkit-linear-gradient(to right, #f05053, #e1eec3);  /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to right, #f05053, #e1eec3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        /*background: #e1eec3;  !* fallback for old browsers *!*/
+        /*background: -webkit-linear-gradient(to right, #f05053, #e1eec3);  !* Chrome 10-25, Safari 5.1-6 *!*/
+        /*background: linear-gradient(to right, #f05053, #e1eec3); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
+        background: #9CECFB;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #0052D4, #65C7F7, #9CECFB);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #0052D4, #65C7F7, #9CECFB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
     }
     .portrait{
         box-shadow: 30px 30px;
@@ -20,9 +24,13 @@
 
 @media (min-width: 992px) {
     .aboutus-body{
-        background: #e1eec3;  /* fallback for old browsers */
-        background: -webkit-linear-gradient(to right, #f05053, #e1eec3);  /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to right, #f05053, #e1eec3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        /*background: #e1eec3;  !* fallback for old browsers *!*/
+        /*background: -webkit-linear-gradient(to right, #f05053, #e1eec3);  !* Chrome 10-25, Safari 5.1-6 *!*/
+        /*background: linear-gradient(to right, #f05053, #e1eec3); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
+        background: #9CECFB;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #0052D4, #65C7F7, #9CECFB);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #0052D4, #65C7F7, #9CECFB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
     }
     .portrait{
         box-shadow: 12px 12px;
