@@ -10,13 +10,13 @@ public class Entry {
     private long id;
     @Column(nullable = false, columnDefinition = "DATE")
     private java.sql.Date date;
-    @Column(nullable = false)
+    @Column
     private long totalCases;
-    @Column(nullable = false)
+    @Column
     private long newCases;
-    @Column(nullable = false)
+    @Column
     private long totalDeaths;
-    @Column(nullable = false)
+    @Column
     private long newDeaths;
 
     @ManyToOne
