@@ -16,6 +16,19 @@ public class Location {
     private List<News> news;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "location")
     private List<Entry> entry;
+
+    public Location(){
+    }
+
+    public Location(long id, String name){
+        this.id = id;
+        this.country = name;
+    }
+
+    public Location(String name){
+        this.country = name;
+    }
+
     public long getId() {
         return id;
     }
