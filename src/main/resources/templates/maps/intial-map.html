@@ -20,8 +20,14 @@
 
 
 <div id='mapCorona' style='width: 50vw; height: 60vh; margin-left: auto; margin-right: auto;'></div>
+<input type="text" id="inputCorona">
+<button id="buttonCoronaSearch">Go to location</button>
 <div id='mapEbola' style='width: 50vw; height: 60vh; margin-left: auto; margin-right: auto;'></div>
+<input type="text" id="inputEbola">
+<button id="buttonEbolaSearch">Go to location</button>
 <div id='mapMalaria' style='width: 50vw; height: 60vh; margin-left: auto; margin-right: auto;'></div>
+<input type="text" id="inputMalaria">
+<button id="buttonMalariaSearch">Go to location</button>
 <h1 id="geocode_clicked_country"></h1>
 <script src="js/mapbox-geocoder-utils.js"></script>
 <script
@@ -30,11 +36,17 @@
         crossorigin="anonymous"></script>
 <script>
     var coronaButton = $("#coronaButton");
-    var ebolaButton = $("#ebolaButton");
-    var malariaButton = $("#malariaButton");
     var coronaMap = $("#mapCorona");
+    var inputSearchCorona = $("#inputCorona");
+    var inputSearchButtonCorona = $("#buttonCoronaSearch");
+    var ebolaButton = $("#ebolaButton");
     var ebolaMap = $("#mapEbola");
+    var inputSearchEbola = $("#inputEbola");
+    var inputSearchButtonEbola = $("#buttonEbolaSearch");
+    var malariaButton = $("#malariaButton");
     var malariaMap = $("#mapMalaria");
+    var inputSearchMalaria = $("#inputMalaria");
+    var inputSearchButtonMalaria = $("#buttonMalariaSearch");
     var mapboxKey = "[[${mapboxKey}]]";
     mapboxgl.accessToken = mapboxKey;
     var mapCorona = new mapboxgl.Map({
@@ -52,21 +64,70 @@
     var el = document.createElement('div');
     el.id = 'popup';
     ebolaMap.hide();
+    inputSearchButtonEbola.hide();
+    inputSearchEbola.hide();
     malariaMap.hide();
+    inputSearchButtonMalaria.hide();
+    inputSearchMalaria.hide();
     malariaButton.on("click",function (){
         malariaMap.show();
+        inputSearchButtonMalaria.show();
+        inputSearchMalaria.show();
         coronaMap.hide();
+        inputSearchButtonCorona.hide();
+        inputSearchCorona.hide();
         ebolaMap.hide();
+        inputSearchButtonEbola.hide();
+        inputSearchEbola.hide();
     });
     ebolaButton.on("click",function (){
         ebolaMap.show();
+        inputSearchButtonEbola.show();
+        inputSearchEbola.show();
         coronaMap.hide();
+        inputSearchButtonCorona.hide();
+        inputSearchCorona.hide();
         malariaMap.hide();
+        inputSearchButtonMalaria.hide();
+        inputSearchMalaria.hide();
     });
     coronaButton.on("click",function (){
         coronaMap.show();
+        inputSearchButtonCorona.show();
+        inputSearchCorona.show();
         ebolaMap.hide();
+        inputSearchButtonEbola.hide();
+        inputSearchEbola.hide();
         malariaMap.hide();
+        inputSearchButtonMalaria.hide();
+        inputSearchMalaria.hide();
+    });
+    inputSearchButtonCorona.on("click",function (){
+        geocode(inputSearchCorona.val(),mapboxKey).then(function (result) {
+            console.log(result);
+            mapCorona.setCenter(result);
+            mapCorona.setZoom(2.5);
+        }).catch(function () {
+            console.log("Failure");
+        });
+    });
+    inputSearchButtonEbola.on("click",function (){
+        geocode(inputSearchEbola.val(),mapboxKey).then(function (result) {
+            console.log(result);
+            mapEbola.setCenter(result);
+            mapEbola.setZoom(2.5);
+        }).catch(function () {
+            console.log("Failure");
+        });
+    });
+    inputSearchButtonMalaria.on("click",function (){
+        geocode(inputSearchMalaria.val(),mapboxKey).then(function (result) {
+            console.log(result);
+            mapMalaria.setCenter(result);
+            mapMalaria.setZoom(2.5);
+        }).catch(function () {
+            console.log("Failure");
+        });
     });
     mapCorona.on('click', function(e) {
         $("#popup").hide();
