@@ -38,6 +38,25 @@ public class Disease {
     public Disease(){
     }
 
+    public Disease(long id, String description, String name, String preventions, String symptoms, String transmission, String treatments){
+        this.id = id;
+        this.description = description;
+        this.name = name;
+        this.preventions = preventions;
+        this.symptoms = symptoms;
+        this.transmission = transmission;
+        this.treatments = treatments;
+    }
+
+    public Disease(String description, String name, String preventions, String symptoms, String transmission, String treatments){
+        this.description = description;
+        this.name = name;
+        this.preventions = preventions;
+        this.symptoms = symptoms;
+        this.transmission = transmission;
+        this.treatments = treatments;
+    }
+
     public long getId() {
         return id;
     }

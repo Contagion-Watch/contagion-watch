@@ -27,6 +27,26 @@ public class Entry {
     @JoinColumn (name = "location_id")
     private Location location;
 
+    public Entry(){
+    }
+
+    public Entry(long id, Date date, int newCases, int newDeaths, int totalCases, int totalDeaths){
+        this.id = id;
+        this.date = date;
+        this.newCases = newCases;
+        this.newDeaths = newDeaths;
+        this.totalCases = totalCases;
+        this.totalDeaths = totalDeaths;
+    }
+
+    public Entry(Date date, int newCases, int newDeaths, int totalCases, int totalDeaths){
+        this.date = date;
+        this.newCases = newCases;
+        this.newDeaths = newDeaths;
+        this.totalCases = totalCases;
+        this.totalDeaths = totalDeaths;
+    }
+
     public long getId() {
         return id;
     }
