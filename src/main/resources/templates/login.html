@@ -3,29 +3,35 @@
 
 <head th:replace="partials/head :: head" />
 
-<body>
+<body class="login-body">
 
 <nav th:replace="partials/navbar :: navbar" />
 
-<form class="center-block">
-    <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-    <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1">
-    </div>
-    <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
 
 
-<nav th:replace="partials/footer :: footer" />
+    <h1 class="page-title text-center p-5">ADMIN LOGIN - RESTRICTED ACCESS</h1>
+
+    <form class="text-center p-5">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Admin Username</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+
+<footer class="py-2 bg-dark text-white-50 fixed-bottom">
+    <div class="container text-center">
+        <small>Contagion Watch 2020</small>
+    </div>
+    <div class="container text-center">
+        <small>Built by: Alexander Lee, Colin Marchbanks, Joshua Peters</small>
+    </div>
+</footer>
 
 <nav th:replace="partials/scripts :: scripts" />
 
