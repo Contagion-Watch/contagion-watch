@@ -1,12 +1,20 @@
 
 @media (max-width: 991.999px) {
     .aboutus-body{
-        /*background: #e1eec3;  !* fallback for old browsers *!*/
-        /*background: -webkit-linear-gradient(to right, #f05053, #e1eec3);  !* Chrome 10-25, Safari 5.1-6 *!*/
-        /*background: linear-gradient(to right, #f05053, #e1eec3); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
         background: #9CECFB;  /* fallback for old browsers */
-        background: -webkit-linear-gradient(to right, #0052D4, #65C7F7, #9CECFB);  /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to right, #0052D4, #65C7F7, #9CECFB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: -webkit-linear-gradient(to top, #0052D4, #65C7F7, #9CECFB);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to top, #0052D4, #65C7F7, #9CECFB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+    .information-body{
+        background: #EF3B36;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to bottom, #FFFFFF, #EF3B36);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to bottom, #FFFFFF, #EF3B36); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    }
+    .login-body{
+        background: #ED213A;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to left, #93291E, #ED213A);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to left, #93291E, #ED213A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
     }
     .portrait{
@@ -24,12 +32,21 @@
 
 @media (min-width: 992px) {
     .aboutus-body{
-        /*background: #e1eec3;  !* fallback for old browsers *!*/
-        /*background: -webkit-linear-gradient(to right, #f05053, #e1eec3);  !* Chrome 10-25, Safari 5.1-6 *!*/
-        /*background: linear-gradient(to right, #f05053, #e1eec3); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
         background: #9CECFB;  /* fallback for old browsers */
-        background: -webkit-linear-gradient(to right, #0052D4, #65C7F7, #9CECFB);  /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to right, #0052D4, #65C7F7, #9CECFB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: -webkit-linear-gradient(to top, #0052D4, #65C7F7, #9CECFB);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to top, #0052D4, #65C7F7, #9CECFB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    }
+    .information-body{
+        background: #EF3B36;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to bottom, #FFFFFF, #EF3B36);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to bottom, #FFFFFF, #EF3B36); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    }
+    .login-body{
+        background: #ED213A;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to left, #93291E, #ED213A);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to left, #93291E, #ED213A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
     }
     .portrait{
@@ -46,6 +63,40 @@
     }
     h5{
         font-family: 'Prata', serif;
+    }
+
+    /* Tab Content on Information Page */
+    .tab-pane {
+
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        border-radius: 0px 0px 5px 5px;
+        padding: 10px;
+    }
+
+    .nav-tabs {
+        margin-bottom: 0;
+    }
+
+    /* iFrame on information page */
+    .frame-area {
+        display: block;
+        width: 90%;  /* RESPONSIVE WIDTH */
+        /*max-width: 400px;*/
+        height: 600px;
+        overflow: auto;  /* EDIT TO hidden FOR NO SCROLLBAR */
+        border: #999999 5px solid;
+        margin: auto;
+        padding: 0px;
+    }
+    /* login page center */
+    .vertical-center {
+        min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+        min-height: 100vh; /* These two lines are counted as one :-)       */
+
+        display: flex;
+        align-items: center;
     }
 }
 

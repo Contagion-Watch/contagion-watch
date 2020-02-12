@@ -3,37 +3,46 @@
 
 <head th:replace="partials/head :: head" />
 
-<body>
+<body class="information-body">
 
 <nav th:replace="partials/navbar :: navbar" />
 
-<h1>Corona Virus</h1>
+<h1 class="col page-title text-center">Corona Virus</h1>
 
 <div class="row">
-    <div class="col-4">
-    <img class="information-disease-img w-100" src="img/corona-virus.jpg">
-</div>
-    <div class="col-8 card text-center">
-        <div class="card-header">
-            <ul class="nav nav-tabs card-header-tabs">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Active</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li>
-            </ul>
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+    <div class="col-4 p-5">
+    <img class="information-disease-img w-100 portrait zoom" src="img/corona-virus.jpg">
+    </div>
+    <div class="col-7" style="margin-right: 1em">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Disease Information</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Statistics</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">This is a test for Corona Virus.</div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">These are the Corona Virus statistics.</div>
         </div>
     </div>
+
 </div>
+
+<h1 class="col page-title text-center">NEWS ALERTS</h1>
+<h2 class="col page-title text-center">World Health Organization</h2>
+
+<div class="col p-5">
+    <iframe name="Framename" src="https://www.who.int/news-room/detail/12-02-2020-world-experts-and-funders-set-priorities-for-covid-19-research" frameborder="0" scrolling="auto" class="frame-area">
+    </iframe>
+</div>
+
+<h2 class="col page-title text-center">Center for Disease Control and Prevention</h2>
+
+<div class="col p-5">
+    <iframe name="Framename-two" src="https://www.cdc.gov/coronavirus/2019-ncov/index.html" frameborder="0" scrolling="auto" class="frame-area">
+    </iframe>
+</div>
+
 
 
 <nav th:replace="partials/footer :: footer" />
