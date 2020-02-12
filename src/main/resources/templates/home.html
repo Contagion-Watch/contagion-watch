@@ -7,12 +7,182 @@
 
 <nav th:replace="partials/navbar :: navbar"></nav>
 
-<h1>LANDING PAGE</h1>
+<!--Desktop map page-->
+<div class="row">
+    <div class="col-12 col-lg-6">
+        <div id='mapCorona' style='width: 100%; height: 80vh; margin-left: auto; margin-right: auto;'></div>
+        <div id='mapEbola' style='width: 100%; height: 80vh; margin-left: auto; margin-right: auto;'></div>
+        <div id='mapMalaria' style='width: 100%; height: 80vh; margin-left: auto; margin-right: auto;'></div>
+
+    </div>
+    <div class="col-12 col-lg-6">
+        <div>
+            <ul class="d-flex justify-content-between">
+                <li><button id="coronaButton">Corona</button></li>
+                <li><button id="ebolaButton">Ebola</button></li>
+                <li><button id="malariaButton">Malaria</button></li>
+            </ul>
+        </div>
+        <input type="text" id="inputCorona">
+        <button id="buttonCoronaSearch">Go to location</button>
+        <input type="text" id="inputEbola">
+        <button id="buttonEbolaSearch">Go to location</button>
+        <input type="text" id="inputMalaria">
+        <button id="buttonMalariaSearch">Go to location</button>
+        <img class="mr-5 pr-5" style="height: 70vh;width: 100%" src="https://via.placeholder.com/150" alt="">
+    </div>
+</div>
 
 
 <nav th:replace="partials/footer :: footer"></nav>
 
 <nav th:replace="partials/scripts :: scripts"></nav>
+<script>
+    var mapCanvas = document.getElementsByClassName('mapboxgl-canvas')[0];
+    var coronaButton = $("#coronaButton");
+    var coronaMap = $("#mapCorona");
+    var inputSearchCorona = $("#inputCorona");
+    var inputSearchButtonCorona = $("#buttonCoronaSearch");
+    var ebolaButton = $("#ebolaButton");
+    var ebolaMap = $("#mapEbola");
+    var inputSearchEbola = $("#inputEbola");
+    var inputSearchButtonEbola = $("#buttonEbolaSearch");
+    var malariaButton = $("#malariaButton");
+    var malariaMap = $("#mapMalaria");
+    var inputSearchMalaria = $("#inputMalaria");
+    var inputSearchButtonMalaria = $("#buttonMalariaSearch");
+    var mapboxKey = "[[${mapboxKey}]]";
+    mapboxgl.accessToken = mapboxKey;
+    var mapCorona = new mapboxgl.Map({
+        container: 'mapCorona',
+        style: 'mapbox://styles/colinmarch/ck6e4fht91vxc1imrmlt1fsj8'
+    });
+    var mapEbola = new mapboxgl.Map({
+        container: 'mapEbola',
+        style: 'mapbox://styles/colinmarch/ck6e787320zpv1ipf6nbnht9u'
+    });
+    var mapMalaria = new mapboxgl.Map({
+        container: 'mapMalaria',
+        style: 'mapbox://styles/colinmarch/ck6h2k17807c71iqsfmexn015'
+    });
+    var el = document.createElement('div');
+    el.id = 'popup';
+    ebolaMap.hide();
+    inputSearchButtonEbola.hide();
+    inputSearchEbola.hide();
+    malariaMap.hide();
+    inputSearchButtonMalaria.hide();
+    inputSearchMalaria.hide();
+    malariaButton.on("click",function (){
+        inputSearchButtonMalaria.show();
+        inputSearchMalaria.show();
+        coronaMap.hide();
+        inputSearchButtonCorona.hide();
+        inputSearchCorona.hide();
+        ebolaMap.hide();
+        inputSearchButtonEbola.hide();
+        inputSearchEbola.hide();
+        setTimeout(function(){mapMalaria.resize();}, 250);
+        malariaMap.show();
+    });
+    ebolaButton.on("click",function (){
+        inputSearchButtonEbola.show();
+        inputSearchEbola.show();
+        coronaMap.hide();
+        inputSearchButtonCorona.hide();
+        inputSearchCorona.hide();
+        malariaMap.hide();
+        inputSearchButtonMalaria.hide();
+        inputSearchMalaria.hide();
+        setTimeout(function(){mapEbola.resize();}, 250);
+        ebolaMap.show();
+    });
+    coronaButton.on("click",function (){
+        inputSearchButtonCorona.show();
+        inputSearchCorona.show();
+        ebolaMap.hide();
+        inputSearchButtonEbola.hide();
+        inputSearchEbola.hide();
+        malariaMap.hide();
+        inputSearchButtonMalaria.hide();
+        inputSearchMalaria.hide();
+        setTimeout(function(){mapCorona.resize();}, 250);
+        coronaMap.show();
+    });
+    inputSearchButtonCorona.on("click",function (){
+        geocode(inputSearchCorona.val(),mapboxKey).then(function (result) {
+            console.log(result);
+            mapCorona.setCenter(result);
+            mapCorona.setZoom(2.5);
+        }).catch(function () {
+            console.log("Failure");
+        });
+    });
+    inputSearchButtonEbola.on("click",function (){
+        geocode(inputSearchEbola.val(),mapboxKey).then(function (result) {
+            console.log(result);
+            mapEbola.setCenter(result);
+            mapEbola.setZoom(2.5);
+        }).catch(function () {
+            console.log("Failure");
+        });
+    });
+    inputSearchButtonMalaria.on("click",function (){
+        geocode(inputSearchMalaria.val(),mapboxKey).then(function (result) {
+            console.log(result);
+            mapMalaria.setCenter(result);
+            mapMalaria.setZoom(2.5);
+        }).catch(function () {
+            console.log("Failure");
+        });
+    });
+    mapCorona.on('click', function(e) {
+        $("#popup").hide();
+        var coordinates = {"lat":JSON.stringify(e.lngLat.lat),"lng":JSON.stringify(e.lngLat.lng)}
+        // $("#geocode_clicked_country").val = reverseGeocode(e.lngLat.wrap());
+        reverseGeocode({"lat":JSON.stringify(e.lngLat.lat),"lng":JSON.stringify(e.lngLat.lng)}, mapboxKey).then(function(results){
+            var resultsSplit = results.split(",");
+            $("#geocode_clicked_country").text(JSON.stringify(resultsSplit[resultsSplit.length-1]).trim());
+            console.log(JSON.stringify(resultsSplit[resultsSplit.length-1]));
+            var popupHTML = JSON.stringify(resultsSplit[resultsSplit.length-1])+"<br>Total Cases: XX<br>New Cases: XX<br>Total Deaths: XX<br> New Deaths: XX\n";
+            new mapboxgl.Popup(el)
+                .setLngLat(coordinates)
+                .setHTML(popupHTML)
+                .addTo(mapCorona);
+        })
+    });
+    mapMalaria.on('click', function(e) {
+        $("#popup").hide();
+        var coordinates = {"lat":JSON.stringify(e.lngLat.lat),"lng":JSON.stringify(e.lngLat.lng)}
+        // $("#geocode_clicked_country").val = reverseGeocode(e.lngLat.wrap());
+        reverseGeocode({"lat":JSON.stringify(e.lngLat.lat),"lng":JSON.stringify(e.lngLat.lng)}, mapboxKey).then(function(results){
+            var resultsSplit = results.split(",");
+            $("#geocode_clicked_country").text(JSON.stringify(resultsSplit[resultsSplit.length-1]).trim());
+            console.log(JSON.stringify(resultsSplit[resultsSplit.length-1]));
+            var popupHTML = JSON.stringify(resultsSplit[resultsSplit.length-1])+"<br>Total Cases: XX<br>New Cases: XX<br>Total Deaths: XX<br> New Deaths: XX\n";
+            new mapboxgl.Popup(el)
+                .setLngLat(coordinates)
+                .setHTML(popupHTML)
+                .addTo(mapMalaria);
+        })
+    });
+    mapEbola.on('click', function(e) {
+        $("#popup").hide();
+        var coordinates = {"lat":JSON.stringify(e.lngLat.lat),"lng":JSON.stringify(e.lngLat.lng)}
+        // $("#geocode_clicked_country").val = reverseGeocode(e.lngLat.wrap());
+        reverseGeocode({"lat":JSON.stringify(e.lngLat.lat),"lng":JSON.stringify(e.lngLat.lng)}, mapboxKey).then(function(results){
+            var resultsSplit = results.split(",");
+            $("#geocode_clicked_country").text(JSON.stringify(resultsSplit[resultsSplit.length-1]).trim());
+            console.log(JSON.stringify(resultsSplit[resultsSplit.length-1]));
+            var popupHTML = JSON.stringify(resultsSplit[resultsSplit.length-1])+"<br>Total Cases: XX<br>New Cases: XX<br>Total Deaths: XX<br> New Deaths: XX\n";
+            new mapboxgl.Popup(el)
+                .setLngLat(coordinates)
+                .setHTML(popupHTML)
+                .addTo(mapEbola);
+        })
+    });
+
+</script>
 
 </body>
 
