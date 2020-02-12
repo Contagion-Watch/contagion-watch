@@ -47,6 +47,38 @@
     </div>
     <div class="col-6">
         <h3>NEWS SUBMISSION FORM</h3>
+        <form th:action="@{'/admin'}" th:method="post" th:object="${news}">
+            <div class="form-group">
+                <label for="selectDate">Date</label>
+                <input th:field="*{date}" id="selectDateNews" class="form-control" type="date">
+            </div>
+            <h6>Select Disease</h6>
+            <select th:field = "*{disease}" class="form-control disease-select">
+                <option th:each="disease : ${diseases}" th:value="${disease.getId()}" th:text="${disease.getName()}"></option>
+            </select>
+            <h6>Select Location</h6>
+            <select th:field="*{location}" class="form-control location-select">
+                <option th:each="location : ${locations}" th:value="${location.getId()}" th:text="${location.getCountry()}"></option>
+            </select>
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input th:field="*{title}" type="input" class="form-control" id="title" placeholder="Enter title for the article.">
+            </div>
+            <div class="form-group">
+                <label for="imageURL">Url for Image</label>
+                <input th:value="*{imageURL}" type="text" class="form-control" id="imageURL" name="imageURL" placeholder="Enter Url for the image.">
+            </div>
+            <div class="form-group">
+                <label for="link">Link</label>
+                <input th:field="*{link}" type="input" id="link" placeholder="Enter link for the article.">
+            </div>
+            <div class="form-group">
+                <label for="summary">New Deaths</label>
+                <input th:field="*{summary}" type="input" class="form-control" id="summary" placeholder="Enter a summary.">
+            </div>
+            <button type="submit">Add</button>
+
+        </form>
     </div>
 
 </div>
