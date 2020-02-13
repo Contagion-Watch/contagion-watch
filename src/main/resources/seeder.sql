@@ -1,10 +1,11 @@
 USE contagion_db;
 
-SET FOREIGN_KEY_CHECKS = 0;
+SET foreign_key_checks = 0;
 TRUNCATE disease;
 TRUNCATE location;
 TRUNCATE entry;
-SET FOREIGN_KEY_CHECKS = 1;
+SET foreign_key_checks = 1;
+
 
 INSERT INTO location (country) VALUES
 ('Aruba'),
