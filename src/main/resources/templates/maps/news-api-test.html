@@ -1,57 +1,112 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script
-            src="https://code.jquery.com/jquery-3.4.1.js"
-            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-            crossorigin="anonymous"></script>
-    <script>
-        var url='https://api.nytimes.com/svc/search/v2/articlesearch.json';
-        url += '?' +$.param({
-            'api-key':'EGA6ITgdlp8qcGuAafAYjJvQEpWJUvCf',
-            'q':'Corona Virus AND Zimbabwe',
-            'begin_date':'20200201',
-            'end_date':'20200213'
-        });
-        $.ajax({
-            url:url,
-            method:'GET',
-        }).done(function (results) {
-            console.log(results);
-            var listOfResults = results.response.docs;
-            for(let i = 0; i < listOfResults.length -1; i++){
-                $("#newsSourceArea").html += "<div class=\"card mb-3\" style=\"max-width: 540px;\">\n" +
+<head th:replace="partials/head :: head"/>
+
+<body>
+<nav th:replace="partials/navbar :: navbar"/>
+
+<div id="newsSourceArea"></div>
+
+<nav th:replace="partials/footer :: footer"/>
+
+<nav th:replace="partials/scripts :: scripts"/>
+
+<script>
+    var url = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
+    url += '?' + $.param({
+        'api-key': "[[${nytKey}]]",
+        'q': 'cats',
+        'begin_date': '20200201',
+        'end_date': '20200213'
+    });
+    $.ajax({
+        url: url,
+        method: 'GET',
+    }).done(function (results) {
+        console.log(results);
+        var listOfResults = results.response.docs;
+        console.log(listOfResults);
+        for (let i = 0; i < listOfResults.length; i++) {
+            let listOfMedia = listOfResults[i].multimedia;
+            let selectedMedia = null;
+            let mediaHeight = 50;
+            if (listOfMedia.length !== 0) {
+                for (let i = 0; i < listOfMedia.length; i++) {
+                    if (listOfMedia[i].subtype === "square640") {
+                        selectedMedia = "http://www.nytimes.com/" + listOfMedia[i].url;
+                        mediaHeight = listOfMedia[i].height;
+                    }
+                }
+            }
+            if (selectedMedia === null) {
+                var urlImage = 'https://api.cognitive.microsoft.com/bing/v7.0/images/search?';
+                urlImage += $.param({
+                    'q': listOfResults[i].headline.main,
+                    'count': 1,
+                    'offset': 0,
+                    'mkt': 'en-us',
+                    'safeSearch': 'Moderate'
+                });
+                $.ajax({
+                    url: urlImage,
+                    method: 'GET',
+                    host: 'api.cognitive.microsoft.com',
+                    beforeSend: function (xhrObj) {
+                        // Request headers
+                        xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", "[[${bingKey}]]");
+                    },
+                }).done(function (results) {
+                    console.log("IMAGE RESULT:");
+                    console.log(results);
+                    selectedMedia = results.value[0].contentUrl;
+                    console.log(results.value);
+                    console.log(results.value[0].contentUrl);
+                    let formatedDate = listOfResults[i].pub_date.split("T");
+                    formatedDate = formatedDate[0];
+                    console.log(selectedMedia);
+                    $("#newsSourceArea").append("<div class=\"card mb-3\" style=\"max-width: 540px;height:30vh;\">\n" +
+                        "    <div class=\"row no-gutters\">\n" +
+                        "        <div class=\"col-md-4\">\n" +
+                        "            <img src=\"" + selectedMedia + "\" style='height:30vh;width100%;'class=\"card-img\" alt=\"...\">\n" +
+                        "        </div>\n" +
+                        "        <div class=\"col-md-8\">\n" +
+                        "            <div class=\"card-body\">\n" +
+                        "                <h5 class=\"card-title mt-0\">" + listOfResults[i].headline.main + "</h5>\n" +
+                        "                <p class=\"card-text\">Check out the article here: <a href=" + listOfResults[i].web_url + ">Link</a></p>\n" +
+                        "                <p class=\"card-text\">" + formatedDate + "</p>\n" +
+                        "            </div>\n" +
+                        "        </div>\n" +
+                        "    </div>\n" +
+                        "</div>");
+                }).fail(function (err) {
+                    throw err;
+                })
+            } else {
+                let formatedDate = listOfResults[i].pub_date.split("T");
+                formatedDate = formatedDate[0];
+                console.log(selectedMedia);
+                $("#newsSourceArea").append("<div class=\"card mb-3\" style=\"max-width: 540px;height:30vh;\">\n" +
                     "    <div class=\"row no-gutters\">\n" +
                     "        <div class=\"col-md-4\">\n" +
-                    "            <img src=\"...\" class=\"card-img\" alt=\"...\">\n" +
+                    "            <img src=\"" + selectedMedia + "\" style='height:30vh;width100%;'class=\"card-img\" alt=\"...\">\n" +
                     "        </div>\n" +
                     "        <div class=\"col-md-8\">\n" +
                     "            <div class=\"card-body\">\n" +
-                    "                <h5 class=\"card-title\">"+ listOfResults[i]. +"</h5>\n" +
-                    "                <p class=\"card-text\">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>\n" +
-                    "                <p class=\"card-text\"><small class=\"text-muted\">Last updated 3 mins ago</small></p>\n" +
+                    "                <h5 class=\"card-title mt-0\">" + listOfResults[i].headline.main + "</h5>\n" +
+                    "                <p class=\"card-text\">Check out the article here: <a href=" + listOfResults[i].web_url + ">Link</a></p>\n" +
+                    "                <p class=\"card-text\">" + formatedDate + "</p>\n" +
                     "            </div>\n" +
                     "        </div>\n" +
                     "    </div>\n" +
-                    "</div>";
+                    "</div>");
             }
-        }).fail(function (err) {
-            throw err;
-        });
+        }
 
-    </script>
-</head>
-<body>
-<div id="newsSourceArea"></div>
+    }).fail(function (err) {
+        throw err;
+    });
 
-<script th:fragment="scripts" src="js/mapbox-geocoder-utils.js"></script>
-<script th:fragment="scripts"
-        src="https://code.jquery.com/jquery-3.4.1.js"
-        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-        crossorigin="anonymous"></script>
-<script th:fragment="scripts" src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script th:fragment="scripts" src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</script>
+
 </body>
 </html>

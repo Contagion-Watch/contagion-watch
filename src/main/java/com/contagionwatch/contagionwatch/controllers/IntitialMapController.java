@@ -13,9 +13,22 @@ public class IntitialMapController {
     @Value("${mapboxKey}")
     private String mapboxKey;
 
+    @Value("${bingKey}")
+    private String bingKey;
+
+    @Value("${nytKey}")
+    private String nytKey;
+
     @GetMapping("/test-map")
     public String mapGet(Model model){
         model.addAttribute("mapboxKey",mapboxKey);
         return "maps/intial-map";
+    }
+
+    @GetMapping("/test-api")
+    public String getApi(Model model){
+        model.addAttribute("nytKey",nytKey);
+        model.addAttribute("bingKey",bingKey);
+        return"maps/news-api-test";
     }
 }
