@@ -1,8 +1,11 @@
 USE contagion_db;
 
+SET foreign_key_checks = 0;
 TRUNCATE disease;
 TRUNCATE location;
 TRUNCATE entry;
+SET foreign_key_checks = 1;
+
 
 INSERT INTO location (country) VALUES
 ('Aruba'),
@@ -259,7 +262,8 @@ INSERT INTO location (country) VALUES
 ('Yemen'),
 ('South Africa'),
 ('Zambia'),
-('Zimbabwe');
+('Zimbabwe'),
+('Global');
 
 INSERT INTO disease (description, name, preventions, symptoms, transmission, treatments) VALUES
 ('Coronaviruses (CoV) are a large family of viruses the can cause illness ranging from common cold to more severe diseases such as Middle East Respiratory Syndrome (MERS) and Severe Acute Respiratory Syndrome (SARS). The novel coronavirus (nCoV) is a new strain of coronavirus that has not been previously identified in humans. The virus is zoonotic, meaning they are transmitted between animals and people. The first outbreak was reported in Wuhan, China in December 2019. As this virus has only recently been reported, the amount of information about this specific strain is limited.', 'Novel Coronavirus', 'The main protection that one can do for the nCoV is to avoid contact with anyone who has the symptoms of nCoV. Washing hands frequently with soap and water or using an alcohol-based sanitizer is good practice in order to eliminate the virus if it is on your hands. The proper use of medical masks can help limit the spread of some respiratory disease but does not guaranteed prevention. Anyone who has travelled to China or has been in close contact with anyone that has should report to their health care provider if they have any respiratory symptoms.', 'The symptoms of the nCoV can vary from person to person. Some who are infected only display mild symptoms such as runny nose, sore throat, coughing, or fever. Others have ended up developing diseases like MERS. SARS, or pneumonia. In rarer cases, nCoV can be fatal. Those who are older or have pre-existing medical conditions appear to be more vulnerable to becoming severely ill.', 'The nCoV causes respiratory disease and can be transmitted from person to person from close contact. It can spread through respiratory droplets from coughing or sneezing. Those who have been in or travelled from China can possibly be carriers of the virus. The incubation period or the time between infection and the onset of symptoms can be up to 14 days.', 'As of date, there is no specific medicine that will prevent or treat the nCoV. Those who are infected should receive appropriate care to relieve and create symptoms. Those that are not infected should take care to avoid contact with those displaying symptoms.'),
@@ -271,5 +275,4 @@ INSERT INTO news(date, imageurl, link, summary, title, disease_id, location_id) 
 ('2020-02-11','https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/BBLB4ECM2YI6VNZBT5GNZEF4DQ.jpg&w=1440','https://www.washingtonpost.com/world/dream-job-turns-into-nightmare-virus-fears-grow-among-diamond-princess-crew/2020/02/11/e65b54e8-4cca-11ea-967b-e074d302c7d4_story.html','Virus fears grow among Diamond Princess crew','‘Dream job’ turns into ‘nightmare’',1,117);
 # ('2020-02-11',)
                                                                                        ;
-INSERT INTO entry (date, new_cases, new_deaths, total_cases, total_deaths, disease_id, location_id) VALUES
-();
+
