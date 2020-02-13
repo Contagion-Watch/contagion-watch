@@ -4,6 +4,7 @@ SET foreign_key_checks = 0;
 TRUNCATE disease;
 TRUNCATE location;
 TRUNCATE entry;
+TRUNCATE news;
 SET foreign_key_checks = 1;
 
 
