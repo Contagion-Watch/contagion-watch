@@ -7,7 +7,7 @@
 
 <nav th:replace="partials/navbar :: navbar" />
 
-<h1 class="col page-title text-center">Corona Virus</h1>
+<h1 class="col page-title text-center" th:text="${disease.getName()}"></h1>
 
 <div class="row">
     <div class="col-4 p-5">
@@ -16,12 +16,49 @@
     <div class="col-7" style="margin-right: 1em">
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Disease Information</a>
-                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Statistics</a>
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Statistics</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Disease Information</a>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <table class="table table-hover">
+                    <thead th:switch="${isMalaria}">
+                        <tr th:case="${true}">
+                            <th scope="col">Date</th>
+                            <th scope="col">Location</th>
+                            <th scope="col">Total Cases</th>
+                            <th scope="col">Total Deaths</th>
+                        </tr>
+                        <tr th:case="${false}">
+                            <th scope="col">Date</th>
+                            <th scope="col">Location</th>
+                            <th scope="col">New Cases</th>
+                            <th scope="col">Total Cases</th>
+                            <th scope="col">New Deaths</th>
+                            <th scope="col">Total Deaths</th>
+                        </tr>
+                    </thead>
+
+                    <tbody th:switch="${isMalaria}">
+                        <tr th:case="${true}" th:each="entry : ${entries}">
+                            <td th:text="${entry.getDate()}"></td>
+                            <td th:text="${entry.location.getCountry()}"></td>
+                            <td th:text="${entry.getTotalCases()}"></td>
+                            <td th:text="${entry.getTotalDeaths()}"></td>
+                        </tr>
+                        <tr th:case="${false}" th:each="entry : ${entries}">
+                            <td th:text="${entry.getDate()}"></td>
+                            <td th:text="${entry.location.getCountry()}"></td>
+                            <td th:text="${entry.getNewCases()}"></td>
+                            <td th:text="${entry.getTotalCases()}"></td>
+                            <td th:text="${entry.getNewDeaths()}"></td>
+                            <td th:text="${entry.getTotalDeaths()}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <div class="accordion" id="diseaseInfo">
                     <div class="card">
                         <div class="card-header" id="headOne">
@@ -80,7 +117,6 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">These are the Corona Virus statistics.</div>
         </div>
     </div>
 
