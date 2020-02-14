@@ -17,12 +17,76 @@
     <div class="col-6">
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Statistics</a>
+                <a class="nav-item nav-link active" id="coronaTab" data-toggle="tab" href="#coronaStat" role="tab" aria-controls="coronaStat" aria-selected="true">Corona</a>
+                <a class="nav-item nav-link" id="ebolaTab" data-toggle="tab" href="#ebolaStat" role="tab" aria-controls="ebolaStat" aria-selected="false">Ebola</a>
+                <a class="nav-item nav-link" id="malariaTab" data-toggle="tab" href="#malariaStat" role="tab" aria-controls="malariaStat" aria-selected="false">Malaria</a>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">These are the Corona Virus statistics.</div>
+            <div class="tab-pane fade show active" id="coronaStat" role="tabpanel" aria-labelledby="coronaTab">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">New Cases</th>
+                        <th scope="col">Total Cases</th>
+                        <th scope="col">New Deaths</th>
+                        <th scope="col">Total Deaths</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="entry : ${corona}">
+                        <td th:text="${entry.getDate()}"></td>
+                        <td th:text="${entry.getNewCases()}"></td>
+                        <td th:text="${entry.getTotalCases()}"></td>
+                        <td th:text="${entry.getNewDeaths()}"></td>
+                        <td th:text="${entry.getTotalDeaths()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="ebolaStat" role="tabpanel" aria-labelledby="ebolaTab">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">New Cases</th>
+                        <th scope="col">Total Cases</th>
+                        <th scope="col">New Deaths</th>
+                        <th scope="col">Total Deaths</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="entry : ${ebola}">
+                        <td th:text="${entry.getDate()}"></td>
+                        <td th:text="${entry.getNewCases()}"></td>
+                        <td th:text="${entry.getTotalCases()}"></td>
+                        <td th:text="${entry.getNewDeaths()}"></td>
+                        <td th:text="${entry.getTotalDeaths()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="malariaStat" role="tabpanel" aria-labelledby="malariaTab">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Total Cases</th>
+                        <th scope="col">Total Deaths</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="entry : ${malaria}">
+                        <td th:text="${entry.getDate()}"></td>
+                        <td th:text="${entry.getTotalCases()}"></td>
+                        <td th:text="${entry.getTotalDeaths()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+
     </div>
 
 </div>

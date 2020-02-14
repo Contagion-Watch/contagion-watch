@@ -13,8 +13,6 @@ public class Location {
     @ManyToMany(mappedBy = "location")
     private List<Disease> disease;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "location")
-    private List<News> news;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "location")
     private List<Entry> entry;
 
     public Location(){
