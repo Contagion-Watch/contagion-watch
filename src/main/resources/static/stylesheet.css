@@ -66,6 +66,11 @@
     }
     .page-title{
         font-family: 'Black Ops One', cursive;
+        color: black;
+    }
+    .overpass-font{
+        font-family: 'Overpass', sans-serif;
+        color: black;
     }
     h5{
         font-family: 'Prata', serif;
@@ -109,6 +114,132 @@
         width: 100%;
         height: 15vw;
         object-fit: cover;
+    }
+
+    /* landing page title */
+    .shimmer {
+        font-family: 'Black Ops One', cursive;
+        font-weight: 300;
+        font-size: 3em;
+        display: inline;
+        margin-bottom: 0;
+    }
+    .shimmer {
+        text-align: center;
+        color: rgba(255,255,255,0.1);
+        background: -webkit-gradient(linear, left top, right top, from(#000000), to(#000000), color-stop(0.5, #fff));
+        background: -moz-gradient(linear, left top, right top, from(#000000), to(#000000), color-stop(0.5, #fff));
+        background: gradient(linear, left top, right top, from(#000000), to(#000000), color-stop(0.5, #fff));
+        -webkit-background-size: 125px 100%;
+        -moz-background-size: 125px 100%;
+        background-size: 125px 100%;
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        background-clip: text;
+        -webkit-animation-name: shimmer;
+        -moz-animation-name: shimmer;
+        animation-name: shimmer;
+        -webkit-animation-duration: 6s;
+        -moz-animation-duration: 6s;
+        animation-duration: 6s;
+        -webkit-animation-iteration-count: infinite;
+        -moz-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        background-repeat: no-repeat;
+        background-position: 0 0;
+        background-color: #000000;
+    }
+    @-moz-keyframes shimmer {
+        0% {
+            background-position: top left;
+        }
+        100% {
+            background-position: top right;
+        }
+    }
+    @-webkit-keyframes shimmer {
+        0% {
+            background-position: top left;
+        }
+        100% {
+            background-position: top right;
+        }
+    }
+    @-o-keyframes shimmer {
+        0% {
+            background-position: top left;
+        }
+        100% {
+            background-position: top right;
+        }
+    }
+    @keyframes shimmer {
+        0% {
+            background-position: top left;
+        }
+        100% {
+            background-position: top right;
+        }
+    }
+
+
+    /* landing image border */
+    .inline-svg {
+        /* Doesn't work at all in IE */
+
+        border: 10px solid white;
+        border-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50' height='50'><defs><linearGradient id='redgradient'><stop offset='0' stop-color='%23FFC14D'/><stop offset='0.362' stop-color='%23FF4834'/><stop offset='1' stop-color='%233B0300'/></linearGradient></defs><g id='Layer_1'><path d='M0,0 L50,0 L50,50 L0,50 L0,0 z' fill='url(%23redgradient)' width='100%' height='100%'/></g></svg>") 10% stretch;
+    }
+
+    /* landing video */
+
+    header {
+        position: relative;
+        background-color: black;
+        height: 75vh;
+        min-height: 25rem;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    header video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: 0;
+        -ms-transform: translateX(-50%) translateY(-50%);
+        -moz-transform: translateX(-50%) translateY(-50%);
+        -webkit-transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-50%);
+    }
+
+    header .container {
+        position: relative;
+        z-index: 2;
+    }
+
+    header .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: black;
+        opacity: 0.5;
+        z-index: 1;
+    }
+
+    @media (pointer: coarse) and (hover: none) {
+        header {
+            background: url('https://source.unsplash.com/XT5OInaElMw/1600x900') black no-repeat center center scroll;
+        }
+        header video {
+            display: none;
+        }
     }
 }
 

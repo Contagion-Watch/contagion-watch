@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head" >
+    <meta charset="UTF-8">
+    <title>Example</title>
+    <link href="https://fonts.googleapis.com/css?family=Overpass|Black+Ops+One|Eater|Prata&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+
+    </style>
+</head>
+
+
+<body>
+<nav th:replace="partials/navbar :: navbar" />
+
+
+
+<!--  DESKTOP -->
+<header>
+    <div class="overlay"></div>
+    <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+<!--        <source src="https://storage.googleapis.com/coverr-main/mp4/Mt_Baker.mp4" type="video/mp4">-->
+<!--        <source src="https://ak1.picdn.net/shutterstock/videos/1027809641/preview/stock-footage&#45;&#45;k-beautiful-sunrise-over-earth-realistic-earth-with-night-lights-from-space-high-quality-d.webm" type="video/webm">-->
+        <source src="https://www.videvo.net/videvo_files/converted/2016_05/preview/506401051_1.mov80298.webm" type="video/webm">
+    </video>
+    <div class="container h-100">
+        <div class="d-flex h-100 text-center align-items-center">
+            <div class="w-100 text-white">
+                <h1 class="display-3">Contagion Watch</h1>
+                <p class="lead mb-0">Track and learn about the deadliest diseases on Earth.</p>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="my-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-4 p-5">
+                <h1 class="page-title text-center d-none d-lg-block shimmerR">COVID-19</h1>
+                <img class="w-100 inline-svg" src="img/landing-image-one.jpg">
+            </div>
+
+            <div class="col-4 p-5">
+                <h1 class="page-title text-center d-none d-lg-block shimmerR">Malaria</h1>
+                <img class="w-100 inline-svg" src="img/landing-malaria-one.jpeg">
+            </div>
+
+            <div class="col-4 p-5">
+                <h1 class="page-title text-center d-none d-lg-block shimmerR">Ebola</h1>
+                <img class="w-100 inline-svg" src="img/landing-ebola-one.jpg">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+<!--<h1 class="page-title text-center d-none d-lg-block shimmer" style="font-size: 6em">Contagion Watch</h1>-->
+<!--<h3 class="overpass-font text-center d-none d-lg-block">Track and learn about the most deadliest diseases on Earth.</h3>-->
+<!--<div class="row">-->
+<!--    <div class="col-4 p-5">-->
+<!--        <h1 class="page-title text-center d-none d-lg-block shimmerR">Corona Virus</h1>-->
+<!--        <img class="w-100 inline-svg" src="img/landing-image-one.jpg">-->
+<!--    </div>-->
+
+<!--    <div class="col-4 p-5">-->
+<!--        <h1 class="page-title text-center d-none d-lg-block shimmerR">Malaria</h1>-->
+<!--        <img class="w-100 inline-svg" src="img/landing-malaria-one.jpeg">-->
+<!--    </div>-->
+
+<!--    <div class="col-4 p-5">-->
+<!--        <h1 class="page-title text-center d-none d-lg-block shimmerR">Ebola</h1>-->
+<!--        <img class="w-100 inline-svg" src="img/landing-ebola-one.jpg">-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<footer class="py-2 text-white-50 fixed-bottom d-none d-lg-block" style="background-color: black">-->
+<!--    <div class="container text-center">-->
+<!--        <small>Contagion Watch 2020</small>-->
+<!--    </div>-->
+<!--    <div class="container text-center">-->
+<!--        <small>Built by: Alexander Lee, Colin Marchbanks, Joshua Peters</small>-->
+<!--    </div>-->
+<!--</footer>-->
+
+<!-- MOBILE -->
+
+<h1 class="page-title text-center p-5 d-block d-lg-none" style="font-size: 5em">LANDING PAGE</h1>
+
+
+<footer class="py-2 text-white-50 fixed-bottom d-block d-lg-none" style="background-color: black">
+    <div class="container text-center">
+        <small style="font-size: 2em">Contagion Watch 2020</small>
+    </div>
+    <div class="container text-center">
+        <small style="font-size: 2em">Built by: Alexander Lee, Colin Marchbanks, Joshua Peters</small>
+    </div>
+</footer>
+<nav th:replace="partials/scripts :: scripts"/>
+
+</body>
+
+</html>
