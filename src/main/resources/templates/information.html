@@ -7,6 +7,20 @@
 
 <nav th:replace="partials/navbar :: navbar" />
 
+<div class="modal fade editModal" tabindex="-1" role="dialog" aria-labelledby="editModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit entry</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>
 <h1 class="col page-title text-center" th:text="${disease.getName()}"></h1>
 
 <div class="row">
@@ -41,20 +55,38 @@
                     </thead>
 
                     <tbody th:switch="${isMalaria}">
-                        <tr th:case="${true}" th:each="entry : ${entries}">
-                            <td th:text="${entry.getDate()}"></td>
-                            <td th:text="${entry.location.getCountry()}"></td>
-                            <td th:text="${entry.getTotalCases()}"></td>
-                            <td th:text="${entry.getTotalDeaths()}"></td>
-                        </tr>
-                        <tr th:case="${false}" th:each="entry : ${entries}">
-                            <td th:text="${entry.getDate()}"></td>
-                            <td th:text="${entry.location.getCountry()}"></td>
-                            <td th:text="${entry.getNewCases()}"></td>
-                            <td th:text="${entry.getTotalCases()}"></td>
-                            <td th:text="${entry.getNewDeaths()}"></td>
-                            <td th:text="${entry.getTotalDeaths()}"></td>
-                        </tr>
+                        <span th:case="${true}">
+                            <tr th:each="entry : ${entries}">
+                                <td th:text="${entry.getDate()}"></td>
+                                <td th:text="${entry.location.getCountry()}"></td>
+                                <td th:text="${entry.getTotalCases()}"></td>
+                                <td th:text="${entry.getTotalDeaths()}"></td>
+                                <td><button type="button" class="btn btn-warning" data-toggle="modal" data-target=".editModal">
+                                    Edit
+                                </button></td>
+
+                                <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target=".deleteModal">
+                                    Delete
+                                </button></td>
+                            </tr>
+                        </span>
+                        <span th:case="${false}">
+                            <tr th:each="entry : ${entries}">
+                                <td th:text="${entry.getDate()}"></td>
+                                <td th:text="${entry.location.getCountry()}"></td>
+                                <td th:text="${entry.getNewCases()}"></td>
+                                <td th:text="${entry.getTotalCases()}"></td>
+                                <td th:text="${entry.getNewDeaths()}"></td>
+                                <td th:text="${entry.getTotalDeaths()}"></td>
+                                <td><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal">
+                                    Edit
+                                </button></td>
+
+                                <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+                                    Delete
+                                </button></td>
+                            </tr>
+                        </span>
                     </tbody>
                 </table>
             </div>
@@ -142,7 +174,12 @@
 <nav th:replace="partials/footer :: footer" />
 
 <nav th:replace="partials/scripts :: scripts" />
-
+<!--<script>-->
+<!--    $('.editModal').on('show.bs.modal', function(event) {-->
+<!--        var -->
+<!--    })-->
+<!--</script>-->
 </body>
+
 
 </html>
