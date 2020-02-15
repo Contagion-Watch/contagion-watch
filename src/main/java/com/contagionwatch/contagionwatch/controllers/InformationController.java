@@ -2,6 +2,7 @@ package com.contagionwatch.contagionwatch.controllers;
 
 import com.contagionwatch.contagionwatch.dao.DiseaseRepository;
 import com.contagionwatch.contagionwatch.dao.EntryRepository;
+import com.contagionwatch.contagionwatch.dao.LocationRepository;
 import com.contagionwatch.contagionwatch.models.Entry;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,10 +14,12 @@ import java.util.List;
 public class InformationController {
     private final DiseaseRepository diseaseDao;
     private final EntryRepository entryDao;
+    private final LocationRepository locationDao;
 
-    public InformationController(DiseaseRepository diseaseDao, EntryRepository entryDao) {
+    public InformationController(DiseaseRepository diseaseDao, EntryRepository entryDao, LocationRepository locationDao) {
         this.diseaseDao = diseaseDao;
         this.entryDao = entryDao;
+        this.locationDao = locationDao;
     }
 
     @RequestMapping(value = "/information/{id}", method = RequestMethod.GET)
@@ -28,6 +31,10 @@ public class InformationController {
         model.addAttribute("disease", diseaseDao.getDiseaseById(id));
         List<Entry> entries = null;
         entries = entryDao.getAllByDisease_Id(id);
+        model.addAttribute("diseases", diseaseDao.findAll());
+        model.addAttribute("locations", locationDao.findAll());
+        model.addAttribute("entry", new Entry());
+        model.addAttribute("all", entryDao.findAll());
         model.addAttribute("entries", entries);
         model.addAttribute("isMalaria", isMalaria);
         return "information";
