@@ -16,12 +16,45 @@
                     <span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-
+                <form th:action="@{'/edit'}" th:method="post" th:object="${entry}">
+                    <div class="form-group">
+                        <input th:field="*{id}" id="edit" class="form-control" name="edit" type="hidden">
+                    </div>
+                    <div class="form-group">
+                        <label for="editDate">Date</label>
+                        <input th:field="*{date}" id="editDate" class="form-control" type="date">
+                    </div>
+                    <h6>Select Disease</h6>
+                    <select th:field = "*{disease}" class="form-control disease-select">
+                        <option th:each="disease : ${diseases}" th:value="${disease.getId()}" th:text="${disease.getName()}"></option>
+                    </select>
+                    <h6>Select Location</h6>
+                    <select th:field="*{location}" class="form-control location-select">
+                        <option th:each="location : ${locations}" th:value="${location.getId()}" th:text="${location.getCountry()}"></option>
+                    </select>
+                    <div class="form-group">
+                        <label for="editTotalCases">Total Cases</label>
+                        <input th:value="*{totalCases}" type="number" class="form-control" id="editTotalCases" name="editTotalCases" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                    </div>
+                    <div class="form-group">
+                        <label for="editNewCases">New Cases</label>
+                        <input th:value="*{newCases}" type="number" class="form-control" id="editNewCases" name="editNewCases" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                    </div>
+                    <div class="form-group">
+                        <label for="editTotalDeaths">Total Deaths</label>
+                        <input th:value="*{totalDeaths}" type="number" class="form-control" id="editTotalDeaths" name="editTotalDeaths" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                    </div>
+                    <div class="form-group">
+                        <label for="editNewDeaths">New Deaths</label>
+                        <input th:value="*{newDeaths}" type="number" class="form-control" id="editNewDeaths" name="editNewDeaths" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
 <h1 class="col page-title text-center" th:text="${disease.getName()}"></h1>
+<input type="hidden" id="entryAttr" name="entryAttr" th:value="${all}">
 
 <div class="row">
     <div class="col-4 p-5">
@@ -61,28 +94,28 @@
                                 <td th:text="${entry.location.getCountry()}"></td>
                                 <td th:text="${entry.getTotalCases()}"></td>
                                 <td th:text="${entry.getTotalDeaths()}"></td>
-                                <td><button type="button" class="btn btn-warning" data-toggle="modal" data-target=".editModal">
+                                <td><button type="button" class="btn btn-warning editButton" data-toggle="modal" data-target=".editModal" th:id="${entry.getId()}">
                                     Edit
                                 </button></td>
 
-                                <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target=".deleteModal">
+                                <td><button type="button" class="btn btn-danger deleteButton" data-toggle="modal" data-target=".deleteModal" th:id="${entry.getId()}">
                                     Delete
                                 </button></td>
                             </tr>
                         </span>
                         <span th:case="${false}">
                             <tr th:each="entry : ${entries}">
-                                <td th:text="${entry.getDate()}"></td>
+                                <td th:text="${entry.getDate()}" th:value="${entry.getDate()}"></td>
                                 <td th:text="${entry.location.getCountry()}"></td>
-                                <td th:text="${entry.getNewCases()}"></td>
-                                <td th:text="${entry.getTotalCases()}"></td>
-                                <td th:text="${entry.getNewDeaths()}"></td>
-                                <td th:text="${entry.getTotalDeaths()}"></td>
-                                <td><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal">
+                                <td th:text="${entry.getNewCases()}" ></td>
+                                <td th:text="${entry.getTotalCases()}" ></td>
+                                <td th:text="${entry.getNewDeaths()}" ></td>
+                                <td th:text="${entry.getTotalDeaths()}" ></td>
+                                <td><button type="button" class="btn btn-warning editButton" data-toggle="modal" data-target=".editModal" th:id="${entry.getId()}">
                                     Edit
                                 </button></td>
 
-                                <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+                                <td><button type="button" class="btn btn-danger deleteButton" data-toggle="modal" data-target=".deleteModal" th:id="${entry.getId()}">
                                     Delete
                                 </button></td>
                             </tr>
@@ -174,11 +207,20 @@
 <nav th:replace="partials/footer :: footer" />
 
 <nav th:replace="partials/scripts :: scripts" />
-<!--<script>-->
-<!--    $('.editModal').on('show.bs.modal', function(event) {-->
-<!--        var -->
-<!--    })-->
-<!--</script>-->
+<script>
+    $('.editModal').on('show.bs.modal', function(event) {
+        let button = $(event.relatedTarget)
+        let number = button.attr('id')
+        let modal = $(this)
+        let date = $('#thisDate');
+        let all = $('#entryAttr').val()
+
+        console.log(number)
+        all.forEach(function(obj){
+            console.log(obj)
+        })
+    })
+</script>
 </body>
 
 
