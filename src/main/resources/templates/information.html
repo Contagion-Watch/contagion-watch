@@ -18,18 +18,14 @@
             <div class="modal-body">
                 <form th:action="@{'/edit'}" th:method="post" th:object="${entry}">
                     <div class="form-group">
-                        <input th:field="*{id}" id="edit" class="form-control" name="edit" type="hidden">
+                        <input th:field="*{id}" id="editId" class="form-control" name="edit" type="hidden">
                     </div>
                     <div class="form-group">
                         <label for="editDate">Date</label>
                         <input th:field="*{date}" id="editDate" class="form-control" type="date">
                     </div>
-                    <h6>Select Disease</h6>
-                    <select th:field = "*{disease}" class="form-control disease-select">
-                        <option th:each="disease : ${diseases}" th:value="${disease.getId()}" th:text="${disease.getName()}"></option>
-                    </select>
                     <h6>Select Location</h6>
-                    <select th:field="*{location}" class="form-control location-select">
+                    <select th:field="*{location}" id = "editLocation" class="form-control location-select">
                         <option th:each="location : ${locations}" th:value="${location.getId()}" th:text="${location.getCountry()}"></option>
                     </select>
                     <div class="form-group">
@@ -111,7 +107,7 @@
                                 <td th:text="${entry.getTotalCases()}" ></td>
                                 <td th:text="${entry.getNewDeaths()}" ></td>
                                 <td th:text="${entry.getTotalDeaths()}" ></td>
-                                <td><button type="button" class="btn btn-warning editButton" data-toggle="modal" data-target=".editModal" th:id="${entry.getId()}">
+                                <td><button type="button" class="btn btn-warning editButton" data-toggle="modal" data-target=".editModal" th:attr="data-date = ${entry.getDate()}, data-location = ${entry.location.getId()}, data-newcases = ${entry.newCases}, data-totalcases = ${entry.totalCases}, data-newdeaths = ${entry.newDeaths}, data-totaldeaths = ${entry.totalDeaths}" th:id="${entry.getId()}">
                                     Edit
                                 </button></td>
 
@@ -156,7 +152,7 @@
                     <div class="card">
                         <div class="card-header" id="headThree">
                             <h2 class="mb-0">
-                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#transmissions" aria-expanded="true" aria-controls="transmissions">
+                                <button id="modalDiseaseField" class="btn btn-link" type="button" data-toggle="collapse" data-target="#transmissions" aria-expanded="true" aria-controls="transmissions">
                                     How can this disease be transmitted?
                                 </button>
                             </h2>
@@ -208,17 +204,44 @@
 
 <nav th:replace="partials/scripts :: scripts" />
 <script>
-    $('.editModal').on('show.bs.modal', function(event) {
-        let button = $(event.relatedTarget)
-        let number = button.attr('id')
-        let modal = $(this)
-        let date = $('#thisDate');
-        let all = $('#entryAttr').val()
 
-        console.log(number)
-        all.forEach(function(obj){
-            console.log(obj)
-        })
+    function GetEntries() {
+        debugger;
+        $.ajax({
+            type: "GET",
+            url: "Entry/",
+            data: { userId: Id },
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                debugger;
+                alert(result)
+            },
+            error: function (response) {
+                debugger;
+                alert('eror');
+            }
+        });
+
+    }
+
+    $('.editModal').on('show.bs.modal', function(event) {
+        let button = $(event.relatedTarget);
+        let number = button.attr('id');
+        $("#editDate").val(button.data('date'));
+        $("#editLocation").val(button.data('location'));
+        $("#editNewCases").val(button.data('newcases'));
+        $("#editTotalCases").val(button.data('totalcases'));
+        $("#editNewDeaths").val(button.data('newdeaths'));
+        $("#editTotalDeaths").val(button.data('totaldeaths'));
+        console.log(number);
+        console.log(button.data('date'));
+        console.log(button.data('location'));
+        console.log(button.data('newcases'));
+        console.log(button.data('totalcases'));
+        console.log(button.data('newdeaths'));
+        console.log(button.data('totaldeaths'));
+
     })
 </script>
 </body>

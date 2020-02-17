@@ -4,10 +4,16 @@ import com.contagionwatch.contagionwatch.dao.DiseaseRepository;
 import com.contagionwatch.contagionwatch.dao.EntryRepository;
 import com.contagionwatch.contagionwatch.dao.LocationRepository;
 import com.contagionwatch.contagionwatch.models.Entry;
+import com.mysql.cj.xdevapi.JsonArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.json.*;
+import org.json.JSONException;
 
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -34,10 +40,11 @@ public class InformationController {
         model.addAttribute("diseases", diseaseDao.findAll());
         model.addAttribute("locations", locationDao.findAll());
         model.addAttribute("entry", new Entry());
-        model.addAttribute("all", entryDao.findAll());
+        model.addAttribute("all", diseaseDao.getDiseaseById(id).getEntry());
         model.addAttribute("entries", entries);
         model.addAttribute("isMalaria", isMalaria);
         return "information";
     }
 
 }
+

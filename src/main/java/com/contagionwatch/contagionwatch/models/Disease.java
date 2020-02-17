@@ -109,4 +109,20 @@ public class Disease {
     public void setTreatments(String treatments) {
         this.treatments = treatments;
     }
+
+    public List<Location> getLocation() {
+        return location;
+    }
+
+    public void setLocation(List<Location> location) {
+        this.location = location;
+    }
+
+    public List<Entry> getEntry() {
+        return entry;
+    }
+
+    public void setEntry(List<Entry> entry) {
+        this.entry = entry;
+    }
 }
