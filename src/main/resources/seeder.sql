@@ -1,3 +1,5 @@
+
+
 USE contagion_db;
 
 SET foreign_key_checks = 0;
@@ -5,6 +7,10 @@ TRUNCATE disease;
 TRUNCATE location;
 TRUNCATE entry;
 SET foreign_key_checks = 1;
+
+TRUNCATE admin;
+INSERT INTO admin(password, username) VALUE ('$2a$10$IIezEhLrgD60KQyjefcgCO9ZIwGLg/SCzEgTK0TnJqJLf5/Pebyza','contagion-admin');
+
 
 
 INSERT INTO location (country) VALUES

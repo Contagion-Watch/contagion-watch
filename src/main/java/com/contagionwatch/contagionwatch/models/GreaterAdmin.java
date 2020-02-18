@@ -19,12 +19,12 @@ public class GreaterAdmin extends Admin implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return super.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return super.getUsername();
     }
 
     @Override
