@@ -16,14 +16,18 @@
                 <label for="selectDate">Date</label>
                 <input th:field="*{date}" id="selectDate" class="form-control" type="date">
             </div>
-            <h6>Select Disease</h6>
-            <select th:field = "*{disease}" class="form-control disease-select">
-                <option th:each="disease : ${diseases}" th:value="${disease.getId()}" th:text="${disease.getName()}"></option>
-            </select>
-            <h6>Select Location</h6>
-            <select th:field="*{location}" class="form-control location-select">
-                <option th:each="location : ${locations}" th:value="${location.getId()}" th:text="${location.getCountry()}"></option>
-            </select>
+            <div class="form-group">
+                <label for="chooseDisease">Select Disease</label>
+                <select id="chooseDisease" th:field = "*{disease}" class="form-control disease-select">
+                    <option th:each="disease : ${diseases}" th:value="${disease.getId()}" th:text="${disease.getName()}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="chooseLocation">Select Location</label>
+                <select id="chooseLocation" th:field="*{location}" class="form-control location-select">
+                    <option th:each="location : ${locations}" th:value="${location.getId()}" th:text="${location.getCountry()}"></option>
+                </select>
+            </div>
             <div class="form-group">
                 <label for="totalCases">Total Cases</label>
                 <input th:value="*{totalCases}" type="number" class="form-control" id="totalCases" name="totalCases" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
