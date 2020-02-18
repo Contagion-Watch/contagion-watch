@@ -7,20 +7,27 @@
 
 <nav th:replace="partials/navbar :: navbar" />
 
+<div th:if="${param.error}">
+    Invalid Username and Password.
+</div>
+<div th:if="${param.logout}">
+    You have been logged out.
+</div>
+
 
 <!--  DESKTOP -->
     <h1 class="page-title text-center p-5 d-none d-lg-block">ADMIN LOGIN - RESTRICTED ACCESS</h1>
 
-    <form class="text-center p-5 d-none d-lg-block">
+    <form class="text-center p-5 d-none d-lg-block" th:action="@{/login}" method="post">
         <div class="form-group">
-            <label for="exampleInputEmail1">Admin Username</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <label for="usernameDT">Admin Username</label>
+            <input type="text" class="form-control" name="username" id="usernameDT" aria-describedby="emailHelp">
         </div>
         <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
+            <label for="passwordDT">Password</label>
+            <input type="password" name="password" class="form-control" id="passwordDT">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" value="Log In"class="btn btn-primary">Submit</button>
     </form>
 
 
@@ -40,14 +47,14 @@
 
 <form class="text-center p-5 d-block d-lg-none">
     <div class="form-group">
-        <label for="exampleInputEmail1" style="font-size: 5em">Admin Username</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" style="height: 7em">
+        <label for="usernameMB" style="font-size: 5em">Admin Username</label>
+        <input type="text" class="form-control" id="usernameMB" name="username" aria-describedby="emailHelp" style="height: 7em">
     </div>
     <div class="form-group">
-        <label for="exampleInputPassword1" style="font-size: 5em">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" style="height: 7em">
+        <label for="passwordMB" style="font-size: 5em">Password</label>
+        <input type="password" class="form-control" name="password" id="passwordMB" style="height: 7em">
     </div>
-    <button type="submit" class="btn btn-primary btn-lg" style="font-size: 5em; border-radius: 25px; margin-top: 1em">Submit</button>
+    <button type="submit" value="Log In" class="btn btn-primary btn-lg" style="font-size: 5em; border-radius: 25px; margin-top: 1em">Submit</button>
 </form>
 
 
