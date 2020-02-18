@@ -40,7 +40,6 @@ public class InformationController {
         model.addAttribute("diseases", diseaseDao.findAll());
         model.addAttribute("locations", locationDao.findAll());
         model.addAttribute("entry", new Entry());
-        model.addAttribute("all", diseaseDao.getDiseaseById(id).getEntry());
         model.addAttribute("entries", entries);
         model.addAttribute("isMalaria", isMalaria);
         return "information";

@@ -7,4 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 public interface DiseaseRepository extends JpaRepository<Disease, Long> {
     @Query
     Disease getDiseaseById(long id);
+    @Query
+    Disease getDiseasesByIdBetween(long id, long id1);
 }

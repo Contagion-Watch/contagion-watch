@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class EditController {
@@ -16,10 +17,18 @@ public class EditController {
     }
 
     @RequestMapping(path = "/edit", method = RequestMethod.POST)
-    public String editEntry(@ModelAttribute Entry entry, @ModelAttribute long id){
+    public String editEntry(@ModelAttribute Entry entry, @RequestParam(name = "whichDiseaseEdit") long id){
         if(entry.getDate() != null && entry.getDisease() != null && entry.getLocation() != null ) {
             entryDao.save(entry);
         }
         return "redirect:/information/" + id;
+    }
+
+    @RequestMapping(path = "/editL", method = RequestMethod.POST)
+    public String editLEntry(@ModelAttribute Entry entry, @RequestParam(name = "whichLocationEdit") long id){
+        if(entry.getDate() != null && entry.getDisease() != null && entry.getLocation() != null ) {
+            entryDao.save(entry);
+        }
+        return "redirect:/location/" + id;
     }
 }

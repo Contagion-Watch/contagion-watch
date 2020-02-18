@@ -1,5 +1,6 @@
 package com.contagionwatch.contagionwatch.controllers;
 
+import com.contagionwatch.contagionwatch.dao.DiseaseRepository;
 import com.contagionwatch.contagionwatch.dao.EntryRepository;
 import com.contagionwatch.contagionwatch.dao.LocationRepository;
 import com.contagionwatch.contagionwatch.models.Entry;
@@ -15,10 +16,12 @@ import java.util.List;
 public class LocationController {
     private final EntryRepository entryDao;
     private final LocationRepository locationDao;
+    private final DiseaseRepository diseaseDao;
 
-    public LocationController(EntryRepository entryDao, LocationRepository locationDao) {
+    public LocationController(EntryRepository entryDao, LocationRepository locationDao, DiseaseRepository diseaseDao) {
         this.entryDao = entryDao;
         this.locationDao = locationDao;
+        this.diseaseDao = diseaseDao;
     }
 
     @RequestMapping(value = "/location/{id}", method = RequestMethod.GET)
@@ -29,6 +32,9 @@ public class LocationController {
         corona = entryDao.getAllByDisease_IdAndLocation_Id(1L, id);
         ebola = entryDao.getAllByDisease_IdAndLocation_Id(2L, id);
         malaria = entryDao.getAllByDisease_IdAndLocation_Id(3L, id);
+        model.addAttribute("diseases", diseaseDao.findAll());
+        model.addAttribute("locations", locationDao.findAll());
+        model.addAttribute("entry", new Entry());
         model.addAttribute("corona", corona);
         model.addAttribute("ebola", ebola);
         model.addAttribute("malaria", malaria);

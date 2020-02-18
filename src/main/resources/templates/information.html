@@ -11,46 +11,123 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Edit entry</h5>
+                <h5 class="modal-title">Edit Entry</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <form th:action="@{'/edit'}" th:method="post" th:object="${entry}">
                     <div class="form-group">
-                        <input th:field="*{id}" id="editId" class="form-control" name="edit" type="hidden">
+                        <input th:field="*{id}" id="editId" class="form-control" type="hidden">
                     </div>
                     <div class="form-group">
                         <label for="editDate">Date</label>
                         <input th:field="*{date}" id="editDate" class="form-control" type="date">
                     </div>
-                    <h6>Select Location</h6>
-                    <select th:field="*{location}" id = "editLocation" class="form-control location-select">
-                        <option th:each="location : ${locations}" th:value="${location.getId()}" th:text="${location.getCountry()}"></option>
-                    </select>
+                    <div class="form-group">
+                        <label for="editLocation">Select Location</label>
+                        <select th:field="*{location}" id = "editLocation" class="form-control location-select">
+                            <option th:each="location : ${locations}" th:value="${location.getId()}" th:text="${location.getCountry()}"></option>
+                        </select>
+                        <select th:field="*{disease}" id = "editDisease" class="form-control disease-select" style="display: none">
+                            <option th:each="disease : ${diseases}" th:value="${disease.getId()}" th:text="${disease.getName()}"></option>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label for="editTotalCases">Total Cases</label>
-                        <input th:value="*{totalCases}" type="number" class="form-control" id="editTotalCases" name="editTotalCases" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                        <input th:field="*{totalCases}" type="number" class="form-control" id="editTotalCases" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
                     </div>
                     <div class="form-group">
                         <label for="editNewCases">New Cases</label>
-                        <input th:value="*{newCases}" type="number" class="form-control" id="editNewCases" name="editNewCases" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                        <input th:field="*{newCases}" type="number" class="form-control" id="editNewCases" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
                     </div>
                     <div class="form-group">
                         <label for="editTotalDeaths">Total Deaths</label>
-                        <input th:value="*{totalDeaths}" type="number" class="form-control" id="editTotalDeaths" name="editTotalDeaths" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                        <input th:field="*{totalDeaths}" type="number" class="form-control" id="editTotalDeaths" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
                     </div>
                     <div class="form-group">
                         <label for="editNewDeaths">New Deaths</label>
-                        <input th:value="*{newDeaths}" type="number" class="form-control" id="editNewDeaths" name="editNewDeaths" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                        <input th:field="*{newDeaths}" type="number" class="form-control" id="editNewDeaths" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" id="whichDiseaseEdit" name="whichDiseaseEdit">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-warning">Save</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+<div class="modal fade editModalMalaria" tabindex="-1" role="dialog" aria-labelledby="editModalMalaria" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Entry</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{'/edit'}" th:method="post" th:object="${entry}">
+                    <div class="form-group">
+                        <input th:field="*{id}" id="editIdMalaria" class="form-control" type="hidden">
+                    </div>
+                    <div class="form-group">
+                        <label for="editDate">Date</label>
+                        <input th:field="*{date}" id="editDateMalaria" class="form-control" type="date">
+                    </div>
+                    <div class="form-group">
+                        <label for="editLocation">Select Location</label>
+                        <select th:field="*{location}" id = "editLocationMalaria" class="form-control location-select">
+                            <option th:each="location : ${locations}" th:value="${location.getId()}" th:text="${location.getCountry()}"></option>
+                        </select>
+                        <select th:field="*{disease}" id = "editDiseaseMalaria" class="form-control disease-select" style="display: none">
+                            <option th:each="disease : ${diseases}" th:value="${disease.getId()}" th:text="${disease.getName()}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editTotalCases">Total Cases</label>
+                        <input th:field="*{totalCases}" type="number" class="form-control" id="editTotalCasesMalaria" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                    </div>
+                    <div class="form-group">
+                        <label for="editTotalDeaths">Total Deaths</label>
+                        <input th:field="*{totalDeaths}" type="number" class="form-control" id="editTotalDeathsMalaria" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" id="whichDiseaseEditMalaria" name="whichDiseaseEdit">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-warning">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Delete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this entry?</p>
+            </div>
+            <div class="modal-footer">
+                <form th:action="@{'/delete'}" th:method="post">
+                    <input type="hidden" id="whichDiseaseDelete" name="whichDiseaseDelete" th:value="${whichDisease}">
+                    <input type="hidden" id="deleteId" name="deleteId">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <h1 class="col page-title text-center" th:text="${disease.getName()}"></h1>
-<input type="hidden" id="entryAttr" name="entryAttr" th:value="${all}">
 
 <div class="row">
     <div class="col-4 p-5">
@@ -90,7 +167,7 @@
                                 <td th:text="${entry.location.getCountry()}"></td>
                                 <td th:text="${entry.getTotalCases()}"></td>
                                 <td th:text="${entry.getTotalDeaths()}"></td>
-                                <td><button type="button" class="btn btn-warning editButton" data-toggle="modal" data-target=".editModal" th:id="${entry.getId()}">
+                                <td><button type="button" class="btn btn-warning editButton" data-toggle="modal" data-target=".editModalMalaria" th:attr="data-date = ${entry.getDate()}, data-location = ${entry.location.getId()}, data-disease = ${entry.disease.getId()},  data-totalcases = ${entry.totalCases}, data-totaldeaths = ${entry.totalDeaths}" th:id="${entry.getId()}">
                                     Edit
                                 </button></td>
 
@@ -107,7 +184,7 @@
                                 <td th:text="${entry.getTotalCases()}" ></td>
                                 <td th:text="${entry.getNewDeaths()}" ></td>
                                 <td th:text="${entry.getTotalDeaths()}" ></td>
-                                <td><button type="button" class="btn btn-warning editButton" data-toggle="modal" data-target=".editModal" th:attr="data-date = ${entry.getDate()}, data-location = ${entry.location.getId()}, data-newcases = ${entry.newCases}, data-totalcases = ${entry.totalCases}, data-newdeaths = ${entry.newDeaths}, data-totaldeaths = ${entry.totalDeaths}" th:id="${entry.getId()}">
+                                <td><button type="button" class="btn btn-warning editButton" data-toggle="modal" data-target=".editModal" th:attr="data-date = ${entry.getDate()}, data-location = ${entry.location.getId()}, data-disease = ${entry.disease.getId()}, data-newcases = ${entry.newCases}, data-totalcases = ${entry.totalCases}, data-newdeaths = ${entry.newDeaths}, data-totaldeaths = ${entry.totalDeaths}" th:id="${entry.getId()}">
                                     Edit
                                 </button></td>
 
@@ -204,36 +281,18 @@
 
 <nav th:replace="partials/scripts :: scripts" />
 <script>
-
-    function GetEntries() {
-        debugger;
-        $.ajax({
-            type: "GET",
-            url: "Entry/",
-            data: { userId: Id },
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            success: function (result) {
-                debugger;
-                alert(result)
-            },
-            error: function (response) {
-                debugger;
-                alert('eror');
-            }
-        });
-
-    }
-
     $('.editModal').on('show.bs.modal', function(event) {
         let button = $(event.relatedTarget);
         let number = button.attr('id');
+        $("#editId").val(number);
         $("#editDate").val(button.data('date'));
         $("#editLocation").val(button.data('location'));
+        $("#editDisease").val(button.data('disease'));
         $("#editNewCases").val(button.data('newcases'));
         $("#editTotalCases").val(button.data('totalcases'));
         $("#editNewDeaths").val(button.data('newdeaths'));
         $("#editTotalDeaths").val(button.data('totaldeaths'));
+        $('#whichDisease').val(button.data('disease'));
         console.log(number);
         console.log(button.data('date'));
         console.log(button.data('location'));
@@ -242,6 +301,24 @@
         console.log(button.data('newdeaths'));
         console.log(button.data('totaldeaths'));
 
+    })
+
+    $('.editModalMalaria').on('show.bs.modal', function(event) {
+        let button = $(event.relatedTarget);
+        let number = button.attr('id');
+        $("#editIdMalaria").val(number);
+        $("#editDateMalaria").val(button.data('date'));
+        $("#editLocationMalaria").val(button.data('location'));
+        $("#editDiseaseMalaria").val(button.data('disease'));
+        $("#editTotalCasesMalaria").val(button.data('totalcases'));
+        $("#editTotalDeathsMalaria").val(button.data('totaldeaths'));
+        $('#whichDiseaseEditMalaria').val(button.data('disease'));
+    })
+
+    $('.deleteModal').on('show.bs.modal', function(event) {
+        let button = $(event.relatedTarget);
+        let number = button.attr('id');
+        $("#deleteId").val(number);
     })
 </script>
 </body>
