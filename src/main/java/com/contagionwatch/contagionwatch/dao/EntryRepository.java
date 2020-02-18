@@ -10,7 +10,5 @@ public interface EntryRepository extends JpaRepository<Entry, Long> {
     @Query
     List<Entry> getAllByDisease_Id(long id);
     @Query
-    List<Entry> getAllByLocation_Id(long id);
-    @Query
     List<Entry> getAllByDisease_IdAndLocation_Id(long id, long id2);
 }

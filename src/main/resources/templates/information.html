@@ -50,7 +50,7 @@
                         <input th:field="*{newDeaths}" type="number" class="form-control" id="editNewDeaths" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
                     </div>
                     <div class="modal-footer">
-                        <input type="hidden" id="whichDiseaseEdit" name="whichDiseaseEdit">
+                        <input type="hidden" id="whichDiseaseEdit" name="whichDiseaseEdit" th:value="${whichDisease}">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-warning">Save</button>
                     </div>

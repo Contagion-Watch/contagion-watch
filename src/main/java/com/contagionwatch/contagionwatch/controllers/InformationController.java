@@ -42,6 +42,7 @@ public class InformationController {
         model.addAttribute("entry", new Entry());
         model.addAttribute("entries", entries);
         model.addAttribute("isMalaria", isMalaria);
+        model.addAttribute("whichDisease", id);
         return "information";
     }
 
