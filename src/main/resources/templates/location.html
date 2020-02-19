@@ -171,6 +171,59 @@
                     </tr>
                     </tbody>
                 </table>
+                <nav class="text-center">
+                    <ul class="pagination">
+                        <li th:class="${corona.isFirst()}? 'disabled' : ''">
+                            <span th:if='${corona.isFirst()}'>← First</span>
+                            <a th:if='${not corona.isFirst()}' th:href="'?page=0'">
+                                ← First
+                            </a>
+                        </li>
+                        <li th:class="${corona.hasPrevious()}? '' : 'disabled'">
+                            <span th:if='${not corona.hasPrevious()}'>«</span>
+                            <a
+                                    th:if='${corona.hasPrevious()}'
+                                    th:href="'?page=' + ${corona.getNumber() - 1}"
+                                    title='Go to previous page'
+                            >
+                                «
+                            </a>
+                        </li>
+                        <-- Show a link to each page -->
+                        <li th:each="i : ${#numbers.sequence(1, corona.getTotalPages())}">
+                <span
+                        th:if='${(i - 1) == param.page}'
+                        th:text='${i}'>
+                    1
+                </span>
+                            <a
+                                    th:if='${not ((i - 1) == param.page)}'
+                                    th:href="'?page=' + ${(i -1)}"
+                            >
+                                <span th:text='${i}'>1</span>
+                            </a>
+                        </li>
+                        <li th:class="${corona.hasNext()} ? '' : 'disabled'">
+                            <span th:if='${not corona.hasNext()}'>»</span>
+                            <a
+                                    th:if='${corona.hasNext()}'
+                                    th:href="'?page=' + ${corona.getNumber() + 1}"
+                                    title='Go to next page'
+                            >
+                                »
+                            </a>
+                        </li>
+                        <li th:class="${corona.isLast()}? 'disabled' : ''">
+                            <span th:if='${corona.isLast()}'>Last →</span>
+                            <a
+                                    th:if='${not corona.isLast()}'
+                                    th:href="'?page=' + ${corona.getTotalPages() - 1}"
+                            >
+                                Last →
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
             <div class="tab-pane fade" id="ebolaStat" role="tabpanel" aria-labelledby="ebolaTab">
                 <table class="table table-hover">
@@ -200,6 +253,59 @@
                     </tr>
                     </tbody>
                 </table>
+                <nav class="text-center">
+                    <ul class="pagination">
+                        <li th:class="${ebola.isFirst()}? 'disabled' : ''">
+                            <span th:if='${ebola.isFirst()}'>← First</span>
+                            <a th:if='${not ebola.isFirst()}' th:href="'?page=0'">
+                                ← First
+                            </a>
+                        </li>
+                        <li th:class="${ebola.hasPrevious()}? '' : 'disabled'">
+                            <span th:if='${not ebola.hasPrevious()}'>«</span>
+                            <a
+                                    th:if='${ebola.hasPrevious()}'
+                                    th:href="'?page=' + ${ebola.getNumber() - 1}"
+                                    title='Go to previous page'
+                            >
+                                «
+                            </a>
+                        </li>
+                        <-- Show a link to each page -->
+                        <li th:each="i : ${#numbers.sequence(1, ebola.getTotalPages())}">
+                <span
+                        th:if='${(i - 1) == param.page}'
+                        th:text='${i}'>
+                    1
+                </span>
+                            <a
+                                    th:if='${not ((i - 1) == param.page)}'
+                                    th:href="'?page=' + ${(i -1)}"
+                            >
+                                <span th:text='${i}'>1</span>
+                            </a>
+                        </li>
+                        <li th:class="${ebola.hasNext()} ? '' : 'disabled'">
+                            <span th:if='${not ebola.hasNext()}'>»</span>
+                            <a
+                                    th:if='${ebola.hasNext()}'
+                                    th:href="'?page=' + ${ebola.getNumber() + 1}"
+                                    title='Go to next page'
+                            >
+                                »
+                            </a>
+                        </li>
+                        <li th:class="${ebola.isLast()}? 'disabled' : ''">
+                            <span th:if='${ebola.isLast()}'>Last →</span>
+                            <a
+                                    th:if='${not ebola.isLast()}'
+                                    th:href="'?page=' + ${ebola.getTotalPages() - 1}"
+                            >
+                                Last →
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
             <div class="tab-pane fade" id="malariaStat" role="tabpanel" aria-labelledby="malariaTab">
                 <table class="table table-hover">
@@ -225,6 +331,59 @@
                     </tr>
                     </tbody>
                 </table>
+                <nav class="text-center">
+                    <ul class="pagination">
+                        <li th:class="${malaria.isFirst()}? 'disabled' : ''">
+                            <span th:if='${malaria.isFirst()}'>← First</span>
+                            <a th:if='${not malaria.isFirst()}' th:href="'?page=0'">
+                                ← First
+                            </a>
+                        </li>
+                        <li th:class="${malaria.hasPrevious()}? '' : 'disabled'">
+                            <span th:if='${not malaria.hasPrevious()}'>«</span>
+                            <a
+                                    th:if='${malaria.hasPrevious()}'
+                                    th:href="'?page=' + ${malaria.getNumber() - 1}"
+                                    title='Go to previous page'
+                            >
+                                «
+                            </a>
+                        </li>
+                        <-- Show a link to each page -->
+                        <li th:each="i : ${#numbers.sequence(1, malaria.getTotalPages())}">
+                <span
+                        th:if='${(i - 1) == param.page}'
+                        th:text='${i}'>
+                    1
+                </span>
+                            <a
+                                    th:if='${not ((i - 1) == param.page)}'
+                                    th:href="'?page=' + ${(i -1)}"
+                            >
+                                <span th:text='${i}'>1</span>
+                            </a>
+                        </li>
+                        <li th:class="${malaria.hasNext()} ? '' : 'disabled'">
+                            <span th:if='${not malaria.hasNext()}'>»</span>
+                            <a
+                                    th:if='${malaria.hasNext()}'
+                                    th:href="'?page=' + ${malaria.getNumber() + 1}"
+                                    title='Go to next page'
+                            >
+                                »
+                            </a>
+                        </li>
+                        <li th:class="${malaria.isLast()}? 'disabled' : ''">
+                            <span th:if='${malaria.isLast()}'>Last →</span>
+                            <a
+                                    th:if='${not malaria.isLast()}'
+                                    th:href="'?page=' + ${malaria.getTotalPages() - 1}"
+                            >
+                                Last →
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
 

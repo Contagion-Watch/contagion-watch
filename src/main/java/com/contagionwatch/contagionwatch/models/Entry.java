@@ -1,5 +1,6 @@
 package com.contagionwatch.contagionwatch.models;
 import javax.persistence.*;
+import java.awt.print.Pageable;
 import java.sql.Date;
 
 @Entity
@@ -93,4 +94,5 @@ public class Entry {
     public void setLocation(Location location) {
         this.location = location;
     }
+
 }
