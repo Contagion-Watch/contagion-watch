@@ -1,4 +1,6 @@
 package com.contagionwatch.contagionwatch.models;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.awt.print.Pageable;
 import java.sql.Date;
@@ -22,6 +24,7 @@ public class Entry {
 
     @ManyToOne
     @JoinColumn (name = "disease_id")
+    @JsonBackReference
     private Disease disease;
 
     @ManyToOne

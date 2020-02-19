@@ -1,4 +1,6 @@
 package com.contagionwatch.contagionwatch.models;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -30,6 +32,7 @@ public class Disease {
     private List<Location> location;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "disease")
+    @JsonManagedReference
     private List<Entry> entry;
 
     public Disease(){
