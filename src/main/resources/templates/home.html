@@ -1,19 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="head" >
-    <meta charset="UTF-8">
-    <title>Example</title>
-    <link href="https://fonts.googleapis.com/css?family=Overpass|Black+Ops+One|Eater|Prata&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="stylesheet.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src='https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css' rel='stylesheet' />
-    <style>
-
-    </style>
+<head>
+    <head th:replace="partials/head :: head" />
 </head>
-
-
 <body>
 <nav th:replace="partials/navbar :: navbar" />
 
@@ -23,8 +12,6 @@
 <header>
     <div class="overlay"></div>
     <video autoplay="autoplay" muted="muted" loop="loop">
-<!--        <source src="https://storage.googleapis.com/coverr-main/mp4/Mt_Baker.mp4" type="video/mp4">-->
-<!--        <source src="https://ak1.picdn.net/shutterstock/videos/1027809641/preview/stock-footage&#45;&#45;k-beautiful-sunrise-over-earth-realistic-earth-with-night-lights-from-space-high-quality-d.webm" type="video/webm">-->
         <source src="https://www.videvo.net/videvo_files/converted/2016_05/preview/506401051_1.mov80298.webm" type="video/webm">
     </video>
     <div class="container h-100">
@@ -37,7 +24,7 @@
     </div>
 </header>
 
-<div data-aos="flip-right">
+
 <section class="my-5" >
     <div class="d-flex h-100 text-center align-items-center">
         <div class="w-100 text-black">
@@ -53,7 +40,7 @@
 
 
 
-<div class="container" data-aos="flip-right">
+<div class="container">
     <div class="row">
         <div class="col-4 p-2">
             <h1 class="page-title text-center d-none d-lg-block">COVID-19</h1>
@@ -86,36 +73,6 @@
 </footer>
 
 <script th:replace="partials/scripts :: scripts"/>
-<script>
-    $(function(){  // $(document).ready shorthand
-        $('.monster').fadeIn('slow');
-    });
-
-    $(document).ready(function() {
-
-        /* Every time the window is scrolled ... */
-        $(window).scroll( function(){
-
-            /* Check the location of each desired element */
-            $('.hideme').each( function(i){
-
-                var bottom_of_object = $(this).position().top + $(this).outerHeight();
-                var bottom_of_window = $(window).scrollTop() + $(window).height();
-
-                /* If the object is completely visible in the window, fade it it */
-                if( bottom_of_window > bottom_of_object ){
-
-                    $(this).animate({'opacity':'1'},1500);
-
-                }
-
-            });
-
-        });
-
-    });
-</script>
-
 </body>
 
 </html>
