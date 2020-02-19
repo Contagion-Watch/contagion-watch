@@ -2,6 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="partials/head :: head"></head>
+<style>
+    .mapboxgl-marker {
+        border-radius: 50%;
+        border: 1px solid gray;
+        background-color: #bf1010;
+        cursor: pointer;
+
+    }
+</style>
 
 <body>
 
@@ -18,9 +27,15 @@
     <div class="col-12 col-lg-6">
         <div>
             <ul class="d-flex justify-content-between">
-                <li><button id="coronaButton">Corona</button></li>
-                <li><button id="ebolaButton">Ebola</button></li>
-                <li><button id="malariaButton">Malaria</button></li>
+                <li>
+                    <button id="coronaButton">Corona</button>
+                </li>
+                <li>
+                    <button id="ebolaButton">Ebola</button>
+                </li>
+                <li>
+                    <button id="malariaButton">Malaria</button>
+                </li>
             </ul>
         </div>
         <input type="text" id="inputCorona">
@@ -38,7 +53,6 @@
 
 <nav th:replace="partials/scripts :: scripts"></nav>
 <script>
-    var mapCanvas = document.getElementsByClassName('mapboxgl-canvas')[0];
     var coronaButton = $("#coronaButton");
     var coronaMap = $("#mapCorona");
     var inputSearchCorona = $("#inputCorona");
@@ -55,15 +69,202 @@
     mapboxgl.accessToken = mapboxKey;
     var mapCorona = new mapboxgl.Map({
         container: 'mapCorona',
-        style: 'mapbox://styles/colinmarch/ck6e4fht91vxc1imrmlt1fsj8'
+        style: 'mapbox://styles/mapbox/streets-v11'
     });
     var mapEbola = new mapboxgl.Map({
         container: 'mapEbola',
-        style: 'mapbox://styles/colinmarch/ck6e787320zpv1ipf6nbnht9u'
+        style: 'mapbox://styles/mapbox/streets-v11'
     });
     var mapMalaria = new mapboxgl.Map({
         container: 'mapMalaria',
-        style: 'mapbox://styles/colinmarch/ck6h2k17807c71iqsfmexn015'
+        style: 'mapbox://styles/mapbox/streets-v11'
+    });
+    $.getJSON('/map/api/1', function (data) {
+        console.log(data);
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].location.country === "Georgia") {
+                let el = document.createElement('div');
+                let size = 2.5;
+                if (data[i].totalCases >= 1) {
+                    size = 5;
+                }
+                if (data[i].totalCases > 10) {
+                    size = 15;
+                }
+                if (data[i].totalCases > 30) {
+                    size = 25;
+                }
+                if (data[i].totalCases > 1000) {
+                    size = 50;
+                }
+                el.style.width = size + "px";
+                el.style.height = size + "px";
+                new mapboxgl.Marker(el)
+                    .setLngLat([42.3154, 43.3569])
+                    .setPopup(new mapboxgl.Popup({offset: 25}).setText(
+                        'Total cases: ' + data[i].totalCases
+                    )) // sets a popup on this marker
+                    .addTo(mapCorona);
+                continue;
+            }
+            geocode(data[i].location.country, mapboxKey).then(function (result) {
+                let el = document.createElement('div');
+                let size = 2.5;
+                if (data[i].totalCases >= 1) {
+                    size = 5;
+                }
+                if (data[i].totalCases > 10) {
+                    size = 15;
+                }
+                if (data[i].totalCases > 30) {
+                    size = 25;
+                }
+                if (data[i].totalCases > 1000) {
+                    size = 50;
+                }
+                el.style.width = size + "px";
+                el.style.height = size + "px";
+                new mapboxgl.Marker(el)
+                    .setLngLat(result)
+                    .setPopup(new mapboxgl.Popup({offset: 25}).setText(
+                        'Total cases: ' + data[i].totalCases
+                    )) // sets a popup on this marker
+                    .addTo(mapCorona);
+            })
+        }
+    });
+    $.getJSON('/map/api/2', function (data) {
+        console.log(data);
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].location.country === "Georgia") {
+                let el = document.createElement('div');
+                let size = 0;
+                if (data[i].totalCases > 1000) {
+                    size = 50;
+                }
+                el.style.width = size + "px";
+                el.style.height = size + "px";
+                new mapboxgl.Marker(el)
+                    .setLngLat([42.3154, 43.3569])
+                    .setPopup(new mapboxgl.Popup({offset: 25}).setText(
+                        'Total cases: ' + data[i].totalCases
+                    )) // sets a popup on this marker
+                    .addTo(mapEbola);
+                continue;
+            }
+
+            geocode(data[i].location.country, mapboxKey).then(function (result) {
+                let el = document.createElement('div');
+                let size = 0;
+                if (data[i].totalCases > 1000) {
+                    size = 50;
+                }
+                el.style.width = size + "px";
+                el.style.height = size + "px";
+                new mapboxgl.Marker(el)
+                    .setLngLat(result)
+                    .setPopup(new mapboxgl.Popup({offset: 25}).setText(
+                        'Total cases: ' + data[i].totalCases
+                    )) // sets a popup on this marker
+                    .addTo(mapEbola);
+            })
+        }
+    });
+    $.getJSON('/map/api/3', function (data) {
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].location.country === "Georgia") {
+                let el = document.createElement('div');
+                let size = 2.5;
+                if (data[i].totalCases > 100) {
+                    size = 5;
+                }
+                if (data[i].totalCases > 1000) {
+                    size = 10;
+                }
+                if (data[i].totalCases > 5000) {
+                    size = 20;
+                }
+                if (data[i].totalCases > 10000) {
+                    size = 25;
+                }
+                if (data[i].totalCases > 100000) {
+                    size = 35;
+                }
+                if (data[i].totalCases > 1000000) {
+                    size = 45;
+                }
+                el.style.width = size + "px";
+                el.style.height = size + "px";
+                new mapboxgl.Marker(el)
+                    .setLngLat([43.3569, 42.3154])
+                    .setPopup(new mapboxgl.Popup({offset: 25}).setText(
+                        'Total cases: ' + data[i].totalCases
+                    ))
+                    .addTo(mapMalaria);
+                continue;
+            }
+            if (data[i].location.country === "Niue") {
+                let el = document.createElement('div');
+                let size = 2.5;
+                if (data[i].totalCases > 100) {
+                    size = 5;
+                }
+                if (data[i].totalCases > 1000) {
+                    size = 10;
+                }
+                if (data[i].totalCases > 5000) {
+                    size = 20;
+                }
+                if (data[i].totalCases > 10000) {
+                    size = 25;
+                }
+                if (data[i].totalCases > 100000) {
+                    size = 35;
+                }
+                if (data[i].totalCases > 1000000) {
+                    size = 45;
+                }
+                el.style.width = size + "px";
+                el.style.height = size + "px";
+                new mapboxgl.Marker(el)
+                    .setLngLat([169.8672, 19.0544])
+                    .setPopup(new mapboxgl.Popup({offset: 25}).setText(
+                        'Total cases: ' + data[i].totalCases
+                    )) // sets a popup on this marker
+                    .addTo(mapMalaria);
+                continue;
+            }
+            geocode(data[i].location.country, mapboxKey).then(function (result) {
+                let el = document.createElement('div');
+                let size = 2.5;
+                if (data[i].totalCases > 100) {
+                    size = 5;
+                }
+                if (data[i].totalCases > 1000) {
+                    size = 10;
+                }
+                if (data[i].totalCases > 5000) {
+                    size = 20;
+                }
+                if (data[i].totalCases > 10000) {
+                    size = 25;
+                }
+                if (data[i].totalCases > 100000) {
+                    size = 35;
+                }
+                if (data[i].totalCases > 1000000) {
+                    size = 45;
+                }
+                el.style.width = size + "px";
+                el.style.height = size + "px";
+                new mapboxgl.Marker(el)
+                    .setLngLat(result)
+                    .setPopup(new mapboxgl.Popup({offset: 25}).setText(
+                        'Total cases: ' + data[i].totalCases
+                    )) // sets a popup on this marker
+                    .addTo(mapMalaria);
+            })
+        }
     });
     var el = document.createElement('div');
     el.id = 'popup';
@@ -73,7 +274,7 @@
     malariaMap.hide();
     inputSearchButtonMalaria.hide();
     inputSearchMalaria.hide();
-    malariaButton.on("click",function (){
+    malariaButton.on("click", function () {
         inputSearchButtonMalaria.show();
         inputSearchMalaria.show();
         coronaMap.hide();
@@ -82,10 +283,12 @@
         ebolaMap.hide();
         inputSearchButtonEbola.hide();
         inputSearchEbola.hide();
-        setTimeout(function(){mapMalaria.resize();}, 250);
+        setTimeout(function () {
+            mapMalaria.resize();
+        }, 250);
         malariaMap.show();
     });
-    ebolaButton.on("click",function (){
+    ebolaButton.on("click", function () {
         inputSearchButtonEbola.show();
         inputSearchEbola.show();
         coronaMap.hide();
@@ -94,10 +297,12 @@
         malariaMap.hide();
         inputSearchButtonMalaria.hide();
         inputSearchMalaria.hide();
-        setTimeout(function(){mapEbola.resize();}, 250);
+        setTimeout(function () {
+            mapEbola.resize();
+        }, 250);
         ebolaMap.show();
     });
-    coronaButton.on("click",function (){
+    coronaButton.on("click", function () {
         inputSearchButtonCorona.show();
         inputSearchCorona.show();
         ebolaMap.hide();
@@ -106,11 +311,13 @@
         malariaMap.hide();
         inputSearchButtonMalaria.hide();
         inputSearchMalaria.hide();
-        setTimeout(function(){mapCorona.resize();}, 250);
+        setTimeout(function () {
+            mapCorona.resize();
+        }, 250);
         coronaMap.show();
     });
-    inputSearchButtonCorona.on("click",function (){
-        geocode(inputSearchCorona.val(),mapboxKey).then(function (result) {
+    inputSearchButtonCorona.on("click", function () {
+        geocode(inputSearchCorona.val(), mapboxKey).then(function (result) {
             console.log(result);
             mapCorona.setCenter(result);
             mapCorona.setZoom(2.5);
@@ -118,8 +325,8 @@
             console.log("Failure");
         });
     });
-    inputSearchButtonEbola.on("click",function (){
-        geocode(inputSearchEbola.val(),mapboxKey).then(function (result) {
+    inputSearchButtonEbola.on("click", function () {
+        geocode(inputSearchEbola.val(), mapboxKey).then(function (result) {
             console.log(result);
             mapEbola.setCenter(result);
             mapEbola.setZoom(2.5);
@@ -127,59 +334,14 @@
             console.log("Failure");
         });
     });
-    inputSearchButtonMalaria.on("click",function (){
-        geocode(inputSearchMalaria.val(),mapboxKey).then(function (result) {
+    inputSearchButtonMalaria.on("click", function () {
+        geocode(inputSearchMalaria.val(), mapboxKey).then(function (result) {
             console.log(result);
             mapMalaria.setCenter(result);
             mapMalaria.setZoom(2.5);
         }).catch(function () {
             console.log("Failure");
         });
-    });
-    mapCorona.on('click', function(e) {
-        $("#popup").hide();
-        var coordinates = {"lat":JSON.stringify(e.lngLat.lat),"lng":JSON.stringify(e.lngLat.lng)}
-        // $("#geocode_clicked_country").val = reverseGeocode(e.lngLat.wrap());
-        reverseGeocode({"lat":JSON.stringify(e.lngLat.lat),"lng":JSON.stringify(e.lngLat.lng)}, mapboxKey).then(function(results){
-            var resultsSplit = results.split(",");
-            $("#geocode_clicked_country").text(JSON.stringify(resultsSplit[resultsSplit.length-1]).trim());
-            console.log(JSON.stringify(resultsSplit[resultsSplit.length-1]));
-            var popupHTML = JSON.stringify(resultsSplit[resultsSplit.length-1])+"<br>Total Cases: XX<br>New Cases: XX<br>Total Deaths: XX<br> New Deaths: XX\n";
-            new mapboxgl.Popup(el)
-                .setLngLat(coordinates)
-                .setHTML(popupHTML)
-                .addTo(mapCorona);
-        })
-    });
-    mapMalaria.on('click', function(e) {
-        $("#popup").hide();
-        var coordinates = {"lat":JSON.stringify(e.lngLat.lat),"lng":JSON.stringify(e.lngLat.lng)}
-        // $("#geocode_clicked_country").val = reverseGeocode(e.lngLat.wrap());
-        reverseGeocode({"lat":JSON.stringify(e.lngLat.lat),"lng":JSON.stringify(e.lngLat.lng)}, mapboxKey).then(function(results){
-            var resultsSplit = results.split(",");
-            $("#geocode_clicked_country").text(JSON.stringify(resultsSplit[resultsSplit.length-1]).trim());
-            console.log(JSON.stringify(resultsSplit[resultsSplit.length-1]));
-            var popupHTML = JSON.stringify(resultsSplit[resultsSplit.length-1])+"<br>Total Cases: XX<br>New Cases: XX<br>Total Deaths: XX<br> New Deaths: XX\n";
-            new mapboxgl.Popup(el)
-                .setLngLat(coordinates)
-                .setHTML(popupHTML)
-                .addTo(mapMalaria);
-        })
-    });
-    mapEbola.on('click', function(e) {
-        $("#popup").hide();
-        var coordinates = {"lat":JSON.stringify(e.lngLat.lat),"lng":JSON.stringify(e.lngLat.lng)}
-        // $("#geocode_clicked_country").val = reverseGeocode(e.lngLat.wrap());
-        reverseGeocode({"lat":JSON.stringify(e.lngLat.lat),"lng":JSON.stringify(e.lngLat.lng)}, mapboxKey).then(function(results){
-            var resultsSplit = results.split(",");
-            $("#geocode_clicked_country").text(JSON.stringify(resultsSplit[resultsSplit.length-1]).trim());
-            console.log(JSON.stringify(resultsSplit[resultsSplit.length-1]));
-            var popupHTML = JSON.stringify(resultsSplit[resultsSplit.length-1])+"<br>Total Cases: XX<br>New Cases: XX<br>Total Deaths: XX<br> New Deaths: XX\n";
-            new mapboxgl.Popup(el)
-                .setLngLat(coordinates)
-                .setHTML(popupHTML)
-                .addTo(mapEbola);
-        })
     });
 
 </script>
