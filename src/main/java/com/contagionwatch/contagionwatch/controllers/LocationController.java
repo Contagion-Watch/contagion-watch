@@ -30,11 +30,12 @@ public class LocationController {
 
     @RequestMapping(value = "/location/{id}", method = RequestMethod.GET)
     public String locationInfo(@PathVariable Long id, Model model, @PageableDefault(value=5, sort = "date") Pageable pageable) {
-        model.addAttribute("corona", entryDao.findAllByLocation_IdAndDisease_Id(id, 1L, pageable));
-        model.addAttribute("ebola", entryDao.findAllByLocation_IdAndDisease_Id(id, 2L, pageable));
-        model.addAttribute("malaria", entryDao.findAllByLocation_IdAndDisease_Id(id, 3L, pageable));
+        model.addAttribute("corona", entryDao.findAllByLocation_IdAndDisease_Id(id, 1, pageable));
+        model.addAttribute("ebola", entryDao.findAllByLocation_IdAndDisease_Id(id, 2, pageable));
+        model.addAttribute("malaria", entryDao.findAllByLocation_IdAndDisease_Id(id, 3, pageable));
         model.addAttribute("diseases", diseaseDao.findAll());
         model.addAttribute("locations", locationDao.findAll());
+        model.addAttribute("whichLocation", id);
         model.addAttribute("entry", new Entry());
         return "location";
     }
