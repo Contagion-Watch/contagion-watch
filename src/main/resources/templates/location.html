@@ -73,11 +73,11 @@
                         <input th:field="*{id}" id="editIdMalaria" class="form-control" type="hidden">
                     </div>
                     <div class="form-group">
-                        <label for="editDate">Date</label>
+                        <label for="editDateMalaria">Date</label>
                         <input th:field="*{date}" id="editDateMalaria" class="form-control" type="date">
                     </div>
                     <div class="form-group">
-                        <label for="editLocation">Select Location</label>
+                        <label for="editLocationMalaria">Select Location</label>
                         <select th:field="*{location}" id = "editLocationMalaria" class="form-control location-select">
                             <option th:each="location : ${locations}" th:value="${location.getId()}" th:text="${location.getCountry()}"></option>
                         </select>
@@ -86,11 +86,11 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="editTotalCases">Total Cases</label>
+                        <label for="editTotalCasesMalaria">Total Cases</label>
                         <input th:field="*{totalCases}" type="number" class="form-control" id="editTotalCasesMalaria" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
                     </div>
                     <div class="form-group">
-                        <label for="editTotalDeaths">Total Deaths</label>
+                        <label for="editTotalDeathsMalaria">Total Deaths</label>
                         <input th:field="*{totalDeaths}" type="number" class="form-control" id="editTotalDeathsMalaria" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
                     </div>
                     <div class="modal-footer">
@@ -171,55 +171,42 @@
                     </tr>
                     </tbody>
                 </table>
-                <nav class="text-center">
-                    <ul class="pagination">
-                        <li th:class="${corona.isFirst()}? 'disabled' : ''">
-                            <span th:if='${corona.isFirst()}'>← First</span>
-                            <a th:if='${not corona.isFirst()}' th:href="'?page=0'">
-                                ← First
+                <nav aria-label="Pagination" th:if="${corona.totalPages gt 0}">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" th:classappend="${corona.number eq 0} ? 'disabled'">
+                            <a class="page-link svg-icon"
+                               th:href="@{|/location/${whichLocation}?page=0|}"
+                               aria-label="First"
+                               title="First Page" rel="tooltip">
+                                <- First
                             </a>
                         </li>
-                        <li th:class="${corona.hasPrevious()}? '' : 'disabled'">
-                            <span th:if='${not corona.hasPrevious()}'>«</span>
-                            <a
-                                    th:if='${corona.hasPrevious()}'
-                                    th:href="'?page=' + ${corona.getNumber() - 1}"
-                                    title='Go to previous page'
-                            >
-                                «
+                        <li class="page-item" th:classappend="${corona.number eq 0} ? 'disabled'">
+                            <a class="page-link svg-icon"
+                               th:href="@{|/location/${whichLocation}?page={id}|(id=${corona.number lt 1 ? 0 : corona.number - 1})}"
+                               aria-label="Previous"
+                               title="Previous Page" rel="tooltip">
+                                <<
                             </a>
                         </li>
-                        <-- Show a link to each page -->
-                        <li th:each="i : ${#numbers.sequence(1, corona.getTotalPages())}">
-                <span
-                        th:if='${(i - 1) == param.page}'
-                        th:text='${i}'>
-                    1
-                </span>
-                            <a
-                                    th:if='${not ((i - 1) == param.page)}'
-                                    th:href="'?page=' + ${(i -1)}"
-                            >
-                                <span th:text='${i}'>1</span>
+                        <li class="page-item" th:classappend="${i eq corona.number + 1} ? 'active'"
+                            th:each="i : ${#numbers.sequence( corona.number + 1, corona.totalPages > 5 + corona.number ? corona.number + 5 : corona.totalPages, 1)}">
+                            <a class="page-link" th:href="@{|/location/${whichLocation}?page={id}|(id=${i - 1})}" th:text="${i}"
+                               th:title="${'Page '+ i}"
+                               rel="tooltip"></a>
+                        </li>
+                        <li class="page-item" th:classappend="${corona.number + 1 eq corona.totalPages} ? 'disabled'">
+                            <a class="page-link svg-icon" th:href="@{|/location/${whichLocation}?page={id}|(id=${corona.number + 1})}"
+                               aria-label="Next"
+                               title="Next Page" rel="tooltip">
+                                >>
                             </a>
                         </li>
-                        <li th:class="${corona.hasNext()} ? '' : 'disabled'">
-                            <span th:if='${not corona.hasNext()}'>»</span>
-                            <a
-                                    th:if='${corona.hasNext()}'
-                                    th:href="'?page=' + ${corona.getNumber() + 1}"
-                                    title='Go to next page'
-                            >
-                                »
-                            </a>
-                        </li>
-                        <li th:class="${corona.isLast()}? 'disabled' : ''">
-                            <span th:if='${corona.isLast()}'>Last →</span>
-                            <a
-                                    th:if='${not corona.isLast()}'
-                                    th:href="'?page=' + ${corona.getTotalPages() - 1}"
-                            >
-                                Last →
+                        <li class="page-item" th:classappend="${corona.number + 1 eq corona.totalPages} ? 'disabled'">
+                            <a class="page-link svg-icon" th:href="@{|/location/${whichLocation}?page={id}|(id=${corona.totalPages - 1})}"
+                               aria-label="Last"
+                               title="Last Page" rel="tooltip">
+                                Last ->
                             </a>
                         </li>
                     </ul>
@@ -253,55 +240,42 @@
                     </tr>
                     </tbody>
                 </table>
-                <nav class="text-center">
-                    <ul class="pagination">
-                        <li th:class="${ebola.isFirst()}? 'disabled' : ''">
-                            <span th:if='${ebola.isFirst()}'>← First</span>
-                            <a th:if='${not ebola.isFirst()}' th:href="'?page=0'">
-                                ← First
+                <nav aria-label="Pagination" th:if="${ebola.totalPages gt 0}">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" th:classappend="${ebola.number eq 0} ? 'disabled'">
+                            <a class="page-link svg-icon"
+                               th:href="@{|/location/${whichLocation}?page=0|}"
+                               aria-label="First"
+                               title="First Page" rel="tooltip">
+                                <- First
                             </a>
                         </li>
-                        <li th:class="${ebola.hasPrevious()}? '' : 'disabled'">
-                            <span th:if='${not ebola.hasPrevious()}'>«</span>
-                            <a
-                                    th:if='${ebola.hasPrevious()}'
-                                    th:href="'?page=' + ${ebola.getNumber() - 1}"
-                                    title='Go to previous page'
-                            >
-                                «
+                        <li class="page-item" th:classappend="${ebola.number eq 0} ? 'disabled'">
+                            <a class="page-link svg-icon"
+                               th:href="@{|/location/${whichLocation}?page={id}|(id=${ebola.number lt 1 ? 0 : ebola.number - 1})}"
+                               aria-label="Previous"
+                               title="Previous Page" rel="tooltip">
+                                <<
                             </a>
                         </li>
-                        <-- Show a link to each page -->
-                        <li th:each="i : ${#numbers.sequence(1, ebola.getTotalPages())}">
-                <span
-                        th:if='${(i - 1) == param.page}'
-                        th:text='${i}'>
-                    1
-                </span>
-                            <a
-                                    th:if='${not ((i - 1) == param.page)}'
-                                    th:href="'?page=' + ${(i -1)}"
-                            >
-                                <span th:text='${i}'>1</span>
+                        <li class="page-item" th:classappend="${i eq ebola.number + 1} ? 'active'"
+                            th:each="i : ${#numbers.sequence( ebola.number + 1, ebola.totalPages > 5 + ebola.number ? ebola.number + 5 : ebola.totalPages, 1)}">
+                            <a class="page-link" th:href="@{|/location/${whichLocation}?page={id}|(id=${i - 1})}" th:text="${i}"
+                               th:title="${'Page '+ i}"
+                               rel="tooltip"></a>
+                        </li>
+                        <li class="page-item" th:classappend="${ebola.number + 1 eq ebola.totalPages} ? 'disabled'">
+                            <a class="page-link svg-icon" th:href="@{|/location/${whichLocation}?page={id}|(id=${ebola.number + 1})}"
+                               aria-label="Next"
+                               title="Next Page" rel="tooltip">
+                                >>
                             </a>
                         </li>
-                        <li th:class="${ebola.hasNext()} ? '' : 'disabled'">
-                            <span th:if='${not ebola.hasNext()}'>»</span>
-                            <a
-                                    th:if='${ebola.hasNext()}'
-                                    th:href="'?page=' + ${ebola.getNumber() + 1}"
-                                    title='Go to next page'
-                            >
-                                »
-                            </a>
-                        </li>
-                        <li th:class="${ebola.isLast()}? 'disabled' : ''">
-                            <span th:if='${ebola.isLast()}'>Last →</span>
-                            <a
-                                    th:if='${not ebola.isLast()}'
-                                    th:href="'?page=' + ${ebola.getTotalPages() - 1}"
-                            >
-                                Last →
+                        <li class="page-item" th:classappend="${ebola.number + 1 eq ebola.totalPages} ? 'disabled'">
+                            <a class="page-link svg-icon" th:href="@{|/location/${whichLocation}?page={id}|(id=${ebola.totalPages - 1})}"
+                               aria-label="Last"
+                               title="Last Page" rel="tooltip">
+                                Last ->
                             </a>
                         </li>
                     </ul>
@@ -331,55 +305,42 @@
                     </tr>
                     </tbody>
                 </table>
-                <nav class="text-center">
-                    <ul class="pagination">
-                        <li th:class="${malaria.isFirst()}? 'disabled' : ''">
-                            <span th:if='${malaria.isFirst()}'>← First</span>
-                            <a th:if='${not malaria.isFirst()}' th:href="'?page=0'">
-                                ← First
+                <nav aria-label="Pagination" th:if="${malaria.totalPages gt 0}">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" th:classappend="${malaria.number eq 0} ? 'disabled'">
+                            <a class="page-link svg-icon"
+                               th:href="@{|/location/${whichLocation}?page=0|}"
+                               aria-label="First"
+                               title="First Page" rel="tooltip">
+                                <- First
                             </a>
                         </li>
-                        <li th:class="${malaria.hasPrevious()}? '' : 'disabled'">
-                            <span th:if='${not malaria.hasPrevious()}'>«</span>
-                            <a
-                                    th:if='${malaria.hasPrevious()}'
-                                    th:href="'?page=' + ${malaria.getNumber() - 1}"
-                                    title='Go to previous page'
-                            >
-                                «
+                        <li class="page-item" th:classappend="${malaria.number eq 0} ? 'disabled'">
+                            <a class="page-link svg-icon"
+                               th:href="@{|/location/${whichLocation}?page={id}|(id=${malaria.number lt 1 ? 0 : malaria.number - 1})}"
+                               aria-label="Previous"
+                               title="Previous Page" rel="tooltip">
+                                <<
                             </a>
                         </li>
-                        <-- Show a link to each page -->
-                        <li th:each="i : ${#numbers.sequence(1, malaria.getTotalPages())}">
-                <span
-                        th:if='${(i - 1) == param.page}'
-                        th:text='${i}'>
-                    1
-                </span>
-                            <a
-                                    th:if='${not ((i - 1) == param.page)}'
-                                    th:href="'?page=' + ${(i -1)}"
-                            >
-                                <span th:text='${i}'>1</span>
+                        <li class="page-item" th:classappend="${i eq malaria.number + 1} ? 'active'"
+                            th:each="i : ${#numbers.sequence( malaria.number + 1, malaria.totalPages > 5 + malaria.number ? malaria.number + 5 : malaria.totalPages, 1)}">
+                            <a class="page-link" th:href="@{|/location/${whichLocation}?page={id}|(id=${i - 1})}" th:text="${i}"
+                               th:title="${'Page '+ i}"
+                               rel="tooltip"></a>
+                        </li>
+                        <li class="page-item" th:classappend="${malaria.number + 1 eq malaria.totalPages} ? 'disabled'">
+                            <a class="page-link svg-icon" th:href="@{|/location/${whichLocation}?page={id}|(id=${malaria.number + 1})}"
+                               aria-label="Next"
+                               title="Next Page" rel="tooltip">
+                                >>
                             </a>
                         </li>
-                        <li th:class="${malaria.hasNext()} ? '' : 'disabled'">
-                            <span th:if='${not malaria.hasNext()}'>»</span>
-                            <a
-                                    th:if='${malaria.hasNext()}'
-                                    th:href="'?page=' + ${malaria.getNumber() + 1}"
-                                    title='Go to next page'
-                            >
-                                »
-                            </a>
-                        </li>
-                        <li th:class="${malaria.isLast()}? 'disabled' : ''">
-                            <span th:if='${malaria.isLast()}'>Last →</span>
-                            <a
-                                    th:if='${not malaria.isLast()}'
-                                    th:href="'?page=' + ${malaria.getTotalPages() - 1}"
-                            >
-                                Last →
+                        <li class="page-item" th:classappend="${malaria.number + 1 eq malaria.totalPages} ? 'disabled'">
+                            <a class="page-link svg-icon" th:href="@{|/location/${whichLocation}?page={id}|(id=${malaria.totalPages - 1})}"
+                               aria-label="Last"
+                               title="Last Page" rel="tooltip">
+                                Last ->
                             </a>
                         </li>
                     </ul>
@@ -451,6 +412,15 @@
         $("#deleteId").val(number);
         $("#whichLocationDelete").val(button.data('location'));
     })
+    $(document).ready(function(){
+        let activeTab = localStorage.getItem('activeTab');
+        $('#nav-tab a').click(function(e) {
+            e.preventDefault();
+            localStorage.setItem('activeTab', $(e.target).attr('href'));
+        })
+
+    });
+
 </script>
 </body>
 

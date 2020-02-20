@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="partials/head :: head" />
+<head th:replace="partials/head :: head" >
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+</head>
 
 <body class="information-body">
 
@@ -195,60 +197,49 @@
                         </span>
                     </tbody>
                 </table>
-                <nav class="text-center">
-                    <ul class="pagination">
-                        <li th:class="${page.isFirst()}? 'disabled' : ''">
-                            <span th:if='${page.isFirst()}'>← First</span>
-                            <a th:if='${not page.isFirst()}' th:href="'?page=0'">
-                                ← First
+                <nav aria-label="Pagination" th:if="${page.totalPages gt 0}">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" th:classappend="${page.number eq 0} ? 'disabled'">
+                            <a class="page-link svg-icon"
+                               th:href="@{|/information/${whichDisease}?page=0|}"
+                               aria-label="First"
+                               title="First Page" rel="tooltip">
+                                <- First
                             </a>
                         </li>
-                        <li th:class="${page.hasPrevious()}? '' : 'disabled'">
-                            <span th:if='${not page.hasPrevious()}'>«</span>
-                            <a
-                                    th:if='${page.hasPrevious()}'
-                                    th:href="'?page=' + ${page.getNumber() - 1}"
-                                    title='Go to previous page'
-                            >
-                                «
+                        <li class="page-item" th:classappend="${page.number eq 0} ? 'disabled'">
+                            <a class="page-link svg-icon"
+                               th:href="@{|/information/${whichDisease}?page={id}|(id=${page.number lt 1 ? 0 : page.number - 1})}"
+                               aria-label="Previous"
+                               title="Previous Page" rel="tooltip">
+                                <<
                             </a>
                         </li>
-                        <-- Show a link to each page -->
-                        <li th:each="i : ${#numbers.sequence(1, page.getTotalPages())}">
-                <span
-                        th:if='${(i - 1) == param.page}'
-                        th:text='${i}'>
-                    1
-                </span>
-                            <a
-                                    th:if='${not ((i - 1) == param.page)}'
-                                    th:href="'?page=' + ${(i -1)}"
-                            >
-                                <span th:text='${i}'>1</span>
+                        <li class="page-item" th:classappend="${i eq page.number + 1} ? 'active'"
+                            th:each="i : ${#numbers.sequence( page.number + 1, page.totalPages > 5 + page.number ? page.number + 5 : page.totalPages, 1)}">
+                            <a class="page-link" th:href="@{|/information/${whichDisease}?page={id}|(id=${i - 1})}" th:text="${i}"
+                               th:title="${'Page '+ i}"
+                               rel="tooltip"></a>
+                        </li>
+                        <li class="page-item" th:classappend="${page.number + 1 eq page.totalPages} ? 'disabled'">
+                            <a class="page-link svg-icon" th:href="@{|/information/${whichDisease}?page={id}|(id=${page.number + 1})}"
+                               aria-label="Next"
+                               title="Next Page" rel="tooltip">
+                                >>
                             </a>
                         </li>
-                        <li th:class="${page.hasNext()} ? '' : 'disabled'">
-                            <span th:if='${not page.hasNext()}'>»</span>
-                            <a
-                                    th:if='${page.hasNext()}'
-                                    th:href="'?page=' + ${page.getNumber() + 1}"
-                                    title='Go to next page'
-                            >
-                                »
-                            </a>
-                        </li>
-                        <li th:class="${page.isLast()}? 'disabled' : ''">
-                            <span th:if='${page.isLast()}'>Last →</span>
-                            <a
-                                    th:if='${not page.isLast()}'
-                                    th:href="'?page=' + ${page.getTotalPages() - 1}"
-                            >
-                                Last →
+                        <li class="page-item" th:classappend="${page.number + 1 eq page.totalPages} ? 'disabled'">
+                            <a class="page-link svg-icon" th:href="@{|/information/${whichDisease}?page={id}|(id=${page.totalPages - 1})}"
+                               aria-label="Last"
+                               title="Last Page" rel="tooltip">
+                                Last ->
                             </a>
                         </li>
                     </ul>
                 </nav>
+
             </div>
+
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <div class="accordion" id="diseaseInfo">
                     <div class="card">

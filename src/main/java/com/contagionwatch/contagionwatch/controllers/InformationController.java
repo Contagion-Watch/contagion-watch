@@ -37,12 +37,9 @@ public class InformationController {
         model.addAttribute("whichDisease", id);
 
         model.addAttribute("disease", diseaseDao.getDiseaseById(id));
-        List<Entry> entries = null;
-        entries = entryDao.getAllByDisease_Id(id);
         model.addAttribute("diseases", diseaseDao.findAll());
         model.addAttribute("locations", locationDao.findAll());
         model.addAttribute("entry", new Entry());
-        model.addAttribute("entries", entries);
         return "information";
     }
 
