@@ -3,7 +3,7 @@
 
 <head th:replace="partials/head :: head" />
 
-<body class="login-body">
+<body class="aboutus-black">
 
 <nav th:replace="partials/navbar :: navbar" />
 
@@ -16,15 +16,15 @@
 
 
 <!--  DESKTOP -->
-    <h1 class="page-title text-center p-5 d-none d-lg-block">ADMIN LOGIN - RESTRICTED ACCESS</h1>
+    <h1 class="page-title text-center p-5 d-none d-lg-block" style="color: white">ADMIN LOGIN - RESTRICTED ACCESS</h1>
 
     <form class="text-center p-5 d-none d-lg-block" th:action="@{/login}" method="post">
         <div class="form-group">
-            <label for="username">Admin Username</label>
+            <label for="username" style="color: white">Admin Username</label>
             <input type="text" class="form-control" name="username" id="username">
         </div>
         <div class="form-group">
-            <label for="password">Password</label>
+            <label for="password" style="color: white">Password</label>
             <input type="password" name="password" class="form-control" id="password">
         </div>
         <button type="submit" value="Log In" class="btn btn-primary">Submit</button>

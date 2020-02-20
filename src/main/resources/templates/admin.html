@@ -3,48 +3,49 @@
 
 <head th:replace="partials/head :: head" />
 
-<body>
+<body class="aboutus-black">
 
 <nav th:replace="partials/navbar :: navbar" />
 
-<h1>ADMIN PAGE</h1>
+<h1 class="display-3 page-title text-center" style="color: white">ADMIN PAGE</h1>
 <div class="row">
-    <div class="col-6 p-5">
-        <h3>DAILY SUBMISSION FORM</h3>
+    <div class="p-2 text-center col-6 mx-auto">
+        <h3 class="page-title" style="color: white">SUBMISSION FORM</h3>
         <form th:action="@{'/admin'}" th:method="post" th:object="${entry}">
             <div class="form-group">
-                <label for="selectDate">Date</label>
-                <input th:field="*{date}" id="selectDate" class="form-control" type="date">
+                <label for="selectDate" style="color: white">Date</label>
+                <input th:field="*{date}" id="selectDate" class="form-control text-center" type="date">
             </div>
             <div class="form-group">
-                <label for="chooseDisease">Select Disease</label>
-                <select id="chooseDisease" th:field = "*{disease}" class="form-control disease-select">
-                    <option th:each="disease : ${diseases}" th:value="${disease.getId()}" th:text="${disease.getName()}"></option>
+                <label for="chooseDisease" style="color: white">Select Disease</label>
+                <select id="chooseDisease" th:field = "*{disease}" class="form-control disease-select text-center">
+                    <option th:each="disease : ${diseases}" th:value="${disease.getId()}" th:text="${disease.getName()}" class="text-center"></option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="chooseLocation">Select Location</label>
-                <select id="chooseLocation" th:field="*{location}" class="form-control location-select">
-                    <option th:each="location : ${locations}" th:value="${location.getId()}" th:text="${location.getCountry()}"></option>
+                <label for="chooseLocation" style="color: white">Select Location</label>
+                <select id="chooseLocation" th:field="*{location}" class="form-control location-select text-center">
+                    <option th:each="location : ${locations}" th:value="${location.getId()}" th:text="${location.getCountry()}" class="text-center"></option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="totalCases">Total Cases</label>
-                <input th:value="*{totalCases}" type="number" class="form-control" id="totalCases" name="totalCases" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                <label for="totalCases" style="color: white">Total Cases</label>
+                <input th:value="*{totalCases}" type="number" class="form-control text-center" id="totalCases" name="totalCases" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
             </div>
             <div class="form-group">
-                <label for="newCases">New Cases</label>
-                <input th:value="*{newCases}" type="number" class="form-control" id="newCases" name="newCases" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                <label for="newCases" style="color: white">New Cases</label>
+                <input th:value="*{newCases}" type="number" class="form-control text-center" id="newCases" name="newCases" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
             </div>
             <div class="form-group">
-                <label for="totalDeaths">Total Deaths</label>
-                <input th:value="*{totalDeaths}" type="number" class="form-control" id="totalDeaths" name="totalDeaths" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                <label for="totalDeaths" style="color: white">Total Deaths</label>
+                <input th:value="*{totalDeaths}" type="number" class="form-control text-center" id="totalDeaths" name="totalDeaths" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
             </div>
             <div class="form-group">
-                <label for="newDeaths">New Deaths</label>
-                <input th:value="*{newDeaths}" type="number" class="form-control" id="newDeaths" name="newDeaths" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                <label for="newDeaths" style="color: white">New Deaths</label>
+                <input th:value="*{newDeaths}" type="number" class="form-control text-center" id="newDeaths" name="newDeaths" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
             </div>
-            <button type="submit">Add</button>
+<!--            <button type="submit">Add</button>-->
+            <button type="submit" class="btn btn-success">          ADD           </button>
 
         </form>
 
