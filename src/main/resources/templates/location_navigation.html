@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/head :: head"></head>
+
+<body>
+<nav th:replace="partials/navbar :: navbar"/>
+<div class="row">
+    <div class="col-12">
+        <input type="text" id="locationFilter" placeholder="Filter Locations...">
+    </div>
+</div>
+<div class="row">
+    <div id="card-area" class="col-12 d-flex flex-wrap">
+
+    </div>
+</div>
+
+
+<nav th:replace="partials/footer :: footer"/>
+
+<nav th:replace="partials/scripts :: scripts"/>
+<script>
+    const cardArea = $("#card-area");
+    const searchTerm = $("#locationFilter");
+    let locations = null;
+    $.getJSON('location-navigation/api/locations', function (results) {
+        locations = results;
+        let cardAreaContent = '';
+        results.forEach(function (location) {
+            cardAreaContent += "<div class=\"card mx-3 mt-3\" style='width: 15em'>\n" +
+                "  <div class=\"card-body\">\n" +
+                "    <h5 class=\"card-title\">" + location.country + "</h5>\n" +
+                "    <a href=\"/location/" + location.id + "\" class=\"btn btn-primary\">Go to page</a>\n" +
+                "  </div>\n" +
+                "</div>"
+
+        });
+        cardArea.html(cardAreaContent);
+    }).done(function () {
+            searchTerm.on("input", function () {
+                cardArea.html('');
+                let cardAreaContent = '';
+                locations.forEach(function (location) {
+                if (location.country.toLowerCase().startsWith(searchTerm.val().toLowerCase().trim())) {
+                    cardAreaContent += "<div class=\"card mx-3 mt-3\" style='width: 15em'>\n" +
+                        "  <div class=\"card-body\">\n" +
+                        "    <h5 class=\"card-title\">" + location.country + "</h5>\n" +
+                        "    <a href=\"/location/" + location.id + "\" class=\"btn btn-primary\">Go to page</a>\n" +
+                        "  </div>\n" +
+                        "</div>"
+                }
+
+            });
+                cardArea.html(cardAreaContent);
+        });
+    })
+</script>
+</body>
+</html>
