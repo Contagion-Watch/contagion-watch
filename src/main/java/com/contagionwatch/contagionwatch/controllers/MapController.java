@@ -136,13 +136,13 @@ public class MapController {
     @GetMapping("/map")
     public String homePage(Model model){
         model.addAttribute("mapboxKey",mapboxKey);
+        model.addAttribute("diseaseCorona",diseaseDao.getDiseaseById(1));
+        model.addAttribute("diseaseEbola",diseaseDao.getDiseaseById(2));
+        model.addAttribute("diseaseMalaria",diseaseDao.getDiseaseById(3));
+
         return "map";
     }
 
-
-    public static void main(String[] args) {
-
-    }
 
 
 }
