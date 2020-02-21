@@ -61,24 +61,18 @@
     $('#submitEntry').submit(function(e){
         $('#selectDate, #totalCases, #totalDeaths, #newDeaths, #newCases').each(function() {
             let stop = false;
-            if ($(this).val() === "" || $(this).val() == null){
+            if ($(this).val() === "" || $(this).val() == null) {
                 e.preventDefault();
                 stop = true;
                 document.getElementById(this.id).style.borderColor = "red";
                 document.getElementById(this.id).style.borderWidth = "thick";
             }
-            else {
-                document.getElementById(this.id).style.borderColor = "black";
-                document.getElementById(this.id).style.borderWidth = "medium";
+            if (stop) {
+                alert("Unable to submit. Please fill in the required fields.");
+                return false;
             }
         });
-        if (stop){
-            alert("Unable to submit. Please fill in the required fields.");
-            return false;
-        }
-        else{
-            alert("Entry successfully submitted.");
-        }
+        alert("Entry successfully submitted.");
     });
 
 </script>
