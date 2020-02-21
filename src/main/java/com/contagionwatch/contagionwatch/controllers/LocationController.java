@@ -5,6 +5,7 @@ import com.contagionwatch.contagionwatch.dao.EntryRepository;
 import com.contagionwatch.contagionwatch.dao.LocationRepository;
 import com.contagionwatch.contagionwatch.models.Entry;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,12 @@ public class LocationController {
         this.diseaseDao = diseaseDao;
     }
 
+    @Value("${bingKey}")
+    private String bingKey;
+
+    @Value("${nytKey}")
+    private String nytKey;
+
     @RequestMapping(value = "/location/{id}", method = RequestMethod.GET)
     public String locationInfo(@PathVariable Long id, Model model, @PageableDefault(value=5, sort = "date") Pageable pageable) {
         model.addAttribute("corona", entryDao.findAllByLocation_IdAndDisease_Id(id, 1, pageable));
@@ -36,6 +43,9 @@ public class LocationController {
         model.addAttribute("diseases", diseaseDao.findAll());
         model.addAttribute("locations", locationDao.findAll());
         model.addAttribute("whichLocation", id);
+        model.addAttribute("bingKey",bingKey);
+        model.addAttribute("nytKey",nytKey);
+        model.addAttribute("locationName",locationDao.getLocationById(id).getCountry());
         model.addAttribute("entry", new Entry());
         return "location";
     }
