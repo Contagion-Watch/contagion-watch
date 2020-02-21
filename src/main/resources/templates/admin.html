@@ -11,7 +11,7 @@
 <div class="row">
     <div class="p-2 text-center col-6 mx-auto">
         <h3 class="page-title" style="color: white">SUBMISSION FORM</h3>
-        <form th:action="@{'/admin'}" th:method="post" th:object="${entry}">
+        <form id="submitEntry" th:action="@{'/admin'}" th:method="post" th:object="${entry}">
             <div class="form-group">
                 <label for="selectDate" style="color: white">Date</label>
                 <input th:field="*{date}" id="selectDate" class="form-control text-center" type="date">
@@ -30,21 +30,20 @@
             </div>
             <div class="form-group">
                 <label for="totalCases" style="color: white">Total Cases</label>
-                <input th:value="*{totalCases}" type="number" class="form-control text-center" id="totalCases" name="totalCases" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                <input th:value="*{totalCases}" type="number" min="0" class="form-control text-center" id="totalCases" name="totalCases" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
             </div>
             <div class="form-group">
                 <label for="newCases" style="color: white">New Cases</label>
-                <input th:value="*{newCases}" type="number" class="form-control text-center" id="newCases" name="newCases" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                <input th:value="*{newCases}" type="number" min="0" class="form-control text-center" id="newCases" name="newCases" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
             </div>
             <div class="form-group">
                 <label for="totalDeaths" style="color: white">Total Deaths</label>
-                <input th:value="*{totalDeaths}" type="number" class="form-control text-center" id="totalDeaths" name="totalDeaths" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                <input th:value="*{totalDeaths}" type="number" min="0" class="form-control text-center" id="totalDeaths" name="totalDeaths" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
             </div>
             <div class="form-group">
                 <label for="newDeaths" style="color: white">New Deaths</label>
-                <input th:value="*{newDeaths}" type="number" class="form-control text-center" id="newDeaths" name="newDeaths" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                <input th:value="*{newDeaths}" type="number" min="0" class="form-control text-center" id="newDeaths" name="newDeaths" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
             </div>
-<!--            <button type="submit">Add</button>-->
             <button type="submit" class="btn btn-success">          ADD           </button>
 
         </form>
@@ -58,7 +57,31 @@
 <nav th:replace="partials/footer :: footer" />
 
 <nav th:replace="partials/scripts :: scripts" />
+<script>
+    $('#submitEntry').submit(function(e){
+        $('#selectDate, #totalCases, #totalDeaths, #newDeaths, #newCases').each(function() {
+            let stop = false;
+            if ($(this).val() === "" || $(this).val() == null){
+                e.preventDefault();
+                stop = true;
+                document.getElementById(this.id).style.borderColor = "red";
+                document.getElementById(this.id).style.borderWidth = "thick";
+            }
+            else {
+                document.getElementById(this.id).style.borderColor = "black";
+                document.getElementById(this.id).style.borderWidth = "medium";
+            }
+        });
+        if (stop){
+            alert("Unable to submit. Please fill in the required fields.");
+            return false;
+        }
+        else{
+            alert("Entry successfully submitted.");
+        }
+    });
 
+</script>
 </body>
 
 </html>

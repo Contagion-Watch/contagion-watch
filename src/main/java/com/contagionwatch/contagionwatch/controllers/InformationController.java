@@ -7,6 +7,7 @@ import com.contagionwatch.contagionwatch.models.Entry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,7 +35,7 @@ public class InformationController {
 
 
     @RequestMapping(value = "/information/{id}", method = RequestMethod.GET)
-    public String diseaseInfo(@PathVariable Long id, Model model, @PageableDefault(value=5, sort = "date") Pageable pageable) {
+    public String diseaseInfo(@PathVariable Long id, Model model, @PageableDefault(value=5, sort = "date", direction = Sort.Direction.DESC) Pageable pageable) {
         boolean isMalaria = false;
         if (id == 3L){
             isMalaria = true;
