@@ -314,8 +314,8 @@
 
 <nav th:replace="partials/scripts :: scripts" />
 <script>
-    $('.editModal').on('show.bs.modal', function(event) {
-        let button = $(event.relatedTarget);
+    $('.editButton').on('click', function(event) {
+        let button = $(this);
         let number = button.attr('id');
         $("#editId").val(number);
         $("#editDate").val(button.data('date'));
@@ -326,13 +326,6 @@
         $("#editNewDeaths").val(button.data('newdeaths'));
         $("#editTotalDeaths").val(button.data('totaldeaths'));
         $('#whichDisease').val(button.data('disease'));
-        console.log(number);
-        console.log(button.data('date'));
-        console.log(button.data('location'));
-        console.log(button.data('newcases'));
-        console.log(button.data('totalcases'));
-        console.log(button.data('newdeaths'));
-        console.log(button.data('totaldeaths'));
 
     })
     var diseaseName = $("#diseaseName").text();
@@ -451,24 +444,21 @@
     $('#editEntry').submit(function(e){
         $('#editDate, #editTotalCases, #editTotalDeaths, #editNewDeaths, #editNewCases').each(function() {
             let stop = false;
-            if ($(this).val() === "" || $(this).val() == null){
+            if ($(this).val() === "" || $(this).val() == null) {
                 e.preventDefault();
                 stop = true;
                 document.getElementById(this.id).style.borderColor = "red";
                 document.getElementById(this.id).style.borderWidth = "thick";
-            }
-            else {
+            } else {
                 document.getElementById(this.id).style.borderColor = "black";
                 document.getElementById(this.id).style.borderWidth = "medium";
             }
+            if (stop) {
+                alert("Unable to submit. Please fill in the required fields.");
+                return false;
+            }
         });
-        if (stop){
-            alert("Unable to submit. Please fill in the required fields.");
-            return false;
-        }
-        else{
-            alert("Entry successfully submitted.");
-        }
+        alert("Entry successfully edited.");
     });
     $('#editEntryMalaria').submit(function(e){
         $('#editDateMalaria, #editTotalCasesMalaria, #editTotalDeathsMalaria').each(function() {
@@ -485,10 +475,9 @@
             if (stop) {
                 alert("Unable to submit. Please fill in the required fields.");
                 return false;
-            } else {
-                alert("Entry successfully submitted.");
             }
         });
+        alert("Entry successfully edited.");
     });
 </script>
 </body>
