@@ -106,7 +106,7 @@
         </div>
     </div>
 </div>
-
+<div style="display: none" id="diseaseName" th:text="${disease.getName()}"></div>
 <div class="modal fade deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -133,10 +133,7 @@
 <h1 class="col page-title text-center" th:text="${disease.getName()}"></h1>
 
 <div class="row">
-    <div class="col-4 p-5">
-    <img class="information-disease-img w-100 portrait zoom" src="img/corona-virus.jpg">
-    </div>
-    <div class="col-7" style="margin-right: 1em">
+    <div class="col-12" style="margin-right: 1em">
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Statistics</a>
@@ -306,20 +303,8 @@
 </div>
 
 <h1 class="col page-title text-center">NEWS ALERTS</h1>
-<h2 class="col page-title text-center">World Health Organization</h2>
 
-<div class="col p-5">
-    <iframe name="Framename" src="https://www.who.int/news-room/detail/12-02-2020-world-experts-and-funders-set-priorities-for-covid-19-research" frameborder="0" scrolling="auto" class="frame-area">
-    </iframe>
-</div>
-
-<h2 class="col page-title text-center">Center for Disease Control and Prevention</h2>
-
-<div class="col p-5">
-    <iframe name="Framename-two" src="https://www.cdc.gov/coronavirus/2019-ncov/index.html" frameborder="0" scrolling="auto" class="frame-area">
-    </iframe>
-</div>
-
+<div id="newsSourceArea" class="d-flex justify-content-around"></div>
 
 
 <nav th:replace="partials/footer :: footer" />
@@ -347,7 +332,8 @@
         console.log(button.data('totaldeaths'));
 
     })
-
+    var diseaseName = $("#diseaseName").text();
+    console.log(diseaseName)
     $('.editModalMalaria').on('show.bs.modal', function(event) {
         let button = $(event.relatedTarget);
         let number = button.attr('id');
@@ -364,6 +350,99 @@
         let button = $(event.relatedTarget);
         let number = button.attr('id');
         $("#deleteId").val(number);
+    });
+    var url = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
+    url += '?' + $.param({
+        'api-key': "[[${nytKey}]]",
+        'q': diseaseName,
+        'begin_date': '20200210',
+        'end_date': '20200229'
+    });
+    $.ajax({
+        url: url,
+        method: 'GET',
+    }).done(function (results) {
+        console.log(results);
+        var listOfResults = results.response.docs;
+        console.log(listOfResults);
+        for (let i = 0; i < 2; i++) {
+            let listOfMedia = listOfResults[i].multimedia;
+            let selectedMedia = null;
+            let mediaHeight = 50;
+            if (listOfMedia.length !== 0) {
+                for (let i = 0; i < listOfMedia.length; i++) {
+                    if (listOfMedia[i].subtype === "square640") {
+                        selectedMedia = "http://www.nytimes.com/" + listOfMedia[i].url;
+                        mediaHeight = listOfMedia[i].height;
+                    }
+                }
+            }
+            if (selectedMedia === null) {
+                var urlImage = 'https://api.cognitive.microsoft.com/bing/v7.0/images/search?';
+                urlImage += $.param({
+                    'q': listOfResults[i].headline.main,
+                    'count': 1,
+                    'offset': 0,
+                    'mkt': 'en-us',
+                    'safeSearch': 'Moderate'
+                });
+                $.ajax({
+                    url: urlImage,
+                    method: 'GET',
+                    host: 'https://colin.cognitiveservices.azure.com/bing/v7.0',
+                    beforeSend: function (xhrObj) {
+                        // Request headers
+                        xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", "[[${bingKey}]]");
+                    },
+                }).done(function (results) {
+                    console.log("IMAGE RESULT:");
+                    console.log(results);
+                    selectedMedia = results.value[0].contentUrl;
+                    console.log(results.value);
+                    console.log(results.value[0].contentUrl);
+                    let formatedDate = listOfResults[i].pub_date.split("T");
+                    formatedDate = formatedDate[0];
+                    console.log(selectedMedia);
+                    $("#newsSourceArea").append("<div class=\"card mb-3\" style=\"max-width: 540px;height:30vh;\">\n" +
+                        "    <div class=\"row no-gutters\">\n" +
+                        "        <div class=\"col-md-4\">\n" +
+                        "            <img src=\"" + selectedMedia + "\" style='height:30vh;width100%;'class=\"card-img\" alt=\"...\">\n" +
+                        "        </div>\n" +
+                        "        <div class=\"col-md-8\">\n" +
+                        "            <div class=\"card-body\">\n" +
+                        "                <h5 class=\"card-title mt-0\">" + listOfResults[i].headline.main + "</h5>\n" +
+                        "                <p class=\"card-text\">Check out the article here: <a href=" + listOfResults[i].web_url + ">Link</a></p>\n" +
+                        "                <p class=\"card-text\">" + formatedDate + "</p>\n" +
+                        "            </div>\n" +
+                        "        </div>\n" +
+                        "    </div>\n" +
+                        "</div>");
+                }).fail(function (err) {
+                    throw err;
+                })
+            } else {
+                let formatedDate = listOfResults[i].pub_date.split("T");
+                formatedDate = formatedDate[0];
+                console.log(selectedMedia);
+                $("#newsSourceArea").append("<div class=\"card mb-3\" style=\"max-width: 540px;height:30vh;\">\n" +
+                    "    <div class=\"row no-gutters\">\n" +
+                    "        <div class=\"col-md-4\">\n" +
+                    "            <img src=\"" + selectedMedia + "\" style='height:30vh;width100%;'class=\"card-img\" alt=\"...\">\n" +
+                    "        </div>\n" +
+                    "        <div class=\"col-md-8\">\n" +
+                    "            <div class=\"card-body\">\n" +
+                    "                <h5 class=\"card-title mt-0\">" + listOfResults[i].headline.main + "</h5>\n" +
+                    "                <p class=\"card-text\">Check out the article here: <a href=" + listOfResults[i].web_url + ">Link</a></p>\n" +
+                    "                <p class=\"card-text\">" + formatedDate + "</p>\n" +
+                    "            </div>\n" +
+                    "        </div>\n" +
+                    "    </div>\n" +
+                    "</div>");
+            }
+        }
+
+    }).fail(function (err) {
+        throw err;
     })
 
     $('#editEntry').submit(function(e){
