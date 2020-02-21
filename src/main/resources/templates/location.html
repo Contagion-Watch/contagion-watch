@@ -296,7 +296,6 @@
                         <td th:text="${entry.getDate()}"></td>
                         <td th:text="${entry.getTotalCases()}"></td>
                         <td th:text="${entry.getTotalDeaths()}"></td>
-                        <td><button type="button" class="btn btn-warning editButtonMalaria" data-toggle="modal" data-target=".editModalMalaria" th:attr="data-date = ${entry.getDate()}, data-location = ${entry.location.getId()}, data-disease = ${entry.disease.getId()}, data-totalcases = ${entry.totalCases}, data-totaldeaths = ${entry.totalDeaths}" th:id="${entry.getId()}">
                         <td sec:authorize="isAuthenticated()"><button type="button" class="btn btn-warning editButton" data-toggle="modal" data-target=".editModalMalaria" th:attr="data-date = ${entry.getDate()}, data-location = ${entry.location.getId()}, data-disease = ${entry.disease.getId()}, data-totalcases = ${entry.totalCases}, data-totaldeaths = ${entry.totalDeaths}" th:id="${entry.getId()}">
                             Edit
                         </button></td>
