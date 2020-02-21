@@ -14,6 +14,36 @@
     .displayNone {
         display: none;
     }
+
+    .filter-ctrl {
+        position: absolute;
+        top: 10px;
+        right: 60px;
+        z-index: 1;
+        height: 35px;
+    }
+
+    .filter-button {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        z-index: 1;
+        height: 40px;
+        border-radius: 3px;
+    }
+
+    .filter-ctrl input[type='text'] {
+        font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+        width: 100%;
+        border: 0;
+        background-color: #fff;
+        margin: 0;
+        color: rgba(0, 0, 0, 0.5);
+        padding: 10px;
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+        border-radius: 3px;
+        width: 180px;
+    }
 </style>
 
 <body>
@@ -23,43 +53,56 @@
 <!--Desktop map page-->
 <div class="row">
     <div class="col-12 col-lg-6">
-        <div id='mapCorona' style='width: 100%; height: 82.5vh; margin-left: auto; margin-right: auto;'></div>
-        <div id='mapEbola' style='width: 100%; height: 82.5vh; margin-left: auto; margin-right: auto;'></div>
-        <div id='mapMalaria' style='width: 100%; height: 82.5vh; margin-left: auto; margin-right: auto;'></div>
+        <div id="mapContainerCorona">
+            <div id='mapCorona' style='width: 100%; height: 100vh; margin-left: auto; margin-right: auto;'></div>
+            <div class="filter-ctrl">
+                <input
+                        id="filter-inputCorona"
+                        type="text"
+                        name="filter"
+                        placeholder="Filter by name"
+                />
+            </div>
+            <button class="filter-button" id="searchCorona">Go</button>
+        </div>
+        <div id="mapContainerEbola">
+            <div id='mapEbola' style='width: 100%; height: 100vh; margin-left: auto; margin-right: auto;'></div>
+            <div class="filter-ctrl">
+                <input
+                        id="filter-inputEbola"
+                        type="text"
+                        name="filter"
+                        placeholder="Filter by name"
+                />
+            </div>
+            <button class="filter-button" id="searchEbola">Go</button>
+        </div>
+        <div id="mapContainerMalaria">
+            <div id='mapMalaria' style='width: 100%; height: 100vh; margin-left: auto; margin-right: auto;'></div>
+            <div class="filter-ctrl">
+                <input
+                        id="filter-inputMalaria"
+                        type="text"
+                        name="filter"
+                        placeholder="Filter by name"
+                />
+            </div>
+            <button class="filter-button" id="searchMalaria">Go</button>
+        </div>
 
     </div>
     <div class="col-12 col-lg-6">
-        <div>
-            <ul class="d-flex justify-content-between">
-                <li>
-                    <button id="coronaButton">Corona</button>
-                </li>
-                <li>
-                    <button id="ebolaButton">Ebola</button>
-                </li>
-                <li>
-                    <button id="malariaButton">Malaria</button>
-                </li>
-            </ul>
+        <div class="nav nav-tabs mt-3" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="coronaTab" data-toggle="tab" href="#coronaInfo" role="tab"
+               aria-controls="coronaInfo" aria-selected="true">Corona</a>
+            <a class="nav-item nav-link" id="ebolaTab" data-toggle="tab" href="#ebolaInfo" role="tab"
+               aria-controls="ebolaInfo" aria-selected="false">Ebola</a>
+            <a class="nav-item nav-link" id="malariaTab" data-toggle="tab" href="#MalariaInfo" role="tab"
+               aria-controls="malariaStat" aria-selected="false">Malaria</a>
         </div>
-        <input type="text" id="inputCorona">
-        <button id="buttonCoronaSearch">Go to location</button>
-        <input type="text" id="inputEbola">
-        <button id="buttonEbolaSearch">Go to location</button>
-        <input type="text" id="inputMalaria">
-        <button id="buttonMalariaSearch">Go to location</button>
-        <nav>
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="coronaTab" data-toggle="tab" href="#coronaInfo" role="tab"
-                   aria-controls="coronaInfo" aria-selected="true">Corona</a>
-                <a class="nav-item nav-link" id="ebolaTab" data-toggle="tab" href="#ebolaInfo" role="tab"
-                   aria-controls="ebolaInfo" aria-selected="false">Ebola</a>
-                <a class="nav-item nav-link" id="malariaTab" data-toggle="tab" href="#MalariaInfo" role="tab"
-                   aria-controls="malariaStat" aria-selected="false">Malaria</a>
-            </div>
         </nav>
         <div class="tab-content" id="diseaseInfo">
-            <div class="accordion tab-pane active" id="coronaInfo" role="tabpanel">
+            <div class="accordion tab-pane active p-0" id="coronaInfo" role="tabpanel">
                 <div class="card">
                     <div class="card-header" id="headOne">
                         <h2 class="mb-0">
@@ -119,18 +162,37 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="card">
+                    <div class="card-header" id="headFiveCorona">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse"
+                                    data-target="#WhoCorona"
+                                    aria-expanded="true" aria-controls="WhoCorona">
+                                World Health Organization Page
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="WhoCorona" class="collapse" aria-labelledby="headFiveCorona" data-parent="#diseaseInfo">
+                        <div class="card-body">
+                            <img src="img/landing-image-one.jpg" style='height:20vh;width:40%;' alt="...">
+                            <a class="ml-5" href="https://www.who.int/health-topics/coronavirus">World Health Organization on Corona</a></div>
+                    </div>
+                </div>
             </div>
-            <div class="accordion tab-pane" id="ebolaInfo" role="tabpanel">
+            <div class="accordion tab-pane p-0" id="ebolaInfo" role="tabpanel">
                 <div class="card">
                     <div class="card-header" id="headOneEbola">
                         <h2 class="mb-0">
-                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#descriptionEbola"
+                            <button class="btn btn-link" type="button" data-toggle="collapse"
+                                    data-target="#descriptionEbola"
                                     aria-expanded="true" aria-controls="descriptionEbola">
                                 What is this disease?
                             </button>
                         </h2>
                     </div>
-                    <div id="descriptionEbola" class="collapse show" aria-labelledby="headOneEbola" data-parent="#ebolaInfo">
+                    <div id="descriptionEbola" class="collapse show" aria-labelledby="headOneEbola"
+                         data-parent="#ebolaInfo">
                         <div class="card-body" th:text="${diseaseEbola.getDescription()}">
                         </div>
                     </div>
@@ -139,7 +201,8 @@
                 <div class="card">
                     <div class="card-header" id="headTwoEbola">
                         <h2 class="mb-0">
-                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#symptomsEbola"
+                            <button class="btn btn-link" type="button" data-toggle="collapse"
+                                    data-target="#symptomsEbola"
                                     aria-expanded="true" aria-controls="symptomsEbola">
                                 What are the symptoms?
                             </button>
@@ -154,13 +217,16 @@
                 <div class="card">
                     <div class="card-header" id="headThreeEbola">
                         <h2 class="mb-0">
-                            <button id="modalDiseaseFieldEbola" class="btn btn-link" type="button" data-toggle="collapse"
-                                    data-target="#transmissionsEbola" aria-expanded="true" aria-controls="transmissionsEbola">
+                            <button id="modalDiseaseFieldEbola" class="btn btn-link" type="button"
+                                    data-toggle="collapse"
+                                    data-target="#transmissionsEbola" aria-expanded="true"
+                                    aria-controls="transmissionsEbola">
                                 How can this disease be transmitted?
                             </button>
                         </h2>
                     </div>
-                    <div id="transmissionsEbola" class="collapse" aria-labelledby="headThreeEbola" data-parent="#diseaseInfoEbola">
+                    <div id="transmissionsEbola" class="collapse" aria-labelledby="headThreeEbola"
+                         data-parent="#ebolaInfo">
                         <div class="card-body" th:text="${diseaseEbola.getTransmission()}">
                         </div>
                     </div>
@@ -169,29 +235,48 @@
                 <div class="card">
                     <div class="card-header" id="headFourEbola">
                         <h2 class="mb-0">
-                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#treatmentsEbola"
-                                    aria-expanded="true" aria-controls="treatments">
+                            <button class="btn btn-link" type="button" data-toggle="collapse"
+                                    data-target="#treatmentsEbola"
+                                    aria-expanded="true" aria-controls="treatmentsEbola">
                                 How can this disease be treated?
                             </button>
                         </h2>
                     </div>
-                    <div id="treatmentsEbola" class="collapse" aria-labelledby="headFour" data-parent="#diseaseInfoEbola">
+                    <div id="treatmentsEbola" class="collapse" aria-labelledby="headFour" data-parent="#ebolaInfo">
                         <div class="card-body" th:text="${diseaseEbola.getTreatments()}">
                         </div>
                     </div>
                 </div>
+                <div class="card">
+                    <div class="card-header" id="headFiveEbola">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse"
+                                    data-target="#WhoEbola"
+                                    aria-expanded="true" aria-controls="WhoEbola">
+                                World Health Organization Page
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="WhoEbola" class="collapse" aria-labelledby="headFiveEbola" data-parent="#ebolaInfo">
+                        <div class="card-body">
+                            <img src="img/landing-ebola-one.jpg" style='height:20vh;width:40%;' alt="...">
+                            <a class="ml-5" href="https://www.who.int/malaria/en/">World Health Organization on Ebola</a></div>
+                    </div>
+                </div>
             </div>
-            <div class="accordion tab-pane" id="MalariaInfo" role="tabpanel">
+            <div class="accordion tab-pane p-0" id="MalariaInfo" role="tabpanel">
                 <div class="card">
                     <div class="card-header" id="headOneMalaria">
                         <h2 class="mb-0">
-                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#descriptionMalaria"
+                            <button class="btn btn-link" type="button" data-toggle="collapse"
+                                    data-target="#descriptionMalaria"
                                     aria-expanded="true" aria-controls="descriptionMalaria">
                                 What is this disease?
                             </button>
                         </h2>
                     </div>
-                    <div id="descriptionMalaria" class="collapse show" aria-labelledby="headOneMalaria" data-parent="#MalariaInfo">
+                    <div id="descriptionMalaria" class="collapse show" aria-labelledby="headOneMalaria"
+                         data-parent="#MalariaInfo">
                         <div class="card-body" th:text="${diseaseMalaria.getDescription()}">
                         </div>
                     </div>
@@ -200,13 +285,15 @@
                 <div class="card">
                     <div class="card-header" id="headTwoMalaria">
                         <h2 class="mb-0">
-                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#symptomsMalaria"
+                            <button class="btn btn-link" type="button" data-toggle="collapse"
+                                    data-target="#symptomsMalaria"
                                     aria-expanded="true" aria-controls="symptomsMalaria">
                                 What are the symptoms?
                             </button>
                         </h2>
                     </div>
-                    <div id="symptomsMalaria" class="collapse" aria-labelledby="headTwoMalaria" data-parent="#MalariaInfo">
+                    <div id="symptomsMalaria" class="collapse" aria-labelledby="headTwoMalaria"
+                         data-parent="#MalariaInfo">
                         <div class="card-body" th:text="${diseaseMalaria.getSymptoms()}">
                         </div>
                     </div>
@@ -215,13 +302,16 @@
                 <div class="card">
                     <div class="card-header" id="headThreeMalaria">
                         <h2 class="mb-0">
-                            <button id="modalDiseaseFieldMalaria" class="btn btn-link" type="button" data-toggle="collapse"
-                                    data-target="#transmissionsMalaria" aria-expanded="true" aria-controls="transmissionsMalaria">
+                            <button id="modalDiseaseFieldMalaria" class="btn btn-link" type="button"
+                                    data-toggle="collapse"
+                                    data-target="#transmissionsMalaria" aria-expanded="true"
+                                    aria-controls="transmissionsMalaria">
                                 How can this disease be transmitted?
                             </button>
                         </h2>
                     </div>
-                    <div id="transmissionsMalaria" class="collapse" aria-labelledby="headThreeMalaria" data-parent="#diseaseInfoMalaria">
+                    <div id="transmissionsMalaria" class="collapse" aria-labelledby="headThreeMalaria"
+                         data-parent="#MalariaInfo">
                         <div class="card-body" th:text="${diseaseMalaria.getTransmission()}">
                         </div>
                     </div>
@@ -230,21 +320,39 @@
                 <div class="card">
                     <div class="card-header" id="headFourMalaria">
                         <h2 class="mb-0">
-                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#treatmentsMalaria"
+                            <button class="btn btn-link" type="button" data-toggle="collapse"
+                                    data-target="#treatmentsMalaria"
                                     aria-expanded="true" aria-controls="treatments">
                                 How can this disease be treated?
                             </button>
                         </h2>
                     </div>
-                    <div id="treatmentsMalaria" class="collapse" aria-labelledby="headFour" data-parent="#diseaseInfoMalaria">
+                    <div id="treatmentsMalaria" class="collapse" aria-labelledby="headFourMalaria"
+                         data-parent="#MalariaInfo">
                         <div class="card-body" th:text="${diseaseMalaria.getTreatments()}">
                         </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header" id="headFiveMalaria">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse"
+                                    data-target="#WhoMalaria"
+                                    aria-expanded="true" aria-controls="WhoMalaria">
+                                World Health Organization Page
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="WhoMalaria" class="collapse" aria-labelledby="headFiveMalaria" data-parent="#MalariaInfo">
+                        <div class="card-body">
+                            <img src="img/landing-malaria-one.jpeg" style='height:20vh;width:40%;' alt="...">
+                            <a class="ml-5" href="https://www.who.int/malaria/en/">World Health Organization on Malaria</a></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 </div>
 
@@ -253,18 +361,24 @@
 
 <nav th:replace="partials/scripts :: scripts"></nav>
 <script>
-    var coronaButton = $("#coronaButton");
+    var coronaButton = $("#coronaTab");
     var coronaMap = $("#mapCorona");
-    var inputSearchCorona = $("#inputCorona");
-    var inputSearchButtonCorona = $("#buttonCoronaSearch");
-    var ebolaButton = $("#ebolaButton");
+    var coronaMapContainer = $("#mapContainerCorona");
+    var coronaWHOcard = $("#whoCorona");
+    var inputSearchCorona = $("#filter-inputCorona");
+    var inputSearchButtonCorona = $("#searchCorona");
+    var ebolaButton = $("#ebolaTab");
     var ebolaMap = $("#mapEbola");
-    var inputSearchEbola = $("#inputEbola");
-    var inputSearchButtonEbola = $("#buttonEbolaSearch");
-    var malariaButton = $("#malariaButton");
+    var ebolaMapContainer = $("#mapContainerEbola");
+    var ebolaWHOcard = $("#whoEbola");
+    var inputSearchEbola = $("#filter-inputEbola");
+    var inputSearchButtonEbola = $("#searchEbola");
+    var malariaButton = $("#malariaTab");
     var malariaMap = $("#mapMalaria");
-    var inputSearchMalaria = $("#inputMalaria");
-    var inputSearchButtonMalaria = $("#buttonMalariaSearch");
+    var malariaWHOcard = $("#whoMalaria");
+    var malariaMapContainer = $("#mapContainerMalaria");
+    var inputSearchMalaria = $("#filter-inputMalaria");
+    var inputSearchButtonMalaria = $("#searchMalaria");
     var mapboxKey = "[[${mapboxKey}]]";
     mapboxgl.accessToken = mapboxKey;
     var mapCorona = new mapboxgl.Map({
@@ -582,53 +696,42 @@
     });
     var el = document.createElement('div');
     el.id = 'popup';
-    ebolaMap.hide();
-    inputSearchButtonEbola.hide();
-    inputSearchEbola.hide();
-    malariaMap.hide();
-    inputSearchButtonMalaria.hide();
-    inputSearchMalaria.hide();
+    ebolaMapContainer.hide();
+    ebolaWHOcard.hide();
+    malariaMapContainer.hide();
+    malariaWHOcard.hide();
     malariaButton.on("click", function () {
-        inputSearchButtonMalaria.show();
-        inputSearchMalaria.show();
-        coronaMap.hide();
-        inputSearchButtonCorona.hide();
-        inputSearchCorona.hide();
-        ebolaMap.hide();
-        inputSearchButtonEbola.hide();
-        inputSearchEbola.hide();
+        coronaMapContainer.hide();
+        ebolaMapContainer.hide();
+        ebolaWHOcard.hide();
+        coronaWHOcard.hide();
+        malariaWHOcard.show();
         setTimeout(function () {
             mapMalaria.resize();
         }, 250);
-        malariaMap.show();
+        malariaMapContainer.show();
     });
     ebolaButton.on("click", function () {
-        inputSearchButtonEbola.show();
-        inputSearchEbola.show();
-        coronaMap.hide();
-        inputSearchButtonCorona.hide();
-        inputSearchCorona.hide();
-        malariaMap.hide();
-        inputSearchButtonMalaria.hide();
-        inputSearchMalaria.hide();
+        coronaMapContainer.hide();
+        malariaMapContainer.hide();
+        coronaWHOcard.hide();
+        ebolaWHOcard.show();
+        malariaWHOcard.hide();
         setTimeout(function () {
             mapEbola.resize();
         }, 250);
-        ebolaMap.show();
+        ebolaMapContainer.show();
     });
     coronaButton.on("click", function () {
-        inputSearchButtonCorona.show();
-        inputSearchCorona.show();
-        ebolaMap.hide();
-        inputSearchButtonEbola.hide();
-        inputSearchEbola.hide();
-        malariaMap.hide();
-        inputSearchButtonMalaria.hide();
-        inputSearchMalaria.hide();
+        ebolaMapContainer.hide();
+        ebolaWHOcard.hide();
+        malariaMapContainer.hide();
+        coronaWHOcard.show();
+        malariaWHOcard.hide();
         setTimeout(function () {
             mapCorona.resize();
         }, 250);
-        coronaMap.show();
+        coronaMapContainer.show();
     });
     inputSearchButtonCorona.on("click", function () {
         geocode(inputSearchCorona.val(), mapboxKey).then(function (result) {
