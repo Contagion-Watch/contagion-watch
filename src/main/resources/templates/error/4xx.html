@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/head :: head">
+    <style>
+        #middle-block{
+            height: 500px;
+            width: 500px;
+            background-image: url("https://media3.giphy.com/media/vO2ByH5dWCJEc/giphy.gif");
+        }
+    </style>
+</head>
+
+<body style="background-color: black">
+<nav th:replace="partials/navbar :: navbar"/>
+
+<th:block th:switch="${error}">
+    <div th:case="'Not Found'">
+        <h1 style="text-align: center;color: #bf1010">Page not found!!</h1>
+    </div>
+    <div th:case="'Forbidden'">
+        <h1 style="text-align: center;color: #bf1010">You don't have permission to view this page.</h1>
+    </div>
+</th:block>
+<div style="display: flex;justify-content: center">
+    <img style="" src="https://media3.giphy.com/media/vO2ByH5dWCJEc/giphy.gif" alt="">
+
+</div>
+
+
+
+
+
+<nav th:replace="partials/scripts :: scripts"/>
+
+</body>
+</html>
