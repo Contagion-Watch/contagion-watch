@@ -296,10 +296,10 @@
                         <td th:text="${entry.getDate()}"></td>
                         <td th:text="${entry.getTotalCases()}"></td>
                         <td th:text="${entry.getTotalDeaths()}"></td>
+                        <td><button type="button" class="btn btn-warning editButtonMalaria" data-toggle="modal" data-target=".editModalMalaria" th:attr="data-date = ${entry.getDate()}, data-location = ${entry.location.getId()}, data-disease = ${entry.disease.getId()}, data-totalcases = ${entry.totalCases}, data-totaldeaths = ${entry.totalDeaths}" th:id="${entry.getId()}">
                         <td sec:authorize="isAuthenticated()"><button type="button" class="btn btn-warning editButton" data-toggle="modal" data-target=".editModalMalaria" th:attr="data-date = ${entry.getDate()}, data-location = ${entry.location.getId()}, data-disease = ${entry.disease.getId()}, data-totalcases = ${entry.totalCases}, data-totaldeaths = ${entry.totalDeaths}" th:id="${entry.getId()}">
                             Edit
                         </button></td>
-
                         <td sec:authorize="isAuthenticated()"><button type="button" class="btn btn-danger deleteButton" data-toggle="modal" data-target=".deleteModal" th:attr="data-location = ${entry.location.getId()}" th:id="${entry.getId()}">
                             Delete
                         </button></td>
@@ -361,8 +361,8 @@
 
 <nav th:replace="partials/scripts :: scripts" />
 <script>
-    $('.editModal').on('show.bs.modal', function(event) {
-        let button = $(event.relatedTarget);
+    $('.editButton').on('click', function(event) {
+        let button = $(this);
         let number = button.attr('id');
         $("#editId").val(number);
         $("#editDate").val(button.data('date'));
@@ -375,8 +375,8 @@
         $("#whichLocationEdit").val(button.data('location'));
     })
 
-    $('.editModalMalaria').on('show.bs.modal', function(event) {
-        let button = $(event.relatedTarget);
+    $('.editButtonMalaria').on('click', function(event) {
+        let button = $(this);
         let number = button.attr('id');
         $("#editIdMalaria").val(number);
         $("#editDateMalaria").val(button.data('date'));
@@ -387,8 +387,8 @@
         $('#whichLocationEditMalaria').val(button.data('location'));
     })
 
-    $('.deleteModal').on('show.bs.modal', function(event) {
-        let button = $(event.relatedTarget);
+    $('.deleteButton').on('click', function(event) {
+        let button = $(this);
         let number = button.attr('id');
         $("#deleteId").val(number);
         $("#whichLocationDelete").val(button.data('location'));
@@ -435,7 +435,7 @@
     var url = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
     url += '?' + $.param({
         'api-key': "[[${nytKey}]]",
-        'q': 'Coronavirus AND' + locationName + ' Ebola AND' + locationName + ' Malaria AND' + locationName,
+        'q': locationName,
         'begin_date': '20000101',
         'end_date': '20200229'
     });
@@ -484,7 +484,7 @@
                     let formatedDate = listOfResults[i].pub_date.split("T");
                     formatedDate = formatedDate[0];
                     console.log(selectedMedia);
-                    $("#newsSourceAreaCorona").append("<div class=\"card mb-3\" style=\"max-width: 540px;height:30vh;\">\n" +
+                    $("#newsSourceArea").append("<div class=\"card mb-3\" style=\"max-width: 540px;height:30vh;\">\n" +
                         "    <div class=\"row no-gutters\">\n" +
                         "        <div class=\"col-md-4\">\n" +
                         "            <img src=\"" + selectedMedia + "\" style='height:30vh;width100%;'class=\"card-img\" alt=\"...\">\n" +
@@ -505,7 +505,7 @@
                 let formatedDate = listOfResults[i].pub_date.split("T");
                 formatedDate = formatedDate[0];
                 console.log(selectedMedia);
-                $("#newsSourceAreaCorona").append("<div class=\"card mb-3\" style=\"max-width: 540px;height:30vh;\">\n" +
+                $("#newsSourceArea").append("<div class=\"card mb-3\" style=\"max-width: 540px;height:30vh;\">\n" +
                     "    <div class=\"row no-gutters\">\n" +
                     "        <div class=\"col-md-4\">\n" +
                     "            <img src=\"" + selectedMedia + "\" style='height:30vh;width100%;'class=\"card-img\" alt=\"...\">\n" +
