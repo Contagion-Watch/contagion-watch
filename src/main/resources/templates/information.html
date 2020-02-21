@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="partials/head :: head" >
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
@@ -18,7 +19,7 @@
                     <span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <form th:action="@{'/edit'}" th:method="post" th:object="${entry}">
+                <form id="editEntry" th:action="@{'/edit'}" th:method="post" th:object="${entry}">
                     <div class="form-group">
                         <input th:field="*{id}" id="editId" class="form-control" type="hidden">
                     </div>
@@ -37,19 +38,19 @@
                     </div>
                     <div class="form-group">
                         <label for="editTotalCases">Total Cases</label>
-                        <input th:field="*{totalCases}" type="number" class="form-control" id="editTotalCases" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                        <input th:field="*{totalCases}" type="number" min="0" class="form-control" id="editTotalCases" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
                     </div>
                     <div class="form-group">
                         <label for="editNewCases">New Cases</label>
-                        <input th:field="*{newCases}" type="number" class="form-control" id="editNewCases" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                        <input th:field="*{newCases}" type="number" min="0" class="form-control" id="editNewCases" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
                     </div>
                     <div class="form-group">
                         <label for="editTotalDeaths">Total Deaths</label>
-                        <input th:field="*{totalDeaths}" type="number" class="form-control" id="editTotalDeaths" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                        <input th:field="*{totalDeaths}" type="number" min="0" class="form-control" id="editTotalDeaths" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
                     </div>
                     <div class="form-group">
                         <label for="editNewDeaths">New Deaths</label>
-                        <input th:field="*{newDeaths}" type="number" class="form-control" id="editNewDeaths" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                        <input th:field="*{newDeaths}" type="number" min="0" class="form-control" id="editNewDeaths" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" id="whichDiseaseEdit" name="whichDiseaseEdit" th:value="${whichDisease}">
@@ -70,7 +71,7 @@
                     <span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <form th:action="@{'/edit'}" th:method="post" th:object="${entry}">
+                <form id="editEntryMalaria" th:action="@{'/edit'}" th:method="post" th:object="${entry}">
                     <div class="form-group">
                         <input th:field="*{id}" id="editIdMalaria" class="form-control" type="hidden">
                     </div>
@@ -89,11 +90,11 @@
                     </div>
                     <div class="form-group">
                         <label for="editTotalCases">Total Cases</label>
-                        <input th:field="*{totalCases}" type="number" class="form-control" id="editTotalCasesMalaria" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                        <input th:field="*{totalCases}" type="number" min="0" class="form-control" id="editTotalCasesMalaria" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
                     </div>
                     <div class="form-group">
                         <label for="editTotalDeaths">Total Deaths</label>
-                        <input th:field="*{totalDeaths}" type="number" class="form-control" id="editTotalDeathsMalaria" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                        <input th:field="*{totalDeaths}" type="number" min="0" class="form-control" id="editTotalDeathsMalaria" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" id="whichDiseaseEditMalaria" name="whichDiseaseEdit">
@@ -166,11 +167,11 @@
                                 <td th:text="${entry.location.getCountry()}"></td>
                                 <td th:text="${entry.getTotalCases()}"></td>
                                 <td th:text="${entry.getTotalDeaths()}"></td>
-                                <td><button type="button" class="btn btn-warning editButton" data-toggle="modal" data-target=".editModalMalaria" th:attr="data-date = ${entry.getDate()}, data-location = ${entry.location.getId()}, data-disease = ${entry.disease.getId()},  data-totalcases = ${entry.totalCases}, data-totaldeaths = ${entry.totalDeaths}" th:id="${entry.getId()}">
+                                <td sec:authorize="isAuthenticated()"><button type="button" class="btn btn-warning editButton" data-toggle="modal" data-target=".editModalMalaria" th:attr="data-date = ${entry.getDate()}, data-location = ${entry.location.getId()}, data-disease = ${entry.disease.getId()},  data-totalcases = ${entry.totalCases}, data-totaldeaths = ${entry.totalDeaths}" th:id="${entry.getId()}">
                                     Edit
                                 </button></td>
 
-                                <td><button type="button" class="btn btn-danger deleteButton" data-toggle="modal" data-target=".deleteModal" th:id="${entry.getId()}">
+                                <td sec:authorize="isAuthenticated()"><button type="button" class="btn btn-danger deleteButton" data-toggle="modal" data-target=".deleteModal" th:id="${entry.getId()}">
                                     Delete
                                 </button></td>
                             </tr>
@@ -183,11 +184,11 @@
                                 <td th:text="${entry.getTotalCases()}" ></td>
                                 <td th:text="${entry.getNewDeaths()}" ></td>
                                 <td th:text="${entry.getTotalDeaths()}" ></td>
-                                <td><button type="button" class="btn btn-warning editButton" data-toggle="modal" data-target=".editModal" th:attr="data-date = ${entry.getDate()}, data-location = ${entry.location.getId()}, data-disease = ${entry.disease.getId()}, data-newcases = ${entry.newCases}, data-totalcases = ${entry.totalCases}, data-newdeaths = ${entry.newDeaths}, data-totaldeaths = ${entry.totalDeaths}" th:id="${entry.getId()}">
+                                <td sec:authorize="isAuthenticated()"><button type="button" class="btn btn-warning editButton" data-toggle="modal" data-target=".editModal" th:attr="data-date = ${entry.getDate()}, data-location = ${entry.location.getId()}, data-disease = ${entry.disease.getId()}, data-newcases = ${entry.newCases}, data-totalcases = ${entry.totalCases}, data-newdeaths = ${entry.newDeaths}, data-totaldeaths = ${entry.totalDeaths}" th:id="${entry.getId()}">
                                     Edit
                                 </button></td>
 
-                                <td><button type="button" class="btn btn-danger deleteButton" data-toggle="modal" data-target=".deleteModal" th:id="${entry.getId()}">
+                                <td sec:authorize="isAuthenticated()"><button type="button" class="btn btn-danger deleteButton" data-toggle="modal" data-target=".deleteModal" th:id="${entry.getId()}">
                                     Delete
                                 </button></td>
                             </tr>
@@ -442,6 +443,49 @@
 
     }).fail(function (err) {
         throw err;
+    })
+
+    $('#editEntry').submit(function(e){
+        $('#editDate, #editTotalCases, #editTotalDeaths, #editNewDeaths, #editNewCases').each(function() {
+            let stop = false;
+            if ($(this).val() === "" || $(this).val() == null){
+                e.preventDefault();
+                stop = true;
+                document.getElementById(this.id).style.borderColor = "red";
+                document.getElementById(this.id).style.borderWidth = "thick";
+            }
+            else {
+                document.getElementById(this.id).style.borderColor = "black";
+                document.getElementById(this.id).style.borderWidth = "medium";
+            }
+        });
+        if (stop){
+            alert("Unable to submit. Please fill in the required fields.");
+            return false;
+        }
+        else{
+            alert("Entry successfully submitted.");
+        }
+    });
+    $('#editEntryMalaria').submit(function(e){
+        $('#editDateMalaria, #editTotalCasesMalaria, #editTotalDeathsMalaria').each(function() {
+            let stop = false;
+            if ($(this).val() === "" || $(this).val() == null) {
+                e.preventDefault();
+                stop = true;
+                document.getElementById(this.id).style.borderColor = "red";
+                document.getElementById(this.id).style.borderWidth = "medium";
+            } else {
+                document.getElementById(this.id).style.borderColor = "black";
+                document.getElementById(this.id).style.borderWidth = "initial";
+            }
+            if (stop) {
+                alert("Unable to submit. Please fill in the required fields.");
+                return false;
+            } else {
+                alert("Entry successfully submitted.");
+            }
+        });
     });
 </script>
 </body>

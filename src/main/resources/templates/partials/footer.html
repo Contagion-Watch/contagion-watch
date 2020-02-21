@@ -1,7 +1,8 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
-<footer th:fragment="footer" class="py-2 text-white-50 " style="background-color: black">
+<footer sec:authorize="isAnonymous()" th:fragment="footer" class="py-2 text-white-50 " style="background-color: black">
     <div class="container text-center" >
         <small>Contagion Watch 2020</small>
     </div>
@@ -9,6 +10,18 @@
         <a href="/login"><small>Login</small></a> || <a href="/admin"><small>Admin</small></a>
         <small>Built by: Alexander Lee, Colin Marchbanks, Joshua Peters</small>
     </div>
+</footer>
+<footer sec:authorize="isAuthenticated()" th:fragment="footer" class="py-2 text-white-50 " style="background-color: black">
+    <div class="container text-center" >
+        <small>Contagion Watch 2020</small>
+    </div>
+    <div class="container text-center">
+        <a href="javascript: document.logoutForm.submit()"><small>Logout</small></a> || <a href="/admin"><small>Admin</small></a>
+        <small>Built by: Alexander Lee, Colin Marchbanks, Joshua Peters</small>
+    </div>
+    <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+        <input hidden type="submit" value="Sign Out"/>
+    </form>
 </footer>
 </body>
 </html>

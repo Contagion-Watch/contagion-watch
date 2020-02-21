@@ -7,12 +7,12 @@
 
 <nav th:replace="partials/navbar :: navbar" />
 
-<div th:if="${param.error}">
+<p th:if="${param.error}" style="color: white">
     Invalid Username and Password.
-</div>
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
+</p>
+<p th:if="${param.logout}" style="color: white">
+    You have successfully logged out.
+</p>
 
 
 <!--  DESKTOP -->
@@ -70,7 +70,6 @@
 </footer>
 
 <nav th:replace="partials/scripts :: scripts" />
-
 </body>
 
 </html>
