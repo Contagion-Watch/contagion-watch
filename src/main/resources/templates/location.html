@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="partials/head :: head" />
 
@@ -16,7 +17,7 @@
                     <span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <form th:action="@{'/editL'}" th:method="post" th:object="${entry}">
+                <form class="editEntry" th:action="@{'/editL'}" th:method="post" th:object="${entry}">
                     <div class="form-group">
                         <input th:field="*{id}" id="editId" class="form-control" type="hidden">
                     </div>
@@ -35,19 +36,19 @@
                     </div>
                     <div class="form-group">
                         <label for="editTotalCases">Total Cases</label>
-                        <input th:field="*{totalCases}" type="number" class="form-control" id="editTotalCases" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                        <input th:field="*{totalCases}" type="number" min="0" class="form-control" id="editTotalCases" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
                     </div>
                     <div class="form-group">
                         <label for="editNewCases">New Cases</label>
-                        <input th:field="*{newCases}" type="number" class="form-control" id="editNewCases" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                        <input th:field="*{newCases}" type="number" min="0" class="form-control" id="editNewCases" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
                     </div>
                     <div class="form-group">
                         <label for="editTotalDeaths">Total Deaths</label>
-                        <input th:field="*{totalDeaths}" type="number" class="form-control" id="editTotalDeaths" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                        <input th:field="*{totalDeaths}" type="number" min="0" class="form-control" id="editTotalDeaths" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
                     </div>
                     <div class="form-group">
                         <label for="editNewDeaths">New Deaths</label>
-                        <input th:field="*{newDeaths}" type="number" class="form-control" id="editNewDeaths" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                        <input th:field="*{newDeaths}" type="number" min="0" class="form-control" id="editNewDeaths" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" id="whichLocationEdit" name="whichLocationEdit">
@@ -68,7 +69,7 @@
                     <span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <form th:action="@{'/editL'}" th:method="post" th:object="${entry}">
+                <form id="editEntryMalaria" th:action="@{'/editL'}" th:method="post" th:object="${entry}">
                     <div class="form-group">
                         <input th:field="*{id}" id="editIdMalaria" class="form-control" type="hidden">
                     </div>
@@ -87,11 +88,11 @@
                     </div>
                     <div class="form-group">
                         <label for="editTotalCasesMalaria">Total Cases</label>
-                        <input th:field="*{totalCases}" type="number" class="form-control" id="editTotalCasesMalaria" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                        <input th:field="*{totalCases}" type="number" min="0" class="form-control" id="editTotalCasesMalaria" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
                     </div>
                     <div class="form-group">
                         <label for="editTotalDeathsMalaria">Total Deaths</label>
-                        <input th:field="*{totalDeaths}" type="number" class="form-control" id="editTotalDeathsMalaria" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                        <input th:field="*{totalDeaths}" type="number" min="0" class="form-control" id="editTotalDeathsMalaria" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" id="whichLocationEditMalaria" name="whichLocationEdit">
@@ -137,13 +138,13 @@
     <div class="col-6">
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="coronaTab" data-toggle="tab" href="#coronaStat" role="tab" aria-controls="coronaStat" aria-selected="true">Corona</a>
+                <a class="nav-item nav-link" id="coronaTab" data-toggle="tab" href="#coronaStat" role="tab" aria-controls="coronaStat" aria-selected="false">Corona</a>
                 <a class="nav-item nav-link" id="ebolaTab" data-toggle="tab" href="#ebolaStat" role="tab" aria-controls="ebolaStat" aria-selected="false">Ebola</a>
                 <a class="nav-item nav-link" id="malariaTab" data-toggle="tab" href="#malariaStat" role="tab" aria-controls="malariaStat" aria-selected="false">Malaria</a>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="coronaStat" role="tabpanel" aria-labelledby="coronaTab">
+            <div class="tab-pane fade" id="coronaStat" role="tabpanel" aria-labelledby="coronaTab">
                 <table class="table table-hover">
                     <thead>
                     <tr>
@@ -161,11 +162,11 @@
                         <td th:text="${entry.getTotalCases()}"></td>
                         <td th:text="${entry.getNewDeaths()}"></td>
                         <td th:text="${entry.getTotalDeaths()}"></td>
-                        <td><button type="button" class="btn btn-warning editButton" data-toggle="modal" data-target=".editModal" th:attr="data-date = ${entry.getDate()}, data-location = ${entry.location.getId()}, data-disease = ${entry.disease.getId()}, data-newcases = ${entry.newCases}, data-totalcases = ${entry.totalCases}, data-newdeaths = ${entry.newDeaths}, data-totaldeaths = ${entry.totalDeaths}" th:id="${entry.getId()}">
+                        <td sec:authorize="isAuthenticated()"><button type="button" class="btn btn-warning editButton" data-toggle="modal" data-target=".editModal" th:attr="data-date = ${entry.getDate()}, data-location = ${entry.location.getId()}, data-disease = ${entry.disease.getId()}, data-newcases = ${entry.newCases}, data-totalcases = ${entry.totalCases}, data-newdeaths = ${entry.newDeaths}, data-totaldeaths = ${entry.totalDeaths}" th:id="${entry.getId()}">
                             Edit
                         </button></td>
 
-                        <td><button type="button" class="btn btn-danger deleteButton" data-toggle="modal" data-target=".deleteModal" th:attr="data-location = ${entry.location.getId()}" th:id="${entry.getId()}">
+                        <td sec:authorize="isAuthenticated()"><button type="button" class="btn btn-danger deleteButton" data-toggle="modal" data-target=".deleteModal" th:attr="data-location = ${entry.location.getId()}" th:id="${entry.getId()}">
                             Delete
                         </button></td>
                     </tr>
@@ -230,11 +231,11 @@
                         <td th:text="${entry.getTotalCases()}"></td>
                         <td th:text="${entry.getNewDeaths()}"></td>
                         <td th:text="${entry.getTotalDeaths()}"></td>
-                        <td><button type="button" class="btn btn-warning editButton" data-toggle="modal" data-target=".editModal" th:attr="data-date = ${entry.getDate()}, data-location = ${entry.location.getId()}, data-disease = ${entry.disease.getId()}, data-newcases = ${entry.newCases}, data-totalcases = ${entry.totalCases}, data-newdeaths = ${entry.newDeaths}, data-totaldeaths = ${entry.totalDeaths}" th:id="${entry.getId()}">
+                        <td sec:authorize="isAuthenticated()"><button type="button" class="btn btn-warning editButton" data-toggle="modal" data-target=".editModal" th:attr="data-date = ${entry.getDate()}, data-location = ${entry.location.getId()}, data-disease = ${entry.disease.getId()}, data-newcases = ${entry.newCases}, data-totalcases = ${entry.totalCases}, data-newdeaths = ${entry.newDeaths}, data-totaldeaths = ${entry.totalDeaths}" th:id="${entry.getId()}">
                             Edit
                         </button></td>
 
-                        <td><button type="button" class="btn btn-danger deleteButton" data-toggle="modal" data-target=".deleteModal" th:attr="data-location = ${entry.location.getId()}" th:id="${entry.getId()}">
+                        <td sec:authorize="isAuthenticated()"><button type="button" class="btn btn-danger deleteButton" data-toggle="modal" data-target=".deleteModal" th:attr="data-location = ${entry.location.getId()}" th:id="${entry.getId()}">
                             Delete
                         </button></td>
                     </tr>
@@ -295,11 +296,11 @@
                         <td th:text="${entry.getDate()}"></td>
                         <td th:text="${entry.getTotalCases()}"></td>
                         <td th:text="${entry.getTotalDeaths()}"></td>
-                        <td><button type="button" class="btn btn-warning editButton" data-toggle="modal" data-target=".editModalMalaria" th:attr="data-date = ${entry.getDate()}, data-location = ${entry.location.getId()}, data-disease = ${entry.disease.getId()}, data-totalcases = ${entry.totalCases}, data-totaldeaths = ${entry.totalDeaths}" th:id="${entry.getId()}">
+                        <td sec:authorize="isAuthenticated()"><button type="button" class="btn btn-warning editButton" data-toggle="modal" data-target=".editModalMalaria" th:attr="data-date = ${entry.getDate()}, data-location = ${entry.location.getId()}, data-disease = ${entry.disease.getId()}, data-totalcases = ${entry.totalCases}, data-totaldeaths = ${entry.totalDeaths}" th:id="${entry.getId()}">
                             Edit
                         </button></td>
 
-                        <td><button type="button" class="btn btn-danger deleteButton" data-toggle="modal" data-target=".deleteModal" th:attr="data-location = ${entry.location.getId()}" th:id="${entry.getId()}">
+                        <td sec:authorize="isAuthenticated()"><button type="button" class="btn btn-danger deleteButton" data-toggle="modal" data-target=".deleteModal" th:attr="data-location = ${entry.location.getId()}" th:id="${entry.getId()}">
                             Delete
                         </button></td>
                     </tr>
@@ -384,14 +385,6 @@
         $("#editNewDeaths").val(button.data('newdeaths'));
         $("#editTotalDeaths").val(button.data('totaldeaths'));
         $("#whichLocationEdit").val(button.data('location'));
-        console.log(number);
-        console.log(button.data('date'));
-        console.log(button.data('location'));
-        console.log(button.data('newcases'));
-        console.log(button.data('totalcases'));
-        console.log(button.data('newdeaths'));
-        console.log(button.data('totaldeaths'));
-
     })
 
     $('.editModalMalaria').on('show.bs.modal', function(event) {
@@ -412,13 +405,43 @@
         $("#deleteId").val(number);
         $("#whichLocationDelete").val(button.data('location'));
     })
+    $('#nav-tab a').click(function(e) {
+        e.preventDefault();
+        localStorage.setItem('activeTab', $(e.target).attr('href'));
+    })
     $(document).ready(function(){
-        let activeTab = localStorage.getItem('activeTab');
-        $('#nav-tab a').click(function(e) {
-            e.preventDefault();
-            localStorage.setItem('activeTab', $(e.target).attr('href'));
-        })
+        let activeTab = window.localStorage.getItem('activeTab');
+        console.log(activeTab);
+        if(activeTab === "#malariaStat"){
+            document.getElementById('malariaTab').click();
+        }
+        else if (activeTab === "#ebolaStat"){
+            document.getElementById('ebolaTab').click();
+        }
+        else {
+            document.getElementById('coronaTab').click()
 
+        }
+    });
+    $('#editEntryMalaria').submit(function(e){
+        $('#editDateMalaria, #editTotalCasesMalaria, #editTotalDeathsMalaria').each(function() {
+            let stop = false;
+            if ($(this).val() === "" || $(this).val() == null) {
+                e.preventDefault();
+                stop = true;
+                document.getElementById(this.id).style.borderColor = "red";
+                document.getElementById(this.id).style.borderWidth = "medium";
+            } else {
+                document.getElementById(this.id).style.borderColor = "black";
+                document.getElementById(this.id).style.borderWidth = "initial";
+            }
+            if (stop) {
+                alert("Unable to submit. Please fill in the required fields.");
+                return false;
+            } else {
+                alert("Entry successfully submitted.");
+            }
+        });
     });
 
 </script>
