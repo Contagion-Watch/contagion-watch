@@ -1,24 +1,38 @@
 /* MOBILE CSS */
 @media (max-width: 991.999px) {
-    .portrait{
-        box-shadow: 30px 30px;
-    }
     .page-title{
         font-family: 'Black Ops One', cursive;
     }
-    .card-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+    /*.card-img {*/
+    /*    width: 100%;*/
+    /*    height: 100%;*/
+    /*    object-fit: cover;*/
+    /*}*/
+    .portrait{
+        box-shadow: 24px 24px black;
+    }
+    .portrait-colin{
+        box-shadow: 48px 48px #7556EB;
+    }
+    .portrait-alex{
+        box-shadow: 48px 48px #EA0C3C;
+    }
+    .portrait-josh{
+        box-shadow: 48px 48px #2A92E0;
+    }
+    /* mobile navbar */
+    .navbar-custom {
+        color: black; background-color: black !important;
     }
 }
 /* DESKTOP CSS */
 @media (min-width: 992px) {
     .aboutus-black{
-        background-image: url('img/about-login-darktwo.png');
+        background-image: url('img/black-small-background.jpg');
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: cover;
+        ;
     }
     .portrait{
         box-shadow: 12px 12px black;
@@ -45,10 +59,6 @@
         font-family: 'Overpass', sans-serif;
         color: black;
     }
-    /*h5{*/
-    /*    font-family: 'Prata', serif;*/
-    /*}*/
-
     /* Tab Content on Information Page */
     .tab-pane {
 
@@ -58,21 +68,8 @@
         border-radius: 0px 0px 5px 5px;
         padding: 10px;
     }
-
     .nav-tabs {
         margin-bottom: 0;
-    }
-
-    /* iFrame on information page */
-    .frame-area {
-        display: block;
-        width: 90%;  /* RESPONSIVE WIDTH */
-        /*max-width: 400px;*/
-        height: 600px;
-        overflow: auto;  /* EDIT TO hidden FOR NO SCROLLBAR */
-        border: #999999 5px solid;
-        margin: auto;
-        padding: 0px;
     }
     /* login page center */
     .vertical-center {
@@ -82,7 +79,6 @@
         display: flex;
         align-items: center;
     }
-
     .card-img {
         width: 100%;
         height: 15vw;
@@ -95,9 +91,7 @@
     .inline-svg {
         border: 5px solid black;
     }
-
     /* landing video */
-
     header {
         position: relative;
         background-color: black;
@@ -106,7 +100,6 @@
         width: 100%;
         overflow: hidden;
     }
-
     header video {
         position: absolute;
         top: 50%;
@@ -121,12 +114,10 @@
         -webkit-transform: translateX(-50%) translateY(-50%);
         transform: translateX(-50%) translateY(-50%);
     }
-
     header .container {
         position: relative;
         z-index: 2;
     }
-
     header .overlay {
         position: absolute;
         top: 0;
@@ -137,7 +128,6 @@
         opacity: 0.5;
         z-index: 1;
     }
-
     @media (pointer: coarse) and (hover: none) {
         header {
             background: url('https://source.unsplash.com/XT5OInaElMw/1600x900') black no-repeat center center scroll;
