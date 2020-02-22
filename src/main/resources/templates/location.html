@@ -503,10 +503,10 @@
                     let formatedDate = listOfResults[i].pub_date.split("T");
                     formatedDate = formatedDate[0];
                     console.log(selectedMedia);
-                    $("#newsSourceArea").append("<div class=\"card mb-3\" style=\"max-width: 540px;height:30vh;\">\n" +
+                    $("#newsSourceArea").append("<div class=\"card mb-3\" style=\"max-width: 540px;height:22.5vh;\">\n" +
                         "    <div class=\"row no-gutters\">\n" +
                         "        <div class=\"col-md-4\">\n" +
-                        "            <img src=\"" + selectedMedia + "\" style='height:30vh;width:30vh;'class=\"card-img\" alt=\"...\">\n" +
+                        "            <img src=\"" + selectedMedia + "\" style='height:22.5vh;width:100%;'class=\"card-img\" alt=\"...\">\n" +
                         "        </div>\n" +
                         "        <div class=\"col-md-8\">\n" +
                         "            <div class=\"card-body\">\n" +
@@ -524,16 +524,15 @@
                 let formatedDate = listOfResults[i].pub_date.split("T");
                 formatedDate = formatedDate[0];
                 console.log(selectedMedia);
-                $("#newsSourceArea").append("<div class=\"card mb-3\" style=\"max-width: 540px;height:30vh;\">\n" +
+                $("#newsSourceArea").append("<div class=\"card mb-3\" style=\"max-width: 540px;height:22.5vh;\">\n" +
                     "    <div class=\"row no-gutters\">\n" +
                     "        <div class=\"col-md-4\">\n" +
-                    "            <img src=\"" + selectedMedia + "\" style='height:30vh;width:30vh;'class=\"card-img\" alt=\"...\">\n" +
+                    "            <img src=\"" + selectedMedia + "\" style='height:22.5vh;width:100%;'class=\"card-img\" alt=\"...\">\n" +
                     "        </div>\n" +
                     "        <div class=\"col-md-8\">\n" +
                     "            <div class=\"card-body\">\n" +
                     "                <h5 class=\"card-title mt-0\">" + listOfResults[i].headline.main + "</h5>\n" +
                     "                <p class=\"card-text\">Check out the article here: <a href=" + listOfResults[i].web_url + ">Link</a></p>\n" +
-                    "                <p class=\"card-text\">" + formatedDate + "</p>\n" +
                     "            </div>\n" +
                     "        </div>\n" +
                     "    </div>\n" +
