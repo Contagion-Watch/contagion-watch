@@ -194,7 +194,7 @@
                     </tbody>
                 </table>
                 <nav aria-label="Pagination" th:if="${corona.totalPages gt 0}">
-                    <ul class="pagination justify-content-center">
+                    <ul class="pagination justify-content-center pg-dark">
                         <li class="page-item" th:classappend="${corona.number eq 0} ? 'disabled'">
                             <a class="page-link svg-icon"
                                th:href="@{|/location/${whichLocation}?page=0|}"
@@ -263,7 +263,7 @@
                     </tbody>
                 </table>
                 <nav aria-label="Pagination" th:if="${ebola.totalPages gt 0}">
-                    <ul class="pagination justify-content-center">
+                    <ul class="pagination justify-content-center pg-dark">
                         <li class="page-item" th:classappend="${ebola.number eq 0} ? 'disabled'">
                             <a class="page-link svg-icon"
                                th:href="@{|/location/${whichLocation}?page=0|}"
@@ -327,7 +327,7 @@
                     </tbody>
                 </table>
                 <nav aria-label="Pagination" th:if="${malaria.totalPages gt 0}">
-                    <ul class="pagination justify-content-center">
+                    <ul class="pagination justify-content-center pg-dark">
                         <li class="page-item" th:classappend="${malaria.number eq 0} ? 'disabled'">
                             <a class="page-link svg-icon"
                                th:href="@{|/location/${whichLocation}?page=0|}"
