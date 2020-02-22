@@ -36,6 +36,9 @@ public class LocationController {
     @Value("${nytKey}")
     private String nytKey;
 
+    @Value("${mapboxKey}")
+    private String mapboxKey;
+
     @RequestMapping(value = "/location/{id}", method = RequestMethod.GET)
     public String locationInfo(@PathVariable Long id, Model model, @PageableDefault(value=5, sort = "date", direction = Sort.Direction.DESC) Pageable pageable) {
         model.addAttribute("corona", entryDao.findAllByLocation_IdAndDisease_Id(id, 1, pageable));
@@ -46,6 +49,7 @@ public class LocationController {
         model.addAttribute("whichLocation", id);
         model.addAttribute("bingKey",bingKey);
         model.addAttribute("nytKey",nytKey);
+        model.addAttribute("mapboxKey",mapboxKey);
         model.addAttribute("locationName",locationDao.getLocationById(id).getCountry());
         model.addAttribute("entry", new Entry());
         return "location";
