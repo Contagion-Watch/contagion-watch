@@ -92,6 +92,14 @@
     .inline-svg {
         border: 5px solid black;
     }
+    .page-item.active .page-link {
+        z-index: 1;
+        color: white;
+        background-color: black;
+    }
+    .page-link {
+        color: black;
+    }
     /* landing video */
     header {
         position: relative;
