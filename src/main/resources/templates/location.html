@@ -133,7 +133,7 @@
 <div class="row">
     <div class="col-6">
         <!-- map goes here -->
-        <img class="information-disease-img w-100" src="img/corona-virus.jpg">
+        <img class="information-disease-img w-100" src="https://contagion.watch/img/corona-virus.jpg">
     </div>
     <div class="col-6">
         <nav>
@@ -352,8 +352,10 @@
 
 </div>
 
-<h1 class="col page-title text-center">NEWS ALERTS</h1>
-<div id="newsSourceArea" class="d-flex justify-content-around"></div>
+<h3 class="col page-title text-center mb-0 p-2" style="background-color: darkgrey">NEWS ALERTS</h3>
+<div id="newsSourceArea" class="d-flex justify-content-around" style="background-color: darkgrey">
+
+</div>
 <div style="display: none" id="locationName" th:text="${locationName}"></div>
 
 <nav th:replace="partials/footer :: footer" />
@@ -452,8 +454,8 @@
     var url = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
     url += '?' + $.param({
         'api-key': "[[${nytKey}]]",
-        'q': locationName,
-        'begin_date': '20000101',
+        'q': 'Coronavirus',
+        'begin_date': '20200101',
         'end_date': '20200229'
     });
     $.ajax({
@@ -504,7 +506,7 @@
                     $("#newsSourceArea").append("<div class=\"card mb-3\" style=\"max-width: 540px;height:30vh;\">\n" +
                         "    <div class=\"row no-gutters\">\n" +
                         "        <div class=\"col-md-4\">\n" +
-                        "            <img src=\"" + selectedMedia + "\" style='height:30vh;width100%;'class=\"card-img\" alt=\"...\">\n" +
+                        "            <img src=\"" + selectedMedia + "\" style='height:30vh;width:30vh;'class=\"card-img\" alt=\"...\">\n" +
                         "        </div>\n" +
                         "        <div class=\"col-md-8\">\n" +
                         "            <div class=\"card-body\">\n" +
@@ -525,7 +527,7 @@
                 $("#newsSourceArea").append("<div class=\"card mb-3\" style=\"max-width: 540px;height:30vh;\">\n" +
                     "    <div class=\"row no-gutters\">\n" +
                     "        <div class=\"col-md-4\">\n" +
-                    "            <img src=\"" + selectedMedia + "\" style='height:30vh;width100%;'class=\"card-img\" alt=\"...\">\n" +
+                    "            <img src=\"" + selectedMedia + "\" style='height:30vh;width:30vh;'class=\"card-img\" alt=\"...\">\n" +
                     "        </div>\n" +
                     "        <div class=\"col-md-8\">\n" +
                     "            <div class=\"card-body\">\n" +
@@ -541,13 +543,6 @@
 
     }).fail(function (err) {
         throw err;
-    });
-    url = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
-    url += '?' + $.param({
-        'api-key': "[[${nytKey}]]",
-        'q': "Ebola AND" + locationName,
-        'begin_date': '20200210',
-        'end_date': '20200229'
     });
 </script>
 </body>

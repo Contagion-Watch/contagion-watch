@@ -130,9 +130,10 @@
     </div>
 </div>
 
+
 <h1 class="col text-center display-3" style="font-family: 'Black Ops One', cursive !important;" th:text="${disease.getName()}"></h1>
 
-<div class="parallax-window" data-natural-width="1920" data-natural-height="635" data-parallax="scroll" data-image-src="img/first-front-small.jpg"></div>
+<div class="parallax-window" data-natural-width="1920" data-natural-height="635" data-parallax="scroll" data-image-src="https://contagion.watch/img/first-front-small.jpg"></div>
 
 
 <div class="row">
@@ -305,9 +306,8 @@
 
 </div>
 
-<h1 class="col page-title text-center display-3 blackOpsOne" style="font-family: 'Black Ops One', cursive !important;">NEWS ALERTS</h1>
-
-<div id="newsSourceArea" class="d-flex justify-content-around"></div>
+<h3 class="col page-title text-center mb-0 p-2" style="background-color: darkgrey">NEWS ALERTS</h3>
+<div id="newsSourceArea" class="d-flex justify-content-around" style="background-color: darkgrey"></div>
 
 
 <nav th:replace="partials/footer :: footer" />
@@ -402,7 +402,7 @@
                     $("#newsSourceArea").append("<div class=\"card mb-3\" style=\"max-width: 540px;height:30vh;\">\n" +
                         "    <div class=\"row no-gutters\">\n" +
                         "        <div class=\"col-md-4\">\n" +
-                        "            <img src=\"" + selectedMedia + "\" style='height:30vh;width100%;'class=\"card-img\" alt=\"...\">\n" +
+                        "            <img src=\"" + selectedMedia + "\" style='height:30vh;width:30vh;'class=\"card-img\" alt=\"...\">\n" +
                         "        </div>\n" +
                         "        <div class=\"col-md-8\">\n" +
                         "            <div class=\"card-body\">\n" +
@@ -423,7 +423,7 @@
                 $("#newsSourceArea").append("<div class=\"card mb-3\" style=\"max-width: 540px;height:30vh;\">\n" +
                     "    <div class=\"row no-gutters\">\n" +
                     "        <div class=\"col-md-4\">\n" +
-                    "            <img src=\"" + selectedMedia + "\" style='height:30vh;width100%;'class=\"card-img\" alt=\"...\">\n" +
+                    "            <img src=\"" + selectedMedia + "\" style='height:30vh;width:30vh;'class=\"card-img\" alt=\"...\">\n" +
                     "        </div>\n" +
                     "        <div class=\"col-md-8\">\n" +
                     "            <div class=\"card-body\">\n" +
