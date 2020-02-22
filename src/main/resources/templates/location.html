@@ -485,7 +485,7 @@
         console.log(results);
         var listOfResults = results.response.docs;
         console.log(listOfResults);
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 3; i++) {
             let listOfMedia = listOfResults[i].multimedia;
             let selectedMedia = null;
             let mediaHeight = 50;
@@ -696,32 +696,6 @@
                         'Total cases: 2'
                     ))
                     .addTo(mapCorona);
-                $(".state").hide();
-                geocode(data[i].location.country, mapboxKey).then(function (result) {
-                    let el8 = document.createElement('div');
-                    el8.className = "usa";
-                    let size = 0;
-                    if (data[i].totalCases >= 1) {
-                        size = 5;
-                    }
-                    if (data[i].totalCases > 10) {
-                        size = 15;
-                    }
-                    if (data[i].totalCases > 30) {
-                        size = 25;
-                    }
-                    if (data[i].totalCases > 1000) {
-                        size = 50;
-                    }
-                    el8.style.width = size + "px";
-                    el8.style.height = size + "px";
-                    new mapboxgl.Marker(el8)
-                        .setLngLat(result)
-                        .setPopup(new mapboxgl.Popup({offset: 25}).setText(
-                            'Total cases: ' + data[i].totalCases
-                        )) // sets a popup on this marker
-                        .addTo(mapCorona);
-                });
                 continue;
             }
             if (data[i].location.country === "China") {
