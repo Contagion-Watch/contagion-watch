@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="partials/head :: head"></head>
 
-<body>
+<body style="background-image: url('')">
 <nav th:replace="partials/navbar :: navbar"/>
 <div class="container text-center d-none d-lg-block">
     <h1 class="display-3 page-title" style="color: white">Select Country</h1>
@@ -30,7 +30,7 @@
     const cardArea = $("#card-area");
     const searchTerm = $("#locationFilter");
     let locations = null;
-    $.getJSON('location-navigation/api/locations', function (results) {
+    $.getJSON('https://contagion.watch/location-navigation/api/locations', function (results) {
         locations = results;
         let cardAreaContent = '';
         results.forEach(function (location) {

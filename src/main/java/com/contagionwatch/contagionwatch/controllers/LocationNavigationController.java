@@ -34,7 +34,7 @@ public class LocationNavigationController {
         List<Location> relavantLocations = new ArrayList<>();
         for(int i = 0; i < allEntries.size(); i++){
             if(!idsOfLocations.contains(allEntries.get(i).getLocation().getId())){
-                idsOfLocations.add(allEntries.get(i+1).getLocation().getId());
+                idsOfLocations.add(allEntries.get(i).getLocation().getId());
             }
         }
         for (int i = 0; i < idsOfLocations.size(); i++){
