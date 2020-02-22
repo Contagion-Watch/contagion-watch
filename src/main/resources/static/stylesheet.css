@@ -101,6 +101,15 @@
     .page-link {
         color: black;
     }
+    .accordion .btn{
+        color: black;
+    }
+    .nav-item {
+        color: black;
+    }
+    .nav-link {
+        color: black;
+    }
     /* landing video */
     header {
         position: relative;
