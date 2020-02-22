@@ -16,9 +16,11 @@
 
 
 <!--  DESKTOP -->
-    <h1 class="page-title text-center p-5 d-none d-lg-block" style="color: white">ADMIN LOGIN - RESTRICTED ACCESS</h1>
+<div class="p-2 text-center col-6 mx-auto">
 
-    <form class="text-center p-5 d-none d-lg-block" th:action="@{/login}" method="post">
+    <h1 class="page-title text-center px-5 pt-5 d-none d-lg-block" style="color: white">ADMIN LOGIN  RESTRICTED ACCESS</h1>
+
+    <form class="text-center px-5 pt-3 pb-5 d-none d-lg-block" th:action="@{/login}" method="post">
         <div class="form-group">
             <label for="username" style="color: white">Admin Username</label>
             <input type="text" class="form-control" name="username" id="username">
@@ -40,7 +42,7 @@
         <small>Built by: Alexander Lee, Colin Marchbanks, Joshua Peters</small>
     </div>
 </footer>
-
+</div>
 <!-- MOBILE -->
 
 <h1 class="page-title text-center p-5 d-block d-lg-none" style="font-size: 5em">ADMIN LOGIN</h1>
