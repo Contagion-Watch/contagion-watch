@@ -307,7 +307,7 @@
 </div>
 
 <h3 class="col page-title text-center mb-0 p-2" style="background-color: darkgrey">NEWS ALERTS</h3>
-<div id="newsSourceArea" class="d-flex justify-content-around" style="background-color: darkgrey">
+<div id="newsSourceArea" class="d-flex flex-wrap justify-content-around" style="background-color: darkgrey">
     <img id="gif" src="https://contagion.watch/img/dna-loading.gif">
 </div>
 
@@ -363,7 +363,7 @@
         console.log(results);
         var listOfResults = results.response.docs;
         console.log(listOfResults);
-        for (let i = 0; i < 2; i++) {
+        for (let i = 0; i < 4; i++) {
             let listOfMedia = listOfResults[i].multimedia;
             let selectedMedia = null;
             let mediaHeight = 50;

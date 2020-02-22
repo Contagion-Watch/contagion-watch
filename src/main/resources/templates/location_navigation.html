@@ -35,7 +35,7 @@
         let cardAreaContent = '';
         results.forEach(function (location) {
             cardAreaContent +=
-                "    <a href=\"/location/" + location.id + "\" class=\"btn btn-primary m-3git\">"+location.country+"</a>\n"
+                "    <a href=\"/location/" + location.id + "\" class=\"btn btn-dark m-3\">"+location.country+"</a>\n"
         });
         cardArea.html(cardAreaContent);
     }).done(function () {
@@ -45,7 +45,7 @@
                 locations.forEach(function (location) {
                 if (location.country.toLowerCase().startsWith(searchTerm.val().toLowerCase().trim())) {
                     cardAreaContent +=
-                        "    <a href=\"/location/" + location.id + "\" class=\"btn btn-primary m-3 \">"+location.country+"</a>\n"
+                        "    <a href=\"/location/" + location.id + "\" class=\"btn btn-dark m-3 \">"+location.country+"</a>\n"
 
                 }
 
