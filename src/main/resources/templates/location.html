@@ -354,7 +354,7 @@
 
 <h3 class="col page-title text-center mb-0 p-2" style="background-color: darkgrey">NEWS ALERTS</h3>
 <div id="newsSourceArea" class="d-flex justify-content-around" style="background-color: darkgrey">
-
+    <img id="gif" src="https://contagion.watch/img/dna-loading.gif">
 </div>
 <div style="display: none" id="locationName" th:text="${locationName}"></div>
 
@@ -495,6 +495,7 @@
                         xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", "[[${bingKey}]]");
                     },
                 }).done(function (results) {
+                    $('#gif').css('display', 'none');
                     console.log("IMAGE RESULT:");
                     console.log(results);
                     selectedMedia = results.value[0].contentUrl;
@@ -521,6 +522,7 @@
                     throw err;
                 })
             } else {
+                $('#gif').css('display', 'none');
                 let formatedDate = listOfResults[i].pub_date.split("T");
                 formatedDate = formatedDate[0];
                 console.log(selectedMedia);
