@@ -30,7 +30,7 @@
     const cardArea = $("#card-area");
     const searchTerm = $("#locationFilter");
     let locations = null;
-    $.getJSON('https://contagion.watch/location-navigation/api/locations', function (results) {
+    $.getJSON('/location-navigation/api/locations', function (results) {
         locations = results;
         let cardAreaContent = '';
         results.forEach(function (location) {
