@@ -13,15 +13,18 @@
         z-index: 99;
     }
     .portrait-colin{
-        box-shadow: 48px 48px #2A92E0;
+        box-shadow: 30px 30px #2A92E0;
+        width: 80%;
 
     }
     .portrait-alex{
-        box-shadow: 48px 48px #7556EB;
+        box-shadow: 30px 30px #7556EB;
+        width: 80%;
 
     }
     .portrait-josh{
-        box-shadow: 48px 48px #EA0C3C;
+        box-shadow: 30px 30px #EA0C3C;
+        width: 80%;
     }
     /* mobile navbar */
     .navbar-custom {
