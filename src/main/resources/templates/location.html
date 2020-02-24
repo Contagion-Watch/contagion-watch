@@ -132,7 +132,7 @@
             </div>
             <div class="modal-footer">
                 <form th:action="@{'/deleteL'}" th:method="post">
-                    <input type="hidden" id="whichLocationDelete" name="whichLocationDelete">
+                    <input type="hidden" id="whichLocationDelete" name="whichLocationDelete" th:value="${whichLocationDelete}">
                     <input type="hidden" id="deleteId" name="deleteId">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-danger">Delete</button>
