@@ -167,10 +167,10 @@
         </nav>
         <div class="tab-content bg-white" id="nav-tabContent">
             <div class="tab-pane fade" id="coronaStat" role="tabpanel" aria-labelledby="coronaTab">
-                <div th:if="${corona == null}">
+                <div th:if="${corona.totalElements eq 0}">
                     There is no record of this disease for this location.
                 </div>
-                <table class="table table-hover">
+                <table class="table table-hover"  th:if="${corona.totalPages gt 0}>
                     <thead>
                     <tr>
                         <th scope="col">Date</th>
@@ -239,10 +239,10 @@
                 </nav>
             </div>
             <div class="tab-pane fade" id="ebolaStat" role="tabpanel" aria-labelledby="ebolaTab">
-                <div th:if="${ebola == null}">
+                <div th:if="${ebola.totalElements eq 0}">
                     There is no record of this disease for this location.
                 </div>
-                <table class="table table-hover">
+                <table class="table table-hover" th:if="${ebola.totalPages gt 0}">
                     <thead>
                     <tr>
                         <th scope="col">Date</th>
@@ -311,10 +311,10 @@
                 </nav>
             </div>
             <div class="tab-pane fade" id="malariaStat" role="tabpanel" aria-labelledby="malariaTab">
-                <div th:if="${malaria == null}">
+                <div th:if="${malaria.totalElements eq 0}">
                     There is no record of this disease for this location.
                 </div>
-                <table class="table table-hover">
+                <table class="table table-hover" th:if="${malaria.totalPages gt 0}">
                     <thead>
                     <tr>
                         <th scope="col">Date</th>
