@@ -44,12 +44,10 @@ public class LocationController {
         model.addAttribute("corona", entryDao.findAllByLocation_IdAndDisease_Id(id, 1, pageable));
         model.addAttribute("ebola", entryDao.findAllByLocation_IdAndDisease_Id(id, 2, pageable));
         model.addAttribute("malaria", entryDao.findAllByLocation_IdAndDisease_Id(id, 3, pageable));
-        model.addAttribute("coronaSize",entryDao.getAllByDisease_IdAndLocation_Id(id,1).size());
-        model.addAttribute("ebolaSize",entryDao.getAllByDisease_IdAndLocation_Id(id,2).size());
-        model.addAttribute("malariaSize",entryDao.getAllByDisease_IdAndLocation_Id(id,3).size());
         model.addAttribute("diseases", diseaseDao.findAll());
         model.addAttribute("locations", locationDao.findAll());
         model.addAttribute("whichLocation", id);
+        model.addAttribute("whichLocationDelete", id);
         model.addAttribute("bingKey",bingKey);
         model.addAttribute("nytKey",nytKey);
         model.addAttribute("mapboxKey",mapboxKey);
