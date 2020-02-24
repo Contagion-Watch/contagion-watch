@@ -9,7 +9,7 @@
 
 
 <!--  DESKTOP -->
-<header>
+<header class="d-none d-lg-block">
     <div class="overlay"></div>
     <video autoplay="autoplay" muted="muted" loop="loop">
         <source src="https://www.videvo.net/videvo_files/converted/2016_05/preview/506401051_1.mov80298.webm" type="video/webm">
@@ -24,6 +24,11 @@
     </div>
 </header>
 
+<!-- mobile header banner -->
+<div class="container-fluid d-block d-lg-none">
+    <img src="img/first-front-small.jpg" class="img-responsive d-block d-lg-none w-100">
+</div>
+<!-- mobile header banner -->
 
 <section class="my-5" >
     <div class="d-flex h-100 text-center align-items-center">
@@ -57,6 +62,12 @@
         </div>
 </section>
 
+<!-- mobile learn banner -->
+<div class="container-fluid d-block d-lg-none">
+    <img src="img/front-medical-small.jpg" class="img-responsive d-block d-lg-none w-100">
+</div>
+<!-- mobile learn banner -->
+
 <section class="my-5" >
     <div class="d-flex h-100 text-center align-items-center">
         <div class="w-100 text-black">
@@ -67,6 +78,12 @@
 </section>
 
 <a href="/location/43"><div class="parallax-window" data-natural-width="1920" data-natural-height="635" data-parallax="scroll" data-image-src="img/front-medical-small.jpg"></div></a>
+
+<!-- mobile track banner -->
+<div class="container-fluid d-block d-lg-none">
+    <img src="img/front-small-grid.jpg" class="img-responsive d-block d-lg-none w-100">
+</div>
+<!-- mobile track banner -->
 
 <section class="my-5" >
     <div class="d-flex h-100 text-center align-items-center">
@@ -99,6 +116,12 @@
         </div>
 </section>
 
+<!-- mobile footer banner -->
+<div class="container-fluid d-block d-lg-none">
+    <img src="img/bottom-front-small.jpg" class="img-responsive d-block d-lg-none w-100">
+</div>
+<!-- mobile footer banner -->
+
 <a href="/map"><div class="parallax-window" data-natural-width="1920" data-natural-height="635" data-parallax="scroll" data-image-src="img/bottom-front-small.jpg"></div></a>
 
 
@@ -106,7 +129,8 @@
 <!-- back to top button -->
 <a href="#" id="scroll" style="display: none;"><span></span></a>
 
-<!-- FOOTER -->
+<!-- DESKTOP FOOTER -->
+
 <footer class="py-2 text-white-50 d-none d-lg-block" style="background-color: black">
     <div class="container text-center">
         <small>Contagion Watch 2020</small>
@@ -114,6 +138,16 @@
     <div class="container text-center">
         <a href="/login"><small>Login</small></a> || <a href="/admin"><small>Admin</small></a>
         <small>Built by: Alexander Lee, Colin Marchbanks, Joshua Peters</small>
+    </div>
+</footer>
+
+<!-- MOBILE FOOTER -->
+<footer class="py-2 text-white-50 d-block d-lg-none" style="background-color: black">
+    <div class="container text-center">
+        <small style="font-size: 2em">Contagion Watch 2020</small>
+    </div>
+    <div class="container text-center">
+        <small style="font-size: 2em">Built by: Alexander Lee, Colin Marchbanks, Joshua Peters</small>
     </div>
 </footer>
 
