@@ -18,6 +18,7 @@
 </style>
 
 <body class="login-body">
+<div style="background-image: url('https://contagion.watch/img/black-small-background.jpg')">
 
 <nav th:replace="partials/navbar :: navbar" />
 
@@ -141,7 +142,7 @@
     </div>
 </div>
 
-<h1 class="col page-title text-center" th:text="${locationName}"></h1>
+<h1 class="col page-title text-center pt-3 text-white" th:text="${locationName}"></h1>
 
 <div class="row">
     <div class="col-6">
@@ -159,12 +160,12 @@
     <div class="col-6">
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link" id="coronaTab" data-toggle="tab" href="#coronaStat" role="tab" aria-controls="coronaStat" aria-selected="false">Corona</a>
-                <a class="nav-item nav-link" id="ebolaTab" data-toggle="tab" href="#ebolaStat" role="tab" aria-controls="ebolaStat" aria-selected="false">Ebola</a>
-                <a class="nav-item nav-link" id="malariaTab" data-toggle="tab" href="#malariaStat" role="tab" aria-controls="malariaStat" aria-selected="false">Malaria</a>
+                <a class="nav-item nav-link bg-white mr-3" id="coronaTab" data-toggle="tab" href="#coronaStat" role="tab" aria-controls="coronaStat" aria-selected="false">Corona</a>
+                <a class="nav-item nav-link bg-white mr-3" id="ebolaTab" data-toggle="tab" href="#ebolaStat" role="tab" aria-controls="ebolaStat" aria-selected="false">Ebola</a>
+                <a class="nav-item nav-link bg-white" id="malariaTab" data-toggle="tab" href="#malariaStat" role="tab" aria-controls="malariaStat" aria-selected="false">Malaria</a>
             </div>
         </nav>
-        <div class="tab-content" id="nav-tabContent">
+        <div class="tab-content bg-white" id="nav-tabContent">
             <div class="tab-pane fade" id="coronaStat" role="tabpanel" aria-labelledby="coronaTab">
                 <div th:if="${corona == null}">
                     There is no record of this disease for this location.
@@ -387,6 +388,8 @@
     <img id="gif" src="https://contagion.watch/img/dna-loading.gif">
 </div>
 <div style="display: none" id="locationName" th:text="${locationName}"></div>
+</div>
+
 
 <nav th:replace="partials/footer :: footer" />
 
