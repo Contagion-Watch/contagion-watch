@@ -113,6 +113,9 @@
     .nav-link {
         color: black;
     }
+    .map-nav .nav-tabs .active {
+        background-color: darkgrey;
+    }
     /* landing video */
     header {
         position: relative;
