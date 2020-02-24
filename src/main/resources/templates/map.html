@@ -32,6 +32,10 @@
         border-radius: 3px;
     }
 
+    .active{
+        background-color: darkgrey!important;
+    }
+
     .filter-ctrl input[type='text'] {
         font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
         width: 100%;
@@ -93,11 +97,11 @@
     </div>
     <div class="col-12 col-lg-6">
         <div class="nav nav-tabs mt-3 map-nav" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active mr-3" id="coronaTab" data-toggle="tab" href="#coronaInfo" role="tab"
+            <a class="nav-item nav-link active mr-3 bg-white" id="coronaTab" data-toggle="tab" href="#coronaInfo" role="tab"
                aria-controls="coronaInfo" aria-selected="true">Corona</a>
-            <a class="nav-item nav-link mr-3" id="ebolaTab" data-toggle="tab" href="#ebolaInfo" role="tab"
+            <a class="nav-item nav-link mr-3 bg-white" id="ebolaTab" data-toggle="tab" href="#ebolaInfo" role="tab"
                aria-controls="ebolaInfo" aria-selected="false">Ebola</a>
-            <a class="nav-item nav-link" id="malariaTab" data-toggle="tab" href="#MalariaInfo" role="tab"
+            <a class="nav-item nav-link bg-white" id="malariaTab" data-toggle="tab" href="#MalariaInfo" role="tab"
                aria-controls="malariaStat" aria-selected="false">Malaria</a>
         </div>
         </nav>
