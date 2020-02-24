@@ -346,6 +346,11 @@
         $('#whichDisease').val(button.data('disease'));
 
     })
+    $('.deleteButton').on('click', function(event) {
+        let button = $(this);
+        let number = button.attr('id');
+        $("#deleteId").val(number);
+    })
     var diseaseName = $("#diseaseName").text();
     console.log(diseaseName)
     $('.editModalMalaria').on('show.bs.modal', function(event) {
