@@ -12,7 +12,7 @@
 
 <body style="background-color: black">
 <nav th:replace="partials/navbar :: navbar"/>
-
+<div class="pt-3"></div>
 <th:block th:switch="${error}">
     <div th:case="'Not Found'">
         <h1 style="text-align: center;color: #bf1010">Page not found!!</h1>
