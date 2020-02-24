@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head th:replace="partials/head :: head" />
+<head th:replace="partials/head :: head"/>
 <style>
     .mapboxgl-marker {
         border-radius: 50%;
@@ -20,382 +20,444 @@
 <body class="login-body">
 <div style="background-image: url('https://contagion.watch/img/black-small-background.jpg')">
 
-<nav th:replace="partials/navbar :: navbar" />
+    <nav th:replace="partials/navbar :: navbar"/>
 
-<div class="modal fade editModal" tabindex="-1" role="dialog" aria-labelledby="editModal" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Edit Entry</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
+    <div class="modal fade editModal" tabindex="-1" role="dialog" aria-labelledby="editModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Entry</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form class="editEntry" th:action="@{'/editL'}" th:method="post" th:object="${entry}">
+                        <div class="form-group">
+                            <input th:field="*{id}" id="editId" class="form-control" type="hidden">
+                        </div>
+                        <div class="form-group">
+                            <label for="editDate">Date</label>
+                            <input th:field="*{date}" id="editDate" class="form-control" type="date">
+                        </div>
+                        <div class="form-group">
+                            <label for="editLocation">Select Location</label>
+                            <select th:field="*{location}" id="editLocation" class="form-control location-select">
+                                <option th:each="location : ${locations}" th:value="${location.getId()}"
+                                        th:text="${location.getCountry()}"></option>
+                            </select>
+                            <select th:field="*{disease}" id="editDisease" class="form-control disease-select"
+                                    style="display: none">
+                                <option th:each="disease : ${diseases}" th:value="${disease.getId()}"
+                                        th:text="${disease.getName()}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="editTotalCases">Total Cases</label>
+                            <input th:field="*{totalCases}" type="number" min="0" class="form-control"
+                                   id="editTotalCases" onkeypress="return event.charCode > 47 && event.charCode < 58;"
+                                   pattern="[0-9]{5}">
+                        </div>
+                        <div class="form-group">
+                            <label for="editNewCases">New Cases</label>
+                            <input th:field="*{newCases}" type="number" min="0" class="form-control" id="editNewCases"
+                                   onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                        </div>
+                        <div class="form-group">
+                            <label for="editTotalDeaths">Total Deaths</label>
+                            <input th:field="*{totalDeaths}" type="number" min="0" class="form-control"
+                                   id="editTotalDeaths" onkeypress="return event.charCode > 47 && event.charCode < 58;"
+                                   pattern="[0-9]{5}">
+                        </div>
+                        <div class="form-group">
+                            <label for="editNewDeaths">New Deaths</label>
+                            <input th:field="*{newDeaths}" type="number" min="0" class="form-control" id="editNewDeaths"
+                                   onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                        </div>
+                        <div class="modal-footer">
+                            <input type="hidden" id="whichLocationEdit" name="whichLocationEdit">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-warning">Save</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="modal-body">
-                <form class="editEntry" th:action="@{'/editL'}" th:method="post" th:object="${entry}">
-                    <div class="form-group">
-                        <input th:field="*{id}" id="editId" class="form-control" type="hidden">
-                    </div>
-                    <div class="form-group">
-                        <label for="editDate">Date</label>
-                        <input th:field="*{date}" id="editDate" class="form-control" type="date">
-                    </div>
-                    <div class="form-group">
-                        <label for="editLocation">Select Location</label>
-                        <select th:field="*{location}" id = "editLocation" class="form-control location-select">
-                            <option th:each="location : ${locations}" th:value="${location.getId()}" th:text="${location.getCountry()}"></option>
-                        </select>
-                        <select th:field="*{disease}" id = "editDisease" class="form-control disease-select" style="display: none">
-                            <option th:each="disease : ${diseases}" th:value="${disease.getId()}" th:text="${disease.getName()}"></option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="editTotalCases">Total Cases</label>
-                        <input th:field="*{totalCases}" type="number" min="0" class="form-control" id="editTotalCases" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
-                    </div>
-                    <div class="form-group">
-                        <label for="editNewCases">New Cases</label>
-                        <input th:field="*{newCases}" type="number" min="0" class="form-control" id="editNewCases" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
-                    </div>
-                    <div class="form-group">
-                        <label for="editTotalDeaths">Total Deaths</label>
-                        <input th:field="*{totalDeaths}" type="number" min="0" class="form-control" id="editTotalDeaths" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
-                    </div>
-                    <div class="form-group">
-                        <label for="editNewDeaths">New Deaths</label>
-                        <input th:field="*{newDeaths}" type="number" min="0" class="form-control" id="editNewDeaths" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
-                    </div>
-                    <div class="modal-footer">
-                        <input type="hidden" id="whichLocationEdit" name="whichLocationEdit">
+        </div>
+    </div>
+    <div class="modal fade editModalMalaria" tabindex="-1" role="dialog" aria-labelledby="editModalMalaria"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Entry</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editEntryMalaria" th:action="@{'/editL'}" th:method="post" th:object="${entry}">
+                        <div class="form-group">
+                            <input th:field="*{id}" id="editIdMalaria" class="form-control" type="hidden">
+                        </div>
+                        <div class="form-group">
+                            <label for="editDateMalaria">Date</label>
+                            <input th:field="*{date}" id="editDateMalaria" class="form-control" type="date">
+                        </div>
+                        <div class="form-group">
+                            <label for="editLocationMalaria">Select Location</label>
+                            <select th:field="*{location}" id="editLocationMalaria"
+                                    class="form-control location-select">
+                                <option th:each="location : ${locations}" th:value="${location.getId()}"
+                                        th:text="${location.getCountry()}"></option>
+                            </select>
+                            <select th:field="*{disease}" id="editDiseaseMalaria" class="form-control disease-select"
+                                    style="display: none">
+                                <option th:each="disease : ${diseases}" th:value="${disease.getId()}"
+                                        th:text="${disease.getName()}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="editTotalCasesMalaria">Total Cases</label>
+                            <input th:field="*{totalCases}" type="number" min="0" class="form-control"
+                                   id="editTotalCasesMalaria"
+                                   onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                        </div>
+                        <div class="form-group">
+                            <label for="editTotalDeathsMalaria">Total Deaths</label>
+                            <input th:field="*{totalDeaths}" type="number" min="0" class="form-control"
+                                   id="editTotalDeathsMalaria"
+                                   onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
+                        </div>
+                        <div class="modal-footer">
+                            <input type="hidden" id="whichLocationEditMalaria" name="whichLocationEdit">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-warning">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Delete</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this entry?</p>
+                </div>
+                <div class="modal-footer">
+                    <form th:action="@{'/deleteL'}" th:method="post">
+                        <input type="hidden" id="whichLocationDelete" name="whichLocationDelete"
+                               th:value="${whichLocationDelete}">
+                        <input type="hidden" id="deleteId" name="deleteId">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-warning">Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade editModalMalaria" tabindex="-1" role="dialog" aria-labelledby="editModalMalaria" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Edit Entry</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body">
-                <form id="editEntryMalaria" th:action="@{'/editL'}" th:method="post" th:object="${entry}">
-                    <div class="form-group">
-                        <input th:field="*{id}" id="editIdMalaria" class="form-control" type="hidden">
-                    </div>
-                    <div class="form-group">
-                        <label for="editDateMalaria">Date</label>
-                        <input th:field="*{date}" id="editDateMalaria" class="form-control" type="date">
-                    </div>
-                    <div class="form-group">
-                        <label for="editLocationMalaria">Select Location</label>
-                        <select th:field="*{location}" id = "editLocationMalaria" class="form-control location-select">
-                            <option th:each="location : ${locations}" th:value="${location.getId()}" th:text="${location.getCountry()}"></option>
-                        </select>
-                        <select th:field="*{disease}" id = "editDiseaseMalaria" class="form-control disease-select" style="display: none">
-                            <option th:each="disease : ${diseases}" th:value="${disease.getId()}" th:text="${disease.getName()}"></option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="editTotalCasesMalaria">Total Cases</label>
-                        <input th:field="*{totalCases}" type="number" min="0" class="form-control" id="editTotalCasesMalaria" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
-                    </div>
-                    <div class="form-group">
-                        <label for="editTotalDeathsMalaria">Total Deaths</label>
-                        <input th:field="*{totalDeaths}" type="number" min="0" class="form-control" id="editTotalDeathsMalaria" onkeypress="return event.charCode > 47 && event.charCode < 58;" pattern="[0-9]{5}">
-                    </div>
-                    <div class="modal-footer">
-                        <input type="hidden" id="whichLocationEditMalaria" name="whichLocationEdit">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-warning">Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Confirm Delete</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to delete this entry?</p>
-            </div>
-            <div class="modal-footer">
-                <form th:action="@{'/deleteL'}" th:method="post">
-                    <input type="hidden" id="whichLocationDelete" name="whichLocationDelete" th:value="${whichLocationDelete}">
-                    <input type="hidden" id="deleteId" name="deleteId">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<h1 class="col page-title text-center pt-3 text-white" th:text="${locationName}"></h1>
-
-<div class="row">
-    <div class="col-6">
-        <div id="mapContainerCorona">
-            <div id='mapCorona' style='width: 100%; height: 70vh; margin-left: auto; margin-right: auto;'></div>
-        </div>
-        <div id="mapContainerEbola">
-            <div id='mapEbola' style='width: 100%; height: 70vh; margin-left: auto; margin-right: auto;'></div>
-        </div>
-        <div id="mapContainerMalaria">
-            <div id='mapMalaria' style='width: 100%; height: 70vh; margin-left: auto; margin-right: auto;'></div>
-        </div>
-
-    </div>
-    <div class="col-6">
-        <nav>
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link bg-white mr-3" id="coronaTab" data-toggle="tab" href="#coronaStat" role="tab" aria-controls="coronaStat" aria-selected="false">Corona</a>
-                <a class="nav-item nav-link bg-white mr-3" id="ebolaTab" data-toggle="tab" href="#ebolaStat" role="tab" aria-controls="ebolaStat" aria-selected="false">Ebola</a>
-                <a class="nav-item nav-link bg-white" id="malariaTab" data-toggle="tab" href="#malariaStat" role="tab" aria-controls="malariaStat" aria-selected="false">Malaria</a>
-            </div>
-        </nav>
-        <div class="tab-content bg-white" id="nav-tabContent">
-            <div class="tab-pane fade" id="coronaStat" role="tabpanel" aria-labelledby="coronaTab">
-                <div th:if="${corona.totalElements eq 0}">
-                    There is no record of this disease for this location.
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
                 </div>
-                <table class="table table-hover"  th:if="${corona.totalPages gt 0}">
-                    <thead>
-                    <tr>
-                        <th scope="col">Date</th>
-                        <th scope="col">New Cases</th>
-                        <th scope="col">Total Cases</th>
-                        <th scope="col">New Deaths</th>
-                        <th scope="col">Total Deaths</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="entry : ${corona}">
-                        <td th:text="${entry.getDate()}"></td>
-                        <td th:text="${entry.getNewCases()}"></td>
-                        <td th:text="${entry.getTotalCases()}"></td>
-                        <td th:text="${entry.getNewDeaths()}"></td>
-                        <td th:text="${entry.getTotalDeaths()}"></td>
-                        <td sec:authorize="isAuthenticated()"><button type="button" class="btn btn-warning editButton" data-toggle="modal" data-target=".editModal" th:attr="data-date = ${entry.getDate()}, data-location = ${entry.location.getId()}, data-disease = ${entry.disease.getId()}, data-newcases = ${entry.newCases}, data-totalcases = ${entry.totalCases}, data-newdeaths = ${entry.newDeaths}, data-totaldeaths = ${entry.totalDeaths}" th:id="${entry.getId()}">
-                            Edit
-                        </button></td>
+            </div>
+        </div>
+    </div>
 
-                        <td sec:authorize="isAuthenticated()"><button type="button" class="btn btn-danger deleteButton" data-toggle="modal" data-target=".deleteModal" th:attr="data-location = ${entry.location.getId()}" th:id="${entry.getId()}">
-                            Delete
-                        </button></td>
-                    </tr>
-                    </tbody>
-                </table>
-                <nav aria-label="Pagination" th:if="${corona.totalPages gt 0}">
-                    <ul class="pagination justify-content-center pg-dark">
-                        <li class="page-item" th:classappend="${corona.number eq 0} ? 'disabled'">
-                            <a class="page-link svg-icon"
-                               th:href="@{|/location/${whichLocation}?page=0|}"
-                               aria-label="First"
-                               title="First Page" rel="tooltip">
-                                <- First
-                            </a>
-                        </li>
-                        <li class="page-item" th:classappend="${corona.number eq 0} ? 'disabled'">
-                            <a class="page-link svg-icon"
-                               th:href="@{|/location/${whichLocation}?page={id}|(id=${corona.number lt 1 ? 0 : corona.number - 1})}"
-                               aria-label="Previous"
-                               title="Previous Page" rel="tooltip">
-                                <<
-                            </a>
-                        </li>
-                        <li class="page-item" th:classappend="${i eq corona.number + 1} ? 'active'"
-                            th:each="i : ${#numbers.sequence( corona.number + 1, corona.totalPages > 5 + corona.number ? corona.number + 5 : corona.totalPages, 1)}">
-                            <a class="page-link" th:href="@{|/location/${whichLocation}?page={id}|(id=${i - 1})}" th:text="${i}"
-                               th:title="${'Page '+ i}"
-                               rel="tooltip"></a>
-                        </li>
-                        <li class="page-item" th:classappend="${corona.number + 1 eq corona.totalPages} ? 'disabled'">
-                            <a class="page-link svg-icon" th:href="@{|/location/${whichLocation}?page={id}|(id=${corona.number + 1})}"
-                               aria-label="Next"
-                               title="Next Page" rel="tooltip">
-                                >>
-                            </a>
-                        </li>
-                        <li class="page-item" th:classappend="${corona.number + 1 eq corona.totalPages} ? 'disabled'">
-                            <a class="page-link svg-icon" th:href="@{|/location/${whichLocation}?page={id}|(id=${corona.totalPages - 1})}"
-                               aria-label="Last"
-                               title="Last Page" rel="tooltip">
-                                Last ->
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="tab-pane fade" id="ebolaStat" role="tabpanel" aria-labelledby="ebolaTab">
-                <div th:if="${ebola.totalElements eq 0}">
-                    There is no record of this disease for this location.
-                </div>
-                <table class="table table-hover" th:if="${ebola.totalPages gt 0}">
-                    <thead>
-                    <tr>
-                        <th scope="col">Date</th>
-                        <th scope="col">New Cases</th>
-                        <th scope="col">Total Cases</th>
-                        <th scope="col">New Deaths</th>
-                        <th scope="col">Total Deaths</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="entry : ${ebola}">
-                        <td th:text="${entry.getDate()}"></td>
-                        <td th:text="${entry.getNewCases()}"></td>
-                        <td th:text="${entry.getTotalCases()}"></td>
-                        <td th:text="${entry.getNewDeaths()}"></td>
-                        <td th:text="${entry.getTotalDeaths()}"></td>
-                        <td sec:authorize="isAuthenticated()"><button type="button" class="btn btn-warning editButton" data-toggle="modal" data-target=".editModal" th:attr="data-date = ${entry.getDate()}, data-location = ${entry.location.getId()}, data-disease = ${entry.disease.getId()}, data-newcases = ${entry.newCases}, data-totalcases = ${entry.totalCases}, data-newdeaths = ${entry.newDeaths}, data-totaldeaths = ${entry.totalDeaths}" th:id="${entry.getId()}">
-                            Edit
-                        </button></td>
+    <h1 class="col page-title text-center pt-3 text-white" th:text="${locationName}"></h1>
 
-                        <td sec:authorize="isAuthenticated()"><button type="button" class="btn btn-danger deleteButton" data-toggle="modal" data-target=".deleteModal" th:attr="data-location = ${entry.location.getId()}" th:id="${entry.getId()}">
-                            Delete
-                        </button></td>
-                    </tr>
-                    </tbody>
-                </table>
-                <nav aria-label="Pagination" th:if="${ebola.totalPages gt 0}">
-                    <ul class="pagination justify-content-center pg-dark">
-                        <li class="page-item" th:classappend="${ebola.number eq 0} ? 'disabled'">
-                            <a class="page-link svg-icon"
-                               th:href="@{|/location/${whichLocation}?page=0|}"
-                               aria-label="First"
-                               title="First Page" rel="tooltip">
-                                <- First
-                            </a>
-                        </li>
-                        <li class="page-item" th:classappend="${ebola.number eq 0} ? 'disabled'">
-                            <a class="page-link svg-icon"
-                               th:href="@{|/location/${whichLocation}?page={id}|(id=${ebola.number lt 1 ? 0 : ebola.number - 1})}"
-                               aria-label="Previous"
-                               title="Previous Page" rel="tooltip">
-                                <<
-                            </a>
-                        </li>
-                        <li class="page-item" th:classappend="${i eq ebola.number + 1} ? 'active'"
-                            th:each="i : ${#numbers.sequence( ebola.number + 1, ebola.totalPages > 5 + ebola.number ? ebola.number + 5 : ebola.totalPages, 1)}">
-                            <a class="page-link" th:href="@{|/location/${whichLocation}?page={id}|(id=${i - 1})}" th:text="${i}"
-                               th:title="${'Page '+ i}"
-                               rel="tooltip"></a>
-                        </li>
-                        <li class="page-item" th:classappend="${ebola.number + 1 eq ebola.totalPages} ? 'disabled'">
-                            <a class="page-link svg-icon" th:href="@{|/location/${whichLocation}?page={id}|(id=${ebola.number + 1})}"
-                               aria-label="Next"
-                               title="Next Page" rel="tooltip">
-                                >>
-                            </a>
-                        </li>
-                        <li class="page-item" th:classappend="${ebola.number + 1 eq ebola.totalPages} ? 'disabled'">
-                            <a class="page-link svg-icon" th:href="@{|/location/${whichLocation}?page={id}|(id=${ebola.totalPages - 1})}"
-                               aria-label="Last"
-                               title="Last Page" rel="tooltip">
-                                Last ->
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+    <div class="row">
+        <div class="col-6">
+            <div id="mapContainerCorona">
+                <div id='mapCorona' style='width: 100%; height: 70vh; margin-left: auto; margin-right: auto;'></div>
             </div>
-            <div class="tab-pane fade" id="malariaStat" role="tabpanel" aria-labelledby="malariaTab">
-                <div th:if="${malaria.totalElements eq 0}">
-                    There is no record of this disease for this location.
+            <div id="mapContainerEbola">
+                <div id='mapEbola' style='width: 100%; height: 70vh; margin-left: auto; margin-right: auto;'></div>
+            </div>
+            <div id="mapContainerMalaria">
+                <div id='mapMalaria' style='width: 100%; height: 70vh; margin-left: auto; margin-right: auto;'></div>
+            </div>
+
+        </div>
+        <div class="col-6">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link bg-white mr-3" id="coronaTab" data-toggle="tab" href="#coronaStat"
+                       role="tab" aria-controls="coronaStat" aria-selected="false">Corona</a>
+                    <a class="nav-item nav-link bg-white mr-3" id="ebolaTab" data-toggle="tab" href="#ebolaStat"
+                       role="tab" aria-controls="ebolaStat" aria-selected="false">Ebola</a>
+                    <a class="nav-item nav-link bg-white" id="malariaTab" data-toggle="tab" href="#malariaStat"
+                       role="tab" aria-controls="malariaStat" aria-selected="false">Malaria</a>
                 </div>
-                <table class="table table-hover" th:if="${malaria.totalPages gt 0}">
-                    <thead>
-                    <tr>
-                        <th scope="col">Date</th>
-                        <th scope="col">Total Cases</th>
-                        <th scope="col">Total Deaths</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="entry : ${malaria}">
-                        <td th:text="${entry.getDate()}"></td>
-                        <td th:text="${entry.getTotalCases()}"></td>
-                        <td th:text="${entry.getTotalDeaths()}"></td>
-                        <td sec:authorize="isAuthenticated()"><button type="button" class="btn btn-warning editButton" data-toggle="modal" data-target=".editModalMalaria" th:attr="data-date = ${entry.getDate()}, data-location = ${entry.location.getId()}, data-disease = ${entry.disease.getId()}, data-totalcases = ${entry.totalCases}, data-totaldeaths = ${entry.totalDeaths}" th:id="${entry.getId()}">
-                            Edit
-                        </button></td>
-                        <td sec:authorize="isAuthenticated()"><button type="button" class="btn btn-danger deleteButton" data-toggle="modal" data-target=".deleteModal" th:attr="data-location = ${entry.location.getId()}" th:id="${entry.getId()}">
-                            Delete
-                        </button></td>
-                    </tr>
-                    </tbody>
-                </table>
-                <nav aria-label="Pagination" th:if="${malaria.totalPages gt 0}">
-                    <ul class="pagination justify-content-center pg-dark">
-                        <li class="page-item" th:classappend="${malaria.number eq 0} ? 'disabled'">
-                            <a class="page-link svg-icon"
-                               th:href="@{|/location/${whichLocation}?page=0|}"
-                               aria-label="First"
-                               title="First Page" rel="tooltip">
-                                <- First
-                            </a>
-                        </li>
-                        <li class="page-item" th:classappend="${malaria.number eq 0} ? 'disabled'">
-                            <a class="page-link svg-icon"
-                               th:href="@{|/location/${whichLocation}?page={id}|(id=${malaria.number lt 1 ? 0 : malaria.number - 1})}"
-                               aria-label="Previous"
-                               title="Previous Page" rel="tooltip">
-                                <<
-                            </a>
-                        </li>
-                        <li class="page-item" th:classappend="${i eq malaria.number + 1} ? 'active'"
-                            th:each="i : ${#numbers.sequence( malaria.number + 1, malaria.totalPages > 5 + malaria.number ? malaria.number + 5 : malaria.totalPages, 1)}">
-                            <a class="page-link" th:href="@{|/location/${whichLocation}?page={id}|(id=${i - 1})}" th:text="${i}"
-                               th:title="${'Page '+ i}"
-                               rel="tooltip"></a>
-                        </li>
-                        <li class="page-item" th:classappend="${malaria.number + 1 eq malaria.totalPages} ? 'disabled'">
-                            <a class="page-link svg-icon" th:href="@{|/location/${whichLocation}?page={id}|(id=${malaria.number + 1})}"
-                               aria-label="Next"
-                               title="Next Page" rel="tooltip">
-                                >>
-                            </a>
-                        </li>
-                        <li class="page-item" th:classappend="${malaria.number + 1 eq malaria.totalPages} ? 'disabled'">
-                            <a class="page-link svg-icon" th:href="@{|/location/${whichLocation}?page={id}|(id=${malaria.totalPages - 1})}"
-                               aria-label="Last"
-                               title="Last Page" rel="tooltip">
-                                Last ->
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+            </nav>
+            <div class="tab-content bg-white" id="nav-tabContent">
+                <div class="tab-pane fade" id="coronaStat" role="tabpanel" aria-labelledby="coronaTab">
+                    <div th:if="${corona.totalElements eq 0}">
+                        There is no record of this disease for this location.
+                    </div>
+                    <table class="table table-hover" th:if="${corona.totalPages gt 0}">
+                        <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">New Cases</th>
+                            <th scope="col">Total Cases</th>
+                            <th scope="col">New Deaths</th>
+                            <th scope="col">Total Deaths</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="entry : ${corona}">
+                            <td th:text="${entry.getDate()}"></td>
+                            <td th:text="${entry.getNewCases()}"></td>
+                            <td th:text="${entry.getTotalCases()}"></td>
+                            <td th:text="${entry.getNewDeaths()}"></td>
+                            <td th:text="${entry.getTotalDeaths()}"></td>
+                            <td sec:authorize="isAuthenticated()">
+                                <button type="button" class="btn btn-warning editButton" data-toggle="modal"
+                                        data-target=".editModal"
+                                        th:attr="data-date = ${entry.getDate()}, data-location = ${entry.location.getId()}, data-disease = ${entry.disease.getId()}, data-newcases = ${entry.newCases}, data-totalcases = ${entry.totalCases}, data-newdeaths = ${entry.newDeaths}, data-totaldeaths = ${entry.totalDeaths}"
+                                        th:id="${entry.getId()}">
+                                    Edit
+                                </button>
+                            </td>
+
+                            <td sec:authorize="isAuthenticated()">
+                                <button type="button" class="btn btn-danger deleteButton" data-toggle="modal"
+                                        data-target=".deleteModal" th:attr="data-location = ${entry.location.getId()}"
+                                        th:id="${entry.getId()}">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <nav aria-label="Pagination" th:if="${corona.totalPages gt 0}">
+                        <ul class="pagination justify-content-center pg-dark">
+                            <li class="page-item" th:classappend="${corona.number eq 0} ? 'disabled'">
+                                <a class="page-link svg-icon"
+                                   th:href="@{|/location/${whichLocation}?page=0|}"
+                                   aria-label="First"
+                                   title="First Page" rel="tooltip">
+                                    <- First
+                                </a>
+                            </li>
+                            <li class="page-item" th:classappend="${corona.number eq 0} ? 'disabled'">
+                                <a class="page-link svg-icon"
+                                   th:href="@{|/location/${whichLocation}?page={id}|(id=${corona.number lt 1 ? 0 : corona.number - 1})}"
+                                   aria-label="Previous"
+                                   title="Previous Page" rel="tooltip">
+                                    <<
+                                </a>
+                            </li>
+                            <li class="page-item" th:classappend="${i eq corona.number + 1} ? 'active'"
+                                th:each="i : ${#numbers.sequence( corona.number + 1, corona.totalPages > 5 + corona.number ? corona.number + 5 : corona.totalPages, 1)}">
+                                <a class="page-link" th:href="@{|/location/${whichLocation}?page={id}|(id=${i - 1})}"
+                                   th:text="${i}"
+                                   th:title="${'Page '+ i}"
+                                   rel="tooltip"></a>
+                            </li>
+                            <li class="page-item"
+                                th:classappend="${corona.number + 1 eq corona.totalPages} ? 'disabled'">
+                                <a class="page-link svg-icon"
+                                   th:href="@{|/location/${whichLocation}?page={id}|(id=${corona.number + 1})}"
+                                   aria-label="Next"
+                                   title="Next Page" rel="tooltip">
+                                    >>
+                                </a>
+                            </li>
+                            <li class="page-item"
+                                th:classappend="${corona.number + 1 eq corona.totalPages} ? 'disabled'">
+                                <a class="page-link svg-icon"
+                                   th:href="@{|/location/${whichLocation}?page={id}|(id=${corona.totalPages - 1})}"
+                                   aria-label="Last"
+                                   title="Last Page" rel="tooltip">
+                                    Last ->
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="tab-pane fade" id="ebolaStat" role="tabpanel" aria-labelledby="ebolaTab">
+                    <div th:if="${ebola.totalElements eq 0}">
+                        There is no record of this disease for this location.
+                    </div>
+                    <table class="table table-hover" th:if="${ebola.totalPages gt 0}">
+                        <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">New Cases</th>
+                            <th scope="col">Total Cases</th>
+                            <th scope="col">New Deaths</th>
+                            <th scope="col">Total Deaths</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="entry : ${ebola}">
+                            <td th:text="${entry.getDate()}"></td>
+                            <td th:text="${entry.getNewCases()}"></td>
+                            <td th:text="${entry.getTotalCases()}"></td>
+                            <td th:text="${entry.getNewDeaths()}"></td>
+                            <td th:text="${entry.getTotalDeaths()}"></td>
+                            <td sec:authorize="isAuthenticated()">
+                                <button type="button" class="btn btn-warning editButton" data-toggle="modal"
+                                        data-target=".editModal"
+                                        th:attr="data-date = ${entry.getDate()}, data-location = ${entry.location.getId()}, data-disease = ${entry.disease.getId()}, data-newcases = ${entry.newCases}, data-totalcases = ${entry.totalCases}, data-newdeaths = ${entry.newDeaths}, data-totaldeaths = ${entry.totalDeaths}"
+                                        th:id="${entry.getId()}">
+                                    Edit
+                                </button>
+                            </td>
+
+                            <td sec:authorize="isAuthenticated()">
+                                <button type="button" class="btn btn-danger deleteButton" data-toggle="modal"
+                                        data-target=".deleteModal" th:attr="data-location = ${entry.location.getId()}"
+                                        th:id="${entry.getId()}">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <nav aria-label="Pagination" th:if="${ebola.totalPages gt 0}">
+                        <ul class="pagination justify-content-center pg-dark">
+                            <li class="page-item" th:classappend="${ebola.number eq 0} ? 'disabled'">
+                                <a class="page-link svg-icon"
+                                   th:href="@{|/location/${whichLocation}?page=0|}"
+                                   aria-label="First"
+                                   title="First Page" rel="tooltip">
+                                    <- First
+                                </a>
+                            </li>
+                            <li class="page-item" th:classappend="${ebola.number eq 0} ? 'disabled'">
+                                <a class="page-link svg-icon"
+                                   th:href="@{|/location/${whichLocation}?page={id}|(id=${ebola.number lt 1 ? 0 : ebola.number - 1})}"
+                                   aria-label="Previous"
+                                   title="Previous Page" rel="tooltip">
+                                    <<
+                                </a>
+                            </li>
+                            <li class="page-item" th:classappend="${i eq ebola.number + 1} ? 'active'"
+                                th:each="i : ${#numbers.sequence( ebola.number + 1, ebola.totalPages > 5 + ebola.number ? ebola.number + 5 : ebola.totalPages, 1)}">
+                                <a class="page-link" th:href="@{|/location/${whichLocation}?page={id}|(id=${i - 1})}"
+                                   th:text="${i}"
+                                   th:title="${'Page '+ i}"
+                                   rel="tooltip"></a>
+                            </li>
+                            <li class="page-item" th:classappend="${ebola.number + 1 eq ebola.totalPages} ? 'disabled'">
+                                <a class="page-link svg-icon"
+                                   th:href="@{|/location/${whichLocation}?page={id}|(id=${ebola.number + 1})}"
+                                   aria-label="Next"
+                                   title="Next Page" rel="tooltip">
+                                    >>
+                                </a>
+                            </li>
+                            <li class="page-item" th:classappend="${ebola.number + 1 eq ebola.totalPages} ? 'disabled'">
+                                <a class="page-link svg-icon"
+                                   th:href="@{|/location/${whichLocation}?page={id}|(id=${ebola.totalPages - 1})}"
+                                   aria-label="Last"
+                                   title="Last Page" rel="tooltip">
+                                    Last ->
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="tab-pane fade" id="malariaStat" role="tabpanel" aria-labelledby="malariaTab">
+                    <div th:if="${malaria.totalElements eq 0}">
+                        There is no record of this disease for this location.
+                    </div>
+                    <table class="table table-hover" th:if="${malaria.totalPages gt 0}">
+                        <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Total Cases</th>
+                            <th scope="col">Total Deaths</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="entry : ${malaria}">
+                            <td th:text="${entry.getDate()}"></td>
+                            <td th:text="${entry.getTotalCases()}"></td>
+                            <td th:text="${entry.getTotalDeaths()}"></td>
+                            <td sec:authorize="isAuthenticated()">
+                                <button type="button" class="btn btn-warning editButton" data-toggle="modal"
+                                        data-target=".editModalMalaria"
+                                        th:attr="data-date = ${entry.getDate()}, data-location = ${entry.location.getId()}, data-disease = ${entry.disease.getId()}, data-totalcases = ${entry.totalCases}, data-totaldeaths = ${entry.totalDeaths}"
+                                        th:id="${entry.getId()}">
+                                    Edit
+                                </button>
+                            </td>
+                            <td sec:authorize="isAuthenticated()">
+                                <button type="button" class="btn btn-danger deleteButton" data-toggle="modal"
+                                        data-target=".deleteModal" th:attr="data-location = ${entry.location.getId()}"
+                                        th:id="${entry.getId()}">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <nav aria-label="Pagination" th:if="${malaria.totalPages gt 0}">
+                        <ul class="pagination justify-content-center pg-dark">
+                            <li class="page-item" th:classappend="${malaria.number eq 0} ? 'disabled'">
+                                <a class="page-link svg-icon"
+                                   th:href="@{|/location/${whichLocation}?page=0|}"
+                                   aria-label="First"
+                                   title="First Page" rel="tooltip">
+                                    <- First
+                                </a>
+                            </li>
+                            <li class="page-item" th:classappend="${malaria.number eq 0} ? 'disabled'">
+                                <a class="page-link svg-icon"
+                                   th:href="@{|/location/${whichLocation}?page={id}|(id=${malaria.number lt 1 ? 0 : malaria.number - 1})}"
+                                   aria-label="Previous"
+                                   title="Previous Page" rel="tooltip">
+                                    <<
+                                </a>
+                            </li>
+                            <li class="page-item" th:classappend="${i eq malaria.number + 1} ? 'active'"
+                                th:each="i : ${#numbers.sequence( malaria.number + 1, malaria.totalPages > 5 + malaria.number ? malaria.number + 5 : malaria.totalPages, 1)}">
+                                <a class="page-link" th:href="@{|/location/${whichLocation}?page={id}|(id=${i - 1})}"
+                                   th:text="${i}"
+                                   th:title="${'Page '+ i}"
+                                   rel="tooltip"></a>
+                            </li>
+                            <li class="page-item"
+                                th:classappend="${malaria.number + 1 eq malaria.totalPages} ? 'disabled'">
+                                <a class="page-link svg-icon"
+                                   th:href="@{|/location/${whichLocation}?page={id}|(id=${malaria.number + 1})}"
+                                   aria-label="Next"
+                                   title="Next Page" rel="tooltip">
+                                    >>
+                                </a>
+                            </li>
+                            <li class="page-item"
+                                th:classappend="${malaria.number + 1 eq malaria.totalPages} ? 'disabled'">
+                                <a class="page-link svg-icon"
+                                   th:href="@{|/location/${whichLocation}?page={id}|(id=${malaria.totalPages - 1})}"
+                                   aria-label="Last"
+                                   title="Last Page" rel="tooltip">
+                                    Last ->
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
+
         </div>
 
     </div>
 
+    <h3 class="col page-title text-center mb-0 p-2" style="background-color: darkgrey">NEWS ALERTS</h3>
+    <div id="newsSourceArea" class="d-flex flex-wrap justify-content-around" style="background-color: darkgrey">
+        <img id="gif" src="https://contagion.watch/img/dna-loading.gif">
+    </div>
+    <div style="display: none" id="locationName" th:text="${locationName}"></div>
 </div>
 
-<h3 class="col page-title text-center mb-0 p-2" style="background-color: darkgrey">NEWS ALERTS</h3>
-<div id="newsSourceArea" class="d-flex flex-wrap justify-content-around" style="background-color: darkgrey">
-    <img id="gif" src="https://contagion.watch/img/dna-loading.gif">
-</div>
-<div style="display: none" id="locationName" th:text="${locationName}"></div>
-</div>
 
+<nav th:replace="partials/footer :: footer"/>
 
-<nav th:replace="partials/footer :: footer" />
-
-<nav th:replace="partials/scripts :: scripts" />
+<nav th:replace="partials/scripts :: scripts"/>
 <script>
-    $('.editButton').on('click', function(event) {
+    $('.editButton').on('click', function (event) {
         let button = $(this);
         let number = button.attr('id');
         $("#editId").val(number);
@@ -409,7 +471,7 @@
         $("#whichLocationEdit").val(button.data('location'));
     })
 
-    $('.editButtonMalaria').on('click', function(event) {
+    $('.editButtonMalaria').on('click', function (event) {
         let button = $(this);
         let number = button.attr('id');
         $("#editIdMalaria").val(number);
@@ -421,32 +483,30 @@
         $('#whichLocationEditMalaria').val(button.data('location'));
     })
 
-    $('.deleteButton').on('click', function(event) {
+    $('.deleteButton').on('click', function (event) {
         let button = $(this);
         let number = button.attr('id');
         $("#deleteId").val(number);
         $("#whichLocationDelete").val(button.data('location'));
     })
-    $('#nav-tab a').click(function(e) {
+    $('#nav-tab a').click(function (e) {
         e.preventDefault();
         localStorage.setItem('activeTab', $(e.target).attr('href'));
     })
-    $(document).ready(function(){
+    $(document).ready(function () {
         let activeTab = window.localStorage.getItem('activeTab');
         console.log(activeTab);
-        if(activeTab === "#malariaStat"){
+        if (activeTab === "#malariaStat") {
             document.getElementById('malariaTab').click();
-        }
-        else if (activeTab === "#ebolaStat"){
+        } else if (activeTab === "#ebolaStat") {
             document.getElementById('ebolaTab').click();
-        }
-        else {
+        } else {
             document.getElementById('coronaTab').click()
 
         }
     });
-    $('#editEntry').submit(function(e){
-        $('#editDate, #editTotalCases, #editTotalDeaths, #editNewDeaths, #editNewCases').each(function() {
+    $('#editEntry').submit(function (e) {
+        $('#editDate, #editTotalCases, #editTotalDeaths, #editNewDeaths, #editNewCases').each(function () {
             let stop = false;
             if ($(this).val() === "" || $(this).val() == null) {
                 e.preventDefault();
@@ -464,8 +524,8 @@
         });
         alert("Entry successfully edited.");
     });
-    $('#editEntryMalaria').submit(function(e){
-        $('#editDateMalaria, #editTotalCasesMalaria, #editTotalDeathsMalaria').each(function() {
+    $('#editEntryMalaria').submit(function (e) {
+        $('#editDateMalaria, #editTotalCasesMalaria, #editTotalDeathsMalaria').each(function () {
             let stop = false;
             if ($(this).val() === "" || $(this).val() == null) {
                 e.preventDefault();
@@ -621,11 +681,11 @@
             if (data[i].location.country === "Global") {
                 continue;
             }
-            if(data[i].location.country !== locationName){
+            if (data[i].location.country !== locationName) {
                 continue;
             }
 
-                if (data[i].location.country === "United States of America") {
+            if (data[i].location.country === "United States of America") {
                 let el = document.createElement('div');
                 el.className = 'state';
                 let el2 = document.createElement('div');
@@ -640,6 +700,8 @@
                 el6.className = 'state';
                 let el7 = document.createElement('div');
                 el7.className = 'state';
+                let el8 = document.createElement('div');
+                el8.className = 'state';
                 let size = 0;
                 if (data[i].totalCases >= 1) {
                     size = 25;
@@ -658,6 +720,9 @@
                 el6.style.height = size + "px";
                 el7.style.width = size + "px";
                 el7.style.height = size + "px";
+                el8.style.width = size + "px";
+                el8.style.height = size + "px";
+
 
                 //Washington
                 new mapboxgl.Marker(el)
@@ -670,7 +735,7 @@
                 new mapboxgl.Marker(el2)
                     .setLngLat([-119.4179, 36.7783])
                     .setPopup(new mapboxgl.Popup({offset: 25}).setText(
-                        'Total cases: 8'
+                        'Total cases: 12'
                     ))
                     .addTo(mapCorona);
                 //Arizona
@@ -684,7 +749,7 @@
                 new mapboxgl.Marker(el4)
                     .setLngLat([-98.4936, 29.4241])
                     .setPopup(new mapboxgl.Popup({offset: 25}).setText(
-                        'Total cases: 1'
+                        'Total cases: 6'
                     ))
                     .addTo(mapCorona);
                 //Mass
@@ -706,6 +771,13 @@
                     .setLngLat([-89.3985, 40.6331])
                     .setPopup(new mapboxgl.Popup({offset: 25}).setText(
                         'Total cases: 2'
+                    ))
+                    .addTo(mapCorona);
+                // Nebraska
+                new mapboxgl.Marker(el8)
+                    .setLngLat([-99.9018, 41.4925])
+                    .setPopup(new mapboxgl.Popup({offset: 25}).setText(
+                        'Total cases: 11'
                     ))
                     .addTo(mapCorona);
                 continue;
@@ -792,7 +864,7 @@
             if (data[i].location.country === "Global") {
                 continue;
             }
-            if(data[i].location.country !== locationName){
+            if (data[i].location.country !== locationName) {
                 continue;
             }
             geocode(data[i].location.country, mapboxKey).then(function (result) {
@@ -817,7 +889,7 @@
             if (data[i].location.country === "Global") {
                 continue;
             }
-            if(data[i].location.country !== locationName){
+            if (data[i].location.country !== locationName) {
                 continue;
             }
             if (data[i].location.country === "Georgia") {
@@ -919,7 +991,6 @@
         }, 250);
         coronaMapContainer.show();
     });
-
 
 
 </script>

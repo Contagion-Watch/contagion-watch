@@ -486,6 +486,8 @@
                 el6.className = 'state';
                 let el7 = document.createElement('div');
                 el7.className = 'state';
+                let el8 = document.createElement('div');
+                el8.className = 'state';
                 let size = 0;
                 if (data[i].totalCases >= 1) {
                     size = 25;
@@ -504,6 +506,9 @@
                 el6.style.height = size + "px";
                 el7.style.width = size + "px";
                 el7.style.height = size + "px";
+                el8.style.width = size + "px";
+                el8.style.height = size + "px";
+
 
                 //Washington
                 new mapboxgl.Marker(el)
@@ -516,7 +521,7 @@
                 new mapboxgl.Marker(el2)
                     .setLngLat([-119.4179, 36.7783])
                     .setPopup(new mapboxgl.Popup({offset: 25}).setText(
-                        'Total cases: 8'
+                        'Total cases: 12'
                     ))
                     .addTo(mapCorona);
                 //Arizona
@@ -530,7 +535,7 @@
                 new mapboxgl.Marker(el4)
                     .setLngLat([-98.4936, 29.4241])
                     .setPopup(new mapboxgl.Popup({offset: 25}).setText(
-                        'Total cases: 1'
+                        'Total cases: 6'
                     ))
                     .addTo(mapCorona);
                 //Mass
@@ -552,6 +557,13 @@
                     .setLngLat([-89.3985, 40.6331])
                     .setPopup(new mapboxgl.Popup({offset: 25}).setText(
                         'Total cases: 2'
+                    ))
+                    .addTo(mapCorona);
+                // Nebraska
+                new mapboxgl.Marker(el8)
+                    .setLngLat([-99.9018, 41.4925])
+                    .setPopup(new mapboxgl.Popup({offset: 25}).setText(
+                        'Total cases: 11'
                     ))
                     .addTo(mapCorona);
                 $(".state").hide();
