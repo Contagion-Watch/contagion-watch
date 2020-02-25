@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="partials/head :: head"></head>
+<style>
+    .border-blue{
+        border-color: #7DBDEC!important;
+    }
+</style>
 
 <body style="background-image: url('img/location-navigation-background.jpg')">
 <nav th:replace="partials/navbar :: navbar"/>
@@ -35,7 +40,7 @@
         let cardAreaContent = '';
         results.forEach(function (location) {
             cardAreaContent +=
-                "    <a href=\"/location/" + location.id + "\" class=\"btn btn-dark m-3\">"+location.country+"</a>\n"
+                "    <a href=\"/location/" + location.id + "\" class=\"btn border border-blue btn-dark m-3\">"+location.country+"</a>\n"
         });
         cardArea.html(cardAreaContent);
     }).done(function () {
@@ -45,7 +50,7 @@
                 locations.forEach(function (location) {
                 if (location.country.toLowerCase().startsWith(searchTerm.val().toLowerCase().trim())) {
                     cardAreaContent +=
-                        "    <a href=\"/location/" + location.id + "\" class=\"btn btn-dark m-3 \">"+location.country+"</a>\n"
+                        "    <a href=\"/location/" + location.id + "\" class=\"btn btn-dark border border-blue m-3 \">"+location.country+"</a>\n"
 
                 }
 
