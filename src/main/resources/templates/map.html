@@ -34,6 +34,7 @@
 
     .active{
         background-color: darkgrey!important;
+        color: white!important;
     }
 
     .filter-ctrl input[type='text'] {
@@ -64,7 +65,7 @@
                         id="filter-inputCorona"
                         type="text"
                         name="filter"
-                        placeholder="Filter by name"
+                        placeholder="Filter by location"
                 />
             </div>
             <button class="filter-button" id="searchCorona">Go</button>
@@ -76,7 +77,7 @@
                         id="filter-inputEbola"
                         type="text"
                         name="filter"
-                        placeholder="Filter by name"
+                        placeholder="Filter by location"
                 />
             </div>
             <button class="filter-button" id="searchEbola">Go</button>
@@ -88,7 +89,7 @@
                         id="filter-inputMalaria"
                         type="text"
                         name="filter"
-                        placeholder="Filter by name"
+                        placeholder="Filter by location"
                 />
             </div>
             <button class="filter-button" id="searchMalaria">Go</button>
@@ -98,7 +99,7 @@
     <div class="col-12 col-lg-6">
         <div class="nav nav-tabs mt-3 map-nav" id="nav-tab" role="tablist">
             <a class="nav-item nav-link active mr-3 bg-white" id="coronaTab" data-toggle="tab" href="#coronaInfo" role="tab"
-               aria-controls="coronaInfo" aria-selected="true">Corona</a>
+               aria-controls="coronaInfo" aria-selected="true">Coronavirus</a>
             <a class="nav-item nav-link mr-3 bg-white" id="ebolaTab" data-toggle="tab" href="#ebolaInfo" role="tab"
                aria-controls="ebolaInfo" aria-selected="false">Ebola</a>
             <a class="nav-item nav-link bg-white" id="malariaTab" data-toggle="tab" href="#MalariaInfo" role="tab"
@@ -517,57 +518,57 @@
                 //Washington
                 new mapboxgl.Marker(el)
                     .setLngLat([-122.3321, 47.6062])
-                    .setPopup(new mapboxgl.Popup({offset: 25}).setText(
-                        'Total cases: 1'
+                    .setPopup(new mapboxgl.Popup({offset: 25}).setHTML(
+                        '<h3 class="text-center">Washington</h3><h5>Total Cases: 1</h5>'
                     ))
                     .addTo(mapCorona);
                 //Cali
                 new mapboxgl.Marker(el2)
                     .setLngLat([-119.4179, 36.7783])
-                    .setPopup(new mapboxgl.Popup({offset: 25}).setText(
-                        'Total cases: 12'
+                    .setPopup(new mapboxgl.Popup({offset: 25}).setHTML(
+                        '<h3 class="text-center">California</h3><h5>Total Cases: 12</h5>'
                     ))
                     .addTo(mapCorona);
                 //Arizona
                 new mapboxgl.Marker(el3)
                     .setLngLat([-111.0937, 34.0489])
-                    .setPopup(new mapboxgl.Popup({offset: 25}).setText(
-                        'Total cases: 1'
+                    .setPopup(new mapboxgl.Popup({offset: 25}).setHTML(
+                        '<h3 class="text-center">Arizona</h3><h5>Total Cases: 1</h5>'
                     ))
                     .addTo(mapCorona);
                 //Texas
                 new mapboxgl.Marker(el4)
                     .setLngLat([-98.4936, 29.4241])
-                    .setPopup(new mapboxgl.Popup({offset: 25}).setText(
-                        'Total cases: 6'
+                    .setPopup(new mapboxgl.Popup({offset: 25}).setHTML(
+                        '<h3 class="text-center">Texas</h3><h5>Total Cases: 6</h5>'
                     ))
                     .addTo(mapCorona);
                 //Mass
                 new mapboxgl.Marker(el5)
                     .setLngLat([-71.3824, 42.4072])
-                    .setPopup(new mapboxgl.Popup({offset: 25}).setText(
-                        'Total cases: 1'
+                    .setPopup(new mapboxgl.Popup({offset: 25}).setHTML(
+                        '<h3 class="text-center">Massachusetts</h3><h5>Total Cases: 1</h5>'
                     ))
                     .addTo(mapCorona);
                 //Wisconsin
                 new mapboxgl.Marker(el6)
                     .setLngLat([-88.7879, 43.7844])
-                    .setPopup(new mapboxgl.Popup({offset: 25}).setText(
-                        'Total cases: 1'
+                    .setPopup(new mapboxgl.Popup({offset: 25}).setHTML(
+                        '<h3 class="text-center">Wisconsin</h3><h5>Total Cases: 1</h5>'
                     ))
                     .addTo(mapCorona);
                 //Illonois
                 new mapboxgl.Marker(el7)
                     .setLngLat([-89.3985, 40.6331])
-                    .setPopup(new mapboxgl.Popup({offset: 25}).setText(
-                        'Total cases: 2'
+                    .setPopup(new mapboxgl.Popup({offset: 25}).setHTML(
+                        '<h3 class="text-center">Illinois</h3><h5>Total Cases: 2</h5>'
                     ))
                     .addTo(mapCorona);
                 // Nebraska
                 new mapboxgl.Marker(el8)
                     .setLngLat([-99.9018, 41.4925])
-                    .setPopup(new mapboxgl.Popup({offset: 25}).setText(
-                        'Total cases: 11'
+                    .setPopup(new mapboxgl.Popup({offset: 25}).setHTML(
+                        '<h3 class="text-center">Nebraska</h3><h5>Total Cases: 11</h5>'
                     ))
                     .addTo(mapCorona);
                 $(".state").hide();
@@ -591,8 +592,8 @@
                     el8.style.height = size + "px";
                     new mapboxgl.Marker(el8)
                         .setLngLat(result)
-                        .setPopup(new mapboxgl.Popup({offset: 25}).setText(
-                            'Total cases: ' + data[i].totalCases
+                        .setPopup(new mapboxgl.Popup({offset: 25}).setHTML(
+                            '<h3 class="text-center">'+data[i].location.country+'</h3><h5>Total Cases: '+data[i].totalCases+'</h5>'
                         )) // sets a popup on this marker
                         .addTo(mapCorona);
                 });
@@ -617,8 +618,8 @@
                 el.style.height = size + "px";
                 new mapboxgl.Marker(el)
                     .setLngLat([114.3055, 30.5928])
-                    .setPopup(new mapboxgl.Popup({offset: 25}).setText(
-                        'Total cases: ' + data[i].totalCases
+                    .setPopup(new mapboxgl.Popup({offset: 25}).setHTML(
+                        '<h3 class="text-center">'+data[i].location.country+'</h3><h5>Total Cases: '+data[i].totalCases+'</h5>'
                     ))
                     .addTo(mapCorona);
                 continue;
@@ -642,8 +643,8 @@
                 el.style.height = size + "px";
                 new mapboxgl.Marker(el)
                     .setLngLat([42.3154, 43.3569])
-                    .setPopup(new mapboxgl.Popup({offset: 25}).setText(
-                        'Total cases: ' + data[i].totalCases
+                    .setPopup(new mapboxgl.Popup({offset: 25}).setHTML(
+                        '<h3 class="text-center">'+data[i].location.country+'</h3><h5>Total Cases: '+data[i].totalCases+'</h5>'
                     )) // sets a popup on this marker
                     .addTo(mapCorona);
                 continue;
@@ -667,8 +668,8 @@
                 el.style.height = size + "px";
                 new mapboxgl.Marker(el)
                     .setLngLat(result)
-                    .setPopup(new mapboxgl.Popup({offset: 25}).setText(
-                        'Total cases: ' + data[i].totalCases
+                    .setPopup(new mapboxgl.Popup({offset: 25}).setHTML(
+                        '<h3 class="text-center">'+data[i].location.country+'</h3><h5>Total Cases: '+data[i].totalCases+'</h5>'
                     )) // sets a popup on this marker
                     .addTo(mapCorona);
             })
@@ -690,8 +691,8 @@
                 el.style.height = size + "px";
                 new mapboxgl.Marker(el)
                     .setLngLat(result)
-                    .setPopup(new mapboxgl.Popup({offset: 25}).setText(
-                        'Total cases: ' + data[i].totalCases
+                    .setPopup(new mapboxgl.Popup({offset: 25}).setHTML(
+                        '<h3 class="text-center">'+data[i].location.country+'</h3><h5>Total Cases: '+data[i].totalCases+'</h5>'
                     )) // sets a popup on this marker
                     .addTo(mapEbola);
             })
@@ -730,8 +731,8 @@
                 el.style.height = size + "px";
                 new mapboxgl.Marker(el)
                     .setLngLat([43.3569, 42.3154])
-                    .setPopup(new mapboxgl.Popup({offset: 25}).setText(
-                        'Total cases: ' + data[i].totalCases
+                    .setPopup(new mapboxgl.Popup({offset: 25}).setHTML(
+                        '<h3 class="text-center">'+data[i].location.country+'</h3><<h5>Total Cases: '+data[i].totalCases+'</h5>'
                     ))
                     .addTo(mapMalaria);
                 continue;
@@ -766,8 +767,8 @@
                 el.style.height = size + "px";
                 new mapboxgl.Marker(el)
                     .setLngLat(result)
-                    .setPopup(new mapboxgl.Popup({offset: 25}).setText(
-                        'Total cases: ' + data[i].totalCases
+                    .setPopup(new mapboxgl.Popup({offset: 25}).setHTML(
+                        '<h3 class="text-center">'+data[i].location.country+'</h3><h5>Total Cases: '+data[i].totalCases+'</h5>'
                     )) // sets a popup on this marker
                     .addTo(mapMalaria);
             })
