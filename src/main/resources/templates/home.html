@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <head th:replace="partials/head :: head" />
 </head>
@@ -48,7 +49,7 @@
 <section class="my-5">
         <div class="row d-flex justify-content-around">
             <div>
-                <h1 class="page-title text-center d-none d-lg-block" style="font-size: 2em">Corona</h1>
+                <h1 class="page-title text-center d-none d-lg-block" style="font-size: 2em">Coronavirus</h1>
                 <a href="/information/1"><img style="width: 25vw" class="inline-svg zoom" src="img/landing-image-one.jpg"></a>
             </div>
             <div>
@@ -131,14 +132,26 @@
 
 <!-- DESKTOP FOOTER -->
 
-<footer class="py-2 text-white-50 d-none d-lg-block" style="background-color: black">
-    <div class="container text-center">
+<footer sec:authorize="isAnonymous()" th:fragment="footer" class="py-2 text-white-50 " style="background-color: black">
+    <div class="container text-center" >
         <small>Contagion Watch 2020</small>
     </div>
     <div class="container text-center">
         <a href="/login"><small>Login</small></a> || <a href="/admin"><small>Admin</small></a>
         <small>Built by: Alexander Lee, Colin Marchbanks, Joshua Peters</small>
     </div>
+</footer>
+<footer sec:authorize="isAuthenticated()" th:fragment="footer" class="py-2 text-white-50 " style="background-color: black">
+    <div class="container text-center" >
+        <small>Contagion Watch 2020</small>
+    </div>
+    <div class="container text-center">
+        <a href="javascript: document.logoutForm.submit()"><small>Logout</small></a> || <a href="/admin"><small>Admin</small></a>
+        <small>Built by: Alexander Lee, Colin Marchbanks, Joshua Peters</small>
+    </div>
+    <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+        <input hidden type="submit" value="Sign Out"/>
+    </form>
 </footer>
 
 <!-- MOBILE FOOTER -->
