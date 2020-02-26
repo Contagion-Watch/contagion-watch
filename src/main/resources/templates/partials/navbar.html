@@ -35,17 +35,33 @@
 <!-- mobile nav -->
 <nav th:fragment="navbar" class="navbar navbar-dark bg-dark d-block d-lg-none navbar-custom">
     <a href="/" class="navbar-brand" style="font-size: 4em; font-family: 'Black Ops One', cursive">Contagion Watch</a>
-    <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#collapsingNavbar3">
+    <button class="navbar-toggler ml-auto" style="font-size: 6em" type="button" data-toggle="collapse" data-target="#collapsingNavbar3">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="navbar-collapse collapse" id="collapsingNavbar3">
         <ul class="navbar-nav mx-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" style="font-size: 2.5em; color: white" href="/home">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" style="font-size: 2.5em; color: white" href="/map">Map</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" style="font-size: 2.5em; color: white" href="/location-navigation">Location</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" style="font-size: 2.5em; color: white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Diseases
+                </a>
+                <div class="dropdown-menu" style="background-color: black !important" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" style="font-size: 2.5em; color: white" href="/information/1">Corona</a>
+                    <a class="dropdown-item" style="font-size: 2.5em; color: white" href="/information/2">Ebola</a>
+                    <a class="dropdown-item" style="font-size: 2.5em; color: white" href="/information/3">Malaria</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" style="font-size: 2.5em; color: white" href="/aboutus">About Us</a>
+            </li>
+
         </ul>
     </div>
 </nav>
